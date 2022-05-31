@@ -1,0 +1,88 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "fomantic-ui-css",
+        "scope": null,
+        "escapedName": "fomantic-ui-css",
+        "name": "fomantic-ui-css",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/rspace/www/accounty"
+    ]
+  ],
+  "_from": "fomantic-ui-css@latest",
+  "_hasShrinkwrap": false,
+  "_id": "fomantic-ui-css@2.8.8",
+  "_inCache": true,
+  "_location": "/fomantic-ui-css",
+  "_nodeVersion": "14.17.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/fomantic-ui-css_2.8.8_1624550759470_0.2896593392894413"
+  },
+  "_npmUser": {
+    "name": "hammy2899",
+    "email": "sean@hamistudios.com"
+  },
+  "_npmVersion": "6.14.13",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "fomantic-ui-css",
+    "scope": null,
+    "escapedName": "fomantic-ui-css",
+    "name": "fomantic-ui-css",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/fomantic-ui-css/-/fomantic-ui-css-2.8.8.tgz",
+  "_shasum": "8a402a4413b2c205c416afccfb48b295b393bb52",
+  "_shrinkwrap": null,
+  "_spec": "fomantic-ui-css",
+  "_where": "/home/rspace/www/accounty",
+  "author": {
+    "name": "hammy2899"
+  },
+  "bugs": {
+    "url": "https://github.com/fomantic/Fomantic-UI/issues"
+  },
+  "dependencies": {
+    "jquery": "^3.4.0"
+  },
+  "description": "CSS Only distribution of Fomantic UI",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-mVzOha6ApNT0yolKHTt5MHla1aR7w8EKkk/B6FLaa8Bia48qhO1MDFKZriT93eS1RHOZzrN42GcNpT/mH6qMVA==",
+    "shasum": "8a402a4413b2c205c416afccfb48b295b393bb52",
+    "tarball": "https://registry.npmjs.org/fomantic-ui-css/-/fomantic-ui-css-2.8.8.tgz",
+    "fileCount": 189,
+    "unpackedSize": 12721226,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJg1K1oCRA9TVsSAnZWagAA/j8P/iTW80U8CI1kIkTWaRla\ngB6AzJSRkERS3usrm8acC5hEAt49+s2dzYWGMCSrDfhPHm1NAL+Kjgnrx9LY\nXZNRg2xaQRNHDDodruz/YLRuEJgCA7YAvWTcGprG2r0STqTPP1SCh9I6Hqpo\nUxBi4Uuudi3fOkKax5S+4bmnRpST5zdbMRBw3TxY+TgfDv78qWifcD6484MV\nvQQl70xRkhfidXsDbCwpizzQvW+3e0WSSpkcYsXEYqzve0YgixZOnDryRKYT\nXTyISAcT+m/4J0rQLQFqDp9qgC6EQUQkwJ6kZAFJQyROKL03lqfFv6nUQoSY\nerzNy9BX/NmId1NvO9mlMzv4uHvAF86IFHgdS97x1k8A0zmSMCSM6EXSt1iM\nn4rZ9OIp7OAiciXgu/gecFe3fxYRLSrkB+0VP8d98Kyc04duBWVoIr1ev4eF\nMlRqNj7qT85zUEHg+wsQo8yhsusATlVznIWWgPPDbZJ8qtJTCsVDevaASAsi\n2DpUKKDEWQJBmkmJx6fvncIlejDisiNS51vW7ag2yAXQVCHJMUYJyHxsizQO\nZeOBja4aVODiVriArzR6MNf7AmTA2M72vWKz7ErQZoJ1D3Nln9X6qOhc7VR/\nd7UY+PcRR5vzdoKZm6Om7HgfH3q5eTkRFIZWcKMxi52W5hIiDhF6DH9ol+MM\nJn0C\r\n=hqoB\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "gitHead": "40174e9f5233f61cd519ab5625f97772dc625058",
+  "homepage": "https://fomantic-ui.com",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "hammy2899",
+      "email": "sean@hamistudios.com"
+    }
+  ],
+  "name": "fomantic-ui-css",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fomantic/Fomantic-UI-CSS.git"
+  },
+  "title": "Fomantic UI",
+  "version": "2.8.8"
+}

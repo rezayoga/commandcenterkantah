@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no"
+    />
+    <meta name="author" content="{{ web_config['DEVELOPER'] }}"/>
+    <meta name="website" content="{{ web_config['DEVELOPER_WEBSITE'] }}"/>
+    <meta name="version" content="{{ web_config['APP_VERSION'] }}"/>
+    <meta
+            name="description"
+            content="{{ web_config['APP_NAME_LONG'] }}"
+    />
+    <meta name="keywords" content="{{ web_config['APP_NAME'] }}"/>
+    <title>{{ web_config['APP_NAME_LONG'] }}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_solid.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo_solid.png') }}" type="image/x-icon">
+
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='fomantic/semantic.css') }}"
+            type="text/css"
+    />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,700;1,200;1,700&display=swap');
+    </style>
+
+    <style>
+        html,
+        html * {
+            font-family: 'Nunito', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-font-smoothing: grayscale;
+        }
+
+        #sidebar {
+            position: fixed;
+            height: 105vh;
+            background-color: #f5f5f5;
+            padding-top: 68px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        #sidebar .ui.menu > a.item {
+            padding: 10px 20px;
+            line-height: 20px;
+            color: #007D77;
+            border-radius: 0 !important;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        #sidebar .ui.menu > a.item.active {
+            background-color: #007D77;
+            color: white;
+            border: none !important;
+        }
+
+        #sidebar .ui.menu > a.item:hover {
+            background-color: #eee;
+            color: #23527c;
+        }
+
+        #content {
+            padding-top: 56px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #content h1 {
+            font-size: 36px;
+        }
+
+        #content .ui.dividing.header {
+            width: 100%;
+        }
+
+        .ui.centered.small.circular.image {
+            margin-top: 14px;
+            margin-bottom: 14px;
+        }
+
+        .ui.borderless.menu {
+            box-shadow: none;
+            flex-wrap: wrap;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .ui.mobile.only.grid .ui.menu .ui.vertical.menu {
+            display: none;
+            border: none;
+        }
+
+        .ui.mobile.only.grid .ui.menu .ui.vertical.menu {
+            display: none;
+            border: none;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .dropdown.icon {
+            float: unset;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .dropdown.icon:before {
+            content: "\f0d7";
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .ui.dropdown.item .menu {
+            position: static;
+            width: 100%;
+            background-color: unset;
+            border: none;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .ui.dropdown.item {
+            background-color: rgb(255, 255, 255);
+            border: none;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .ui.dropdown.item:hover {
+            border: none;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .ui.dropdown.item:hover .menu .item {
+            border: none;
+            background-color: black;
+        }
+
+        .ui.mobile.only.grid .ui.vertical.menu .ui.dropdown.item .menu {
+            margin-top: 6px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function callDashboard() {
+            $.ajax({
+                url: "{{ url_for('view_dashboard', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callPegawai() {
+            $.ajax({
+                url: "{{ url_for('view_pegawai', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callTimPTSL() {
+            $.ajax({
+                url: "{{ url_for('view_tim_ptsl', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callBerkasPNBP() {
+            $.ajax({
+                url: "{{ url_for('view_berkas_pnbp', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callDaftarTunggakanBerkasPNBP() {
+            $.ajax({
+                url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callProgresPTSLKantah() {
+            $.ajax({
+                url: "{{ url_for('view_progres_ptsl_kantah', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callBerkasTanpaBidangTanah() {
+            $.ajax({
+                url: "{{ url_for('view_berkas_tanpa_bidang_tanah', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callBerkasTanpaDataYuridis() {
+            $.ajax({
+                url: "{{ url_for('view_berkas_tanpa_data_yuridis', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callPengumumanKadaluwarsa() {
+            $.ajax({
+                url: "{{ url_for('view_pengumuman_kadaluwarsa', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callBerkasTanpaPemohon() {
+            $.ajax({
+                url: "{{ url_for('view_berkas_tanpa_pemohon', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callProgresAnggaranPTSL() {
+            $.ajax({
+                url: "{{ url_for('view_progres_anggaran_ptsl', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callNominatifPencairanPuldadis() {
+            $.ajax({
+                url: "{{ url_for('view_nominatif_pencairan_puldadis', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callNominatifPencairanPemeriksaanTanah() {
+            $.ajax({
+                url: "{{ url_for('view_nominatif_pencairan_pemeriksaan_tanah', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callNominatifPencairanPengesahanDanDI310() {
+            $.ajax({
+                url: "{{ url_for('view_nominatif_pencairan_pengesahan_dan_di310', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function callNominatifPenerbitanSertipikat() {
+            $.ajax({
+                url: "{{ url_for('view_nominatif_pencairan_penerbitan_sertipikat', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function formUbahAkunTriggerClick() {
+            $('.medium.modal.form_ubah_akun_saya')
+                .modal({
+                    blurring: true,
+                    closable: false
+                })
+                .modal('show')
+            ;
+        }
+    </script>
+</head>
+
+{% if request.args.get('m') == None %}
+    <body id="root" onload="callDashboard()">
+{% else %}
+    {% if request.args.get('m') == web_menu['MENU_PEGAWAI'] %}
+        <body id="root" onload="callPegawai()">
+    {% elif request.args.get('m') == web_menu['MENU_TIM_PTSL'] %}
+        <body id="root" onload="callTimPTSL()">
+    {% elif request.args.get('m') == web_menu['MENU_BERKAS_PNBP'] %}
+        <body id="root" onload="callBerkasPNBP()">
+    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP'] %}
+        <body id="root" onload="callDaftarTunggakanBerkasPNBP()">
+    {% elif request.args.get('m') == web_menu['MENU_PROGRES_PTSL_KANTAH'] %}
+        <body id="root" onload="callProgresPTSLKantah()">
+    {% elif request.args.get('m') == web_menu['MENU_BERKAS_TANPA_BIDANG_TANAH'] %}
+        <body id="root" onload="callBerkasTanpaBidangTanah()">
+    {% elif request.args.get('m') == web_menu['MENU_BERKAS_TANPA_DATA_YURIDIS'] %}
+        <body id="root" onload="callBerkasTanpaDataYuridis()">
+    {% elif request.args.get('m') == web_menu['MENU_PENGUMUMAN_KADALUWARSA'] %}
+        <body id="root" onload="callPengumumanKadaluwarsa()">
+    {% elif request.args.get('m') == web_menu['MENU_PROGRES_ANGGARAN_PTSL'] %}
+        <body id="root" onload="callProgresAnggaranPTSL()">
+    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PULDADIS'] %}
+        <body id="root" onload="callNominatifPencairanPuldadis()">
+    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PEMERIKSAAN_TANAH'] %}
+        <body id="root" onload="callNominatifPencairanPemeriksaanTanah()">
+    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PENGESAHAN_DAN_DI310'] %}
+        <body id="root" onload="callNominatifPencairanPengesahanDanDI310()">
+    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PENERBITAN_SERTIPIKAT'] %}
+        <body id="root" onload="callNominatifPenerbitanSertipikat()">
+    {% else %}
+        <body id="root" onload="callDashboard()">
+    {% endif %}
+{% endif %}
+
+<!-- tablet / Desktop -->
+<div class="ui tablet computer only padded grid">
+    <div class="ui top fixed fluid icon menu">
+        <a class="header item"
+           onclick="window.location.href = '{{ url_for('index', random=random) }}'">{{ web_config['APP_NAME'] }}</a>
+        <a class="item" id="toggle_full_view_content"><i class="exchange alternate icon"></i></a>
+        <div class="right menu">
+            <div class="ui simple dropdown item right aligned">
+                <i class="user circle icon"></i> Login: <b>{{ user_session['nama'] }}</b> <i
+                    class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" onclick="formUbahAkunTriggerClick();" href="#">Akun Saya</a>
+                    <s class="item" onclick="window.location.href = '{{ url_for('logout') }}'">Logout</s>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile -->
+<div class="ui mobile only padded grid">
+    <div class="ui top fixed borderless fluid menu">
+        <a class="header item"
+           onclick="window.location.href = '{{ url_for('index', random=random) }}'">{{ web_config['APP_NAME'] }}</a>
+        <div class="right menu">
+            <div class="item">
+                <button class="ui icon toggle basic button">
+                    <i class="content icon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="ui vertical borderless fluid menu" style="border-bottom: solid 1px rgba(34, 36, 38, 0.15);">
+            <!--
+            <div class="ui right aligned search item"
+                 style="padding-left: 15px;padding-right: 15px;padding-bottom: 10px;">
+                <div class="ui icon transparent input cari_mobile">
+                    <input class="prompt" type="text" id="input_cari_mobile"
+                           placeholder="Pencarian...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+            -->
+            <div class="item">
+                <img class="ui small centered image"
+                     src="{{ url_for('static', filename='images/logo_fit_small.png') }}"/>
+            </div>
+            <div class="ui dropdown item">
+                <i class="user circle icon"></i> Login: <b>{{ user_session['nama'] }}</b> <i
+                    class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" onclick="formUbahAkunTriggerClick();" href="#">Akun Saya</a>
+                    <a class="item" onclick="window.location.href = '{{ url_for('logout') }}'">Logout</a>
+                </div>
+            </div>
+            <a class="active item" onclick="callDashboard()">Dashboard</a>
+            <a class="item" onclick="callPegawai()">Daftar Pegawai</a>
+            <a class="item" onclick="callTimPTSL()">Daftar Tim PTSL</a>
+            <div class="ui dropdown item">
+                Permohonan PNBP <i
+                    class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" onclick="callBerkasPNBP()">Daftar Berkas PNBP</a>
+                    <a class="item" onclick="callDaftarTunggakanBerkasPNBP()">Daftar Tunggakan Berkas PNBP</a>
+                </div>
+            </div>
+            <div class="ui dropdown item">
+                PTSL Fisik/Yuridis <i
+                    class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" onclick="callProgresPTSLKantah()">Progres Fisik/Yuridis PTSL</a>
+                    <a class="item" onclick="callBerkasTanpaBidangTanah()">Berkas Tanpa Bidang Tanah</a>
+                    <a class="item" onclick="callBerkasTanpaDataYuridis()">Bidang Tanpa Berkas Yuridis</a>
+                    <a class="item" onclick="callPengumumanKadaluwarsa()">Pengumuman Kadaluwarsa</a>
+                    <a class="item" onclick="callBerkasTanpaPemohon()">Berkas Tanpa Pemohon</a>
+                </div>
+            </div>
+            <div class="ui dropdown item">
+                PTSL Anggaran <i
+                    class="dropdown icon"></i>
+                <div class="fixed menu">
+                    <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
+                    <a class="item" onclick="callNominatifPencairanPuldadis()">Nominatif Pencairan PULDADIS</a>
+                    <a class="item" onclick="callNominatifPencairanPemeriksaanTanah()">Nominatif Pencairan Pemeriksaan
+                        Tanah</a>
+                    <a class="item" onclick="callNominatifPencairanPengesahanDanDI310()">Nominatif Pencairan Pengesahan
+                        dan DI310</a>
+                    <a class="item" onclick="callNominatifPenerbitanSertipikat()">Nominatif Pencairan Penerbitan
+                        Sertipikat</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Body -->
+<div class="ui padded grid">
+
+    <!-- Desktop -->
+    <div class="three wide tablet only three wide computer only column" id="sidebar" style="margin-top: -25px;">
+        <div class="ui vertical borderless fluid scrolling text menu"
+             style="overflow-y: scroll;height: 100%;">
+            <!--
+            <div class="ui right aligned search item"
+                 style="padding-left: 10px;padding-right: 10px;padding-bottom: 10px;">
+                <div class="ui icon input cari">
+                    <input class="prompt" type="text" id="input_cari"
+                           placeholder="Pencarian...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+            -->
+            <div class="item">
+                <img class="ui small centered image"
+                     src="{{ url_for('static', filename='images/logo_fit_small.png') }}"/>
+            </div>
+            <div class="ui divider"></div>
+            <a class="active item" onclick="callDashboard()">Dashboard</a>
+            <div class="ui divider"></div>
+            <a class="item" onclick="callPegawai()">Daftar Pegawai</a>
+            <a class="item" onclick="callTimPTSL()">Daftar Tim PTSL</a>
+            <div class="ui divider"></div>
+            <a class="item" onclick="callBerkasPNBP()">Daftar Berkas PNBP</a>
+            <a class="item" onclick="callDaftarTunggakanBerkasPNBP()">Daftar Tunggakan Berkas PNBP</a>
+            <div class="ui divider"></div>
+            <a class="item" onclick="callProgresPTSLKantah()">Progres Fisik/Yuridis PTSL</a>
+            <a class="item" onclick="callBerkasTanpaBidangTanah()">Berkas Tanpa Bidang Tanah</a>
+            <a class="item" onclick="callBerkasTanpaDataYuridis()">Bidang Tanpa Berkas Yuridis</a>
+            <a class="item" onclick="callPengumumanKadaluwarsa()">Pengumuman Kadaluwarsa</a>
+            <a class="item" onclick="callBerkasTanpaPemohon()">Berkas Tanpa Pemohon</a>
+            <div class="ui divider"></div>
+            <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
+            <a class="item" onclick="callNominatifPencairanPuldadis()">Nominatif Pencairan PULDADIS</a>
+            <a class="item" onclick="callNominatifPencairanPemeriksaanTanah()">Nominatif Pencairan Pemeriksaan Tanah</a>
+            <a class="item" onclick="callNominatifPencairanPengesahanDanDI310()">Nominatif Pencairan Pengesahan dan
+                DI310</a>
+            <a class="item" onclick="callNominatifPenerbitanSertipikat()">Nominatif Pencairan Penerbitan Sertipikat</a>
+        </div>
+    </div>
+
+    <!-- * -->
+    <div class="sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column" id="content"
+         style="margin-top: -15px;">
+
+        <div class="ui basic fitted teal segment" style="padding-top: 20px;">
+            <div class="ui right action left icon input pencarian fluid">
+                <i class="search icon"></i>
+                <input type="text"
+                       placeholder="Pencarian Cerdas: dapat anda gunakan untuk mencari data berdasarkan Jenis Permohonan, Kode Berkas, Nama Pemohon, Nama Desa, atau lainnya"
+                       id="input_pencarian"
+                       disabled="disabled">
+                <select class="ui search dropdown filter_by">
+                    <option value="-">- Berdasarkan -</option>
+                    <option value="pegawai">Pegawai</option>
+                    <option value="berkas_pnbp">Berkas PNBP</option>
+                    <option value="tunggakan_berkas_pnbp">Tunggakan Berkas PNBP</option>
+                    <option value="progres_fisik_yuridis_ptsl">Progres Fisik/Yuridis PTSL</option>
+                    <option value="berkas_tanpa_bidang_tanah">Berkas Tanpa Bidang Tanah</option>
+                    <option value="bidang_tanpa_berkas_yuridis">Bidang Tanpa Berkas Yuridis</option>
+                    <option value="pengumuman_kadaluwarsa">Pengumuman Kadaluwarsa</option>
+                    <option value="berkas_tanpa_pemohon">Berkas Tanpa Pemohon</option>
+                    <option value="progres_anggaran_ptsl">Progres Anggaran PTSL</option>
+                    <option value="nominatif_pencairan_puldadis">Nominatif Pencairan PULDADIS</option>
+                    <option value="nominatif_pencairan_pemeriksaan_tanah">Nominatif Pencairan Pemeriksaan Tanah
+                    </option>
+                    <option value="nominatif_pencairan_pengesahan_dan_di310">Nominatif Pencairan Pengesahan dan
+                        DI310
+                    </option>
+                    <option value="nominatif_pencairan_penerbitan_sertipikat">Nominatif Pencairan Penerbitan
+                        Sertipikat
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="container" id="view_data"></div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='fomantic/semantic.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        function cariData(keyword, filterBy) {
+            if (keyword != '') {
+
+                //console.log(filterBy);
+
+                if (filterBy === 'pegawai') {
+                    $.ajax({
+                        url: "{{ url_for('view_pegawai_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'berkas_pnbp') {
+                    $.ajax({
+                        url: "{{ url_for('view_berkas_pnbp_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'tunggakan_berkas_pnbp') {
+                    $.ajax({
+                        url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'progres_fisik_yuridis_ptsl') {
+                    $.ajax({
+                        url: "{{ url_for('view_progres_ptsl_kantah_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'berkas_tanpa_bidang_tanah') {
+                    $.ajax({
+                        url: "{{ url_for('view_berkas_tanpa_bidang_tanah_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'bidang_tanpa_berkas_yuridis') {
+                    $.ajax({
+                        url: "{{ url_for('view_berkas_tanpa_data_yuridis_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'pengumuman_kadaluwarsa') {
+                    $.ajax({
+                        url: "{{ url_for('view_pengumuman_kadaluwarsa_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'berkas_tanpa_pemohon') {
+                    $.ajax({
+                        url: "{{ url_for('view_berkas_tanpa_pemohon_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'progres_anggaran_ptsl') {
+                    $.ajax({
+                        url: "{{ url_for('view_progres_anggaran_ptsl_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'nominatif_pencairan_puldadis') {
+                    $.ajax({
+                        url: "{{ url_for('view_nominatif_pencairan_puldadis_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'nominatif_pencairan_pemeriksaan_tanah') {
+                    $.ajax({
+                        url: "{{ url_for('view_nominatif_pencairan_pemeriksaan_tanah_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'nominatif_pencairan_pengesahan_dan_di310') {
+                    $.ajax({
+                        url: "{{ url_for('view_nominatif_pencairan_pengesahan_dan_di310_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                } else if (filterBy === 'nominatif_pencairan_penerbitan_sertipikat') {
+                    $.ajax({
+                        url: "{{ url_for('view_nominatif_pencairan_penerbitan_sertipikat_search', random=random) }}?q=" + keyword,
+                        type: "GET",
+                        cache: false,
+                        beforeSend: function () {
+                            $(".pencarian").addClass("loading");
+                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
+                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                                "  </div>\n" +
+                                "  <p></p>\n" +
+                                "</div>");
+                        },
+                        success: function (data) {
+                            $(".pencarian").removeClass("loading");
+                            $("#view_data").empty();
+                            $("#view_data").html(data);
+
+                        }
+                    });
+                }
+            } else {
+                $(".pencarian").removeClass("loading");
+                if (filterBy === 'pegawai') {
+                    callPegawai();
+                } else if (filterBy === 'berkas_pnbp') {
+                    callBerkasPNBP();
+                } else if (filterBy === 'tunggakan_berkas_pnbp') {
+                    callDaftarTunggakanBerkasPNBP();
+                } else if (filterBy === 'progres_fisik_yuridis_ptsl') {
+                    callProgresPTSLKantah();
+                } else if (filterBy === 'berkas_tanpa_bidang_tanah') {
+                    callBerkasTanpaBidangTanah();
+                } else if (filterBy === 'bidang_tanpa_berkas_yuridis') {
+                    callBerkasTanpaDataYuridis();
+                } else if (filterBy === 'pengumuman_kadaluwarsa') {
+                    callPengumumanKadaluwarsa();
+                } else if (filterBy === 'berkas_tanpa_pemohon') {
+                    callBerkasTanpaPemohon();
+                } else if (filterBy === 'progres_anggaran_ptsl') {
+                    callProgresAnggaranPTSL();
+                } else if (filterBy === 'nominatif_pencairan_puldadis') {
+                    callNominatifPencairanPuldadis();
+                } else if (filterBy === 'nominatif_pencairan_pemeriksaan_tanah') {
+                    callNominatifPencairanPemeriksaanTanah();
+                } else if (filterBy === 'nominatif_pencairan_pengesahan_dan_di310') {
+                    callNominatifPencairanPengesahanDanDI310();
+                } else if (filterBy === 'nominatif_pencairan_penerbitan_sertipikat') {
+                    callNominatifPenerbitanSertipikat();
+                }
+            }
+        }
+
+        $('.ui.dropdown.filter_by')
+            .dropdown({
+                onChange: function (value, text, $selectedItem) {
+                    // custom action
+                    //console.log(value);
+                    //console.log(text);
+                    //console.log($selectedItem);
+
+                    $('#input_pencarian').val('');
+                    $('#input_pencarian').addClass('focus');
+                    if (value === '-') {
+                        $('#input_pencarian').prop('disabled', true);
+                    } else {
+                        $('#input_pencarian').prop('disabled', false);
+
+                        var v;
+                        var x_timer_web;
+                        v = value
+                        $("#input_pencarian").off("keyup");
+                        $("#input_pencarian").on("keyup", function (e) {
+                            console.log(value);
+                            clearTimeout(x_timer_web);
+                            var keyword = $(this).val();
+                            x_timer_web = setTimeout(function () {
+                                //alert(value);
+                                cariData(keyword, v);
+                            }, 1000);
+                        });
+                    }
+                }
+            })
+        ;
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#toggle_full_view_content').click(function (e) {
+            e.preventDefault();
+            if ($('#sidebar:visible').length) {
+                $('#sidebar').removeClass('three wide tablet only three wide computer only column');
+                $('#content').removeClass('sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column');
+
+                $('#sidebar').addClass('hidden');
+                $('#content').addClass('sixteen wide mobile sixteen wide tablet sixteen wide computer right floated column');
+            } else {
+                window.location.href = '{{ url_for('dashboard', random=random) }}';
+                //$('#sidebar').removeClass('hidden');
+                //$('#content').removeClass('sixteen wide mobile sixteen wide tablet sixteen wide computer right floated column');
+                //$('#content').removeClass();
+
+                //$('#sidebar').addClass('three wide tablet only three wide computer only column');
+                //$('#content').addClass('sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column');
+            }
+        });
+
+        $(".ui.toggle.button").click(function () {
+            $(".mobile.only.grid .ui.vertical.menu").toggle(100);
+        });
+
+        $("a").click(function () {
+            $("a.active").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $(".ui.dropdown.item").dropdown();
+
+        $.urlParam = function (name) {
+            $("a.active").removeClass("active");
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.search);
+
+            return (results !== null) ? results[1] || 0 : false;
+        }
+
+        //alert($.urlParam('m')); //edit
+        function setNavigation() {
+            let current_location = $.urlParam('m');
+            if (current_location === "") return;
+            //let menu_items = document.querySelector(".ui.vertical.borderless.menu").getElementsByTagName("a");
+            let menu_items = $('.ui.vertical.borderless.menu').find('a');
+
+            //alert(menu_items.length);
+
+            for (let i = 0, len = menu_items.length; i < len; i++) {
+                if (menu_items[i].getAttribute("id") !== null) {
+                    //if (menu_items[i].getAttribute("id").indexOf(current_location) !== -1) {
+                    if (menu_items[i].getAttribute("id") === current_location) {
+                        //alert(menu_items[i].getAttribute("id"));
+                        //alert(current_location);
+                        menu_items[i].className = "active item";
+                    }
+                }
+            }
+        }
+
+        setNavigation();
+    });
+</script>
+
+<!-- MODAL -->
+<div class="ui medium modal form_ubah_akun_saya">
+    <i class="close icon"></i>
+    <div class="header">
+        Akun Saya
+    </div>
+    <div class="ui content">
+        <form class="ui form" method="post"
+              action="{{ url_for('action_form_ubah_akun', random=random) }}">
+            <h5 class="ui dividing header">
+                <i class="user icon"></i>
+                <div class="content">
+                    Data Personal
+                </div>
+            </h5>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="three fields">
+                <div class="ui disabled field">
+                    <label>ID</label>
+                    <input type="text" name="id" value="{{ encrypt_string(user_session['id']) }}" placeholder="ID">
+                </div>
+                <div class="ui disabled field">
+                    <label>NIP</label>
+                    <input type="text" name="nip" value="{{ user_session['nip'] }}" placeholder="NIP">
+                </div>
+                <div class="ui field">
+                    <label>Tim PTSL</label>
+                    {% if tim_ptsl|length > 0 %}
+                        {% for data in tim_ptsl %}
+                            <td>
+                                <div class="ui celled horizontal list">
+                                    <div class="item">
+                                        {{ data['tim_nama'] }}
+                                    </div>
+                                </div>
+                            </td>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="ui disabled field">
+                    <label>Nama</label>
+                    <input type="text" name="nama" value="{{ user_session['nama'] }}" placeholder="Nama">
+                </div>
+                <div class="ui disabled field">
+                    <label>Email</label>
+                    <input type="text" name="email" value="{{ user_session['email'] }}" placeholder="Email">
+                </div>
+            </div>
+            <h5 class="ui dividing header">
+                <i class="lock icon"></i>
+                <div class="content">Password Login {{ web_config['APP_NAME'] }}</div>
+            </h5>
+            <div class="field">
+                <label>Password Lama</label>
+                <input type="password" name="password_lama" placeholder="Password Lama">
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Password Baru</label>
+                    <input type="password" name="password_baru" placeholder="Password Baru">
+                </div>
+                <div class="field">
+                    <label>Password Baru (Konfirmasi)</label>
+                    <input type="password" name="password_baru_konfirmasi" placeholder="Password Baru (Konfirmasi)">
+                </div>
+            </div>
+            <div class="field">
+                <button class="ui fluid teal icon labeled button" type="submit"><i class="save icon"></i>Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<div class="ui horizontal divider"><h3 class="ui huge header">Early Warning Berkas Tanpa Bidang Tanah {% if results|length > 0 %} ({{ results|length }} data) {% endif %}</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<script>
+    {% if results|length > 0 %}
+        {% for result in results %}
+            function formTampilkanTimPTSL{{ result.id }}TriggerClick() {
+                $.ajax({
+                    url: "{{ url_for('view_get_tim_detail_by_desa', random=random, desa=result.desa) }}",
+                    type: "GET",
+                    cache: false,
+                    beforeSend: function () {
+                        $("#view_data_inner_{{ result.id }}").empty();
+                        $("#view_data_inner_{{ result.id }}").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                            "  <div class=\"ui active inverted dimmer\">\n" +
+                            "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                            "  </div>\n" +
+                            "  <p></p>\n" +
+                            "</div>");
+                        // $("#loader").appendTo("#view_data");
+                    },
+                    success: function (data) {
+                        $("#view_data_inner_{{ result.id }}").empty();
+                        $("#view_data_inner_{{ result.id }}").html(data);
+                        $('#domtoast_timptsl_{{ result.id }}')
+                            .toast({
+                                showProgress: 'top',
+                                displayTime: 60000
+                            })
+                        ;
+                    }
+                });
+            }
+        {% endfor %}
+    {% endif %}
+</script>
+
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
+    <table class="ui celled compact definition selectable striped padded small table">
+        <thead>
+        <tr>
+            <th class="center aligned">Desa</th>
+            <th class="center aligned">Kecamatan</th>
+            <th class="center aligned">Jumlah</th>
+            <th class="center aligned">Diambil<br/>Tanggal</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td class="two wide"><a class="ui teal tiny labeled icon fluid button"
+                           onclick="formTampilkanTimPTSL{{ result.id }}TriggerClick()">
+                        <i class="users icon"></i> {{ result.desa }}
+                    </a></td>
+                    <td class="center aligned"> {{ result.kecamatan }} </td>
+                    <td class="center aligned"> {{ result.jumlah }} </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada data berkas tanpa bidang tanah</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% if results|length > 0 %}
+    {% for result in results %}
+        <div class="ui toast" id="domtoast_timptsl_{{ result.id }}">
+            <div class="content">
+                <div class="ui header">Desa {{ result.desa }}</div>
+                <div id="view_data_inner_{{ result.id }}">OK</div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

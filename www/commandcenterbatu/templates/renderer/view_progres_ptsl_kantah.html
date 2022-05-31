@@ -1,0 +1,126 @@
+<div class="ui horizontal divider"><h3 class="ui huge header">Progres Fisik/Yuridis PTSL</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<script>
+    {% if results|length > 0 %}
+        {% for result in results %}
+            function formTampilkanTimPTSL{{ result.id }}TriggerClick() {
+                $.ajax({
+                    url: "{{ url_for('view_get_tim_detail_by_desa', random=random, desa=result.desa_kelurahan) }}",
+                    type: "GET",
+                    cache: false,
+                    beforeSend: function () {
+                        $("#view_data_inner_{{ result.id }}").empty();
+                        $("#view_data_inner_{{ result.id }}").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                            "  <div class=\"ui active inverted dimmer\">\n" +
+                            "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                            "  </div>\n" +
+                            "  <p></p>\n" +
+                            "</div>");
+                        // $("#loader").appendTo("#view_data");
+                    },
+                    success: function (data) {
+                        $("#view_data_inner_{{ result.id }}").empty();
+                        $("#view_data_inner_{{ result.id }}").html(data);
+                        $('#domtoast_timptsl_{{ result.id }}')
+                            .toast({
+                                showProgress: 'top',
+                                displayTime: 60000
+                            })
+                        ;
+                    }
+                });
+            }
+        {% endfor %}
+    {% endif %}
+</script>
+
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
+    <table class="ui celled compact definition selectable striped padded small table">
+        <thead>
+        <tr>
+            <th class="center aligned">Desa / Tim</th>
+            <th class="center aligned">Target PBT</th>
+            <th class="center aligned">Target SHAT</th>
+            <th class="center aligned">Target K4</th>
+            <th class="center aligned">Survei</th>
+            <th class="center aligned">Pemetaan</th>
+            <th class="center aligned">Puldadis</th>
+            <th class="center aligned">Pemberkasan</th>
+            <th class="center aligned">Potensi K1</th>
+            <th class="center aligned">K1</th>
+            <th class="center aligned">K2</th>
+            <th class="center aligned">K3.1</th>
+            <th class="center aligned">K3.2</th>
+            <th class="center aligned">K3.3</th>
+            <th class="center aligned">K4</th>
+            <th class="center aligned">Unggah BT</th>
+            <th class="center aligned">Diambil<br/>Tanggal</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td class="two wide"><a class="ui teal tiny labeled icon fluid button"
+                           onclick="formTampilkanTimPTSL{{ result.id }}TriggerClick()">
+                        <i class="users icon"></i> {{ result.desa_kelurahan }}
+                    </a></td>
+                    <td class="center aligned"> {{ result.target_pbt }} </td>
+                    <td class="center aligned"> {{ result.target_shat }} </td>
+                    <td class="center aligned"> {{ result.target_k4 }} </td>
+                    <td class="center aligned"> {{ result.survei }} </td>
+                    <td class="center aligned"> {{ result.pemetaan }} </td>
+                    <td class="center aligned"> {{ result.puldadis }} </td>
+                    <td class="center aligned"> {{ result.pemberkasan }} </td>
+                    <td class="center aligned"> {{ result.potensi_k1 }} </td>
+                    <td class="center aligned"> {{ result.k1 }} </td>
+                    <td class="center aligned"> {{ result.k2 }} </td>
+                    <td class="center aligned"> {{ result.k31 }} </td>
+                    <td class="center aligned"> {{ result.k32 }} </td>
+                    <td class="center aligned"> {{ result.k33 }} </td>
+                    <td class="center aligned"> {{ result.k4 }} </td>
+                    <td class="center aligned"> {{ result.unggah_bt }} </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="17" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada data progres PTSL</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% if results|length > 0 %}
+    {% for result in results %}
+        <div class="ui toast" id="domtoast_timptsl_{{ result.id }}">
+            <div class="content">
+                <div class="ui header">Desa {{ result.desa_kelurahan }}</div>
+                <div id="view_data_inner_{{ result.id }}">OK</div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

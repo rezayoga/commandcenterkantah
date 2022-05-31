@@ -1,0 +1,376 @@
+<script type="application/javascript">
+    function formTambahPegawaiTriggerClick() {
+        $('.large.modal.form_tambah_pegawai')
+            .modal({
+                //blurring: true,
+                closable: false
+            })
+            .modal('show')
+        ;
+    }
+</script>
+<script>
+
+    {% if results|length > 0 %}
+        {% for result in results %}
+            function formUbahPegawai{{ result.id }}TriggerClick() {
+                $('.large.modal.form_ubah_pegawai_{{ result.id }}')
+                    .modal({
+                        //blurring: true,
+                        closable: false
+                    })
+                    .modal('show')
+                ;
+                $(".button.close.form_ubah_pegawai_{{ result.id }}").on('click', function (event) {
+
+                    $('.large.modal.form_ubah_pegawai_{{ result.id }}')
+                        .modal('hide')
+                    ;
+                });
+            }
+        {% endfor %}
+    {% endif %}
+    $(document).ready(function () {
+        {% if results|length > 0 %}
+            {% for result in results %}
+                $(".ui.dropdown.status_role_{{ result.id }}")
+                    .dropdown()
+                ;
+
+                $(".ui.dropdown.status_mailed_{{ result.id }}")
+                    .dropdown()
+                ;
+
+                $("#form_ubah_pegawai_{{ result.id }}")
+                    .form({
+                        inline: true,
+                        //on: 'blur',
+                        onSuccess: function (event, fields) {
+                            $('#submit_ubah_pegawai_{{ result.id }}').addClass('disabled ui loading button');
+                            $('#submit_ubah_pegawai_{{ result.id }}').addClass('disabled');
+                            //$('#form_daftar').form('clear');
+                        },
+                        fields: {
+                            nama: {
+                                identifier: 'nama',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Nama tidak boleh kosong!'
+                                    },
+                                    {
+                                        type: 'minLength[3]',
+                                        prompt: 'Masukkan nama valid!'
+                                    }
+                                ]
+                            },
+                            nip: {
+                                identifier: 'nip',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'NIP tidak boleh kosong!'
+                                    }
+                                ]
+                            },
+                            jabatan: {
+                                identifier: 'jabatan',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Jabatan tidak boleh kosong!'
+                                    },
+                                    {
+                                        type: 'minLength[5]',
+                                        prompt: 'Masukkan jabatan valid!'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier: 'password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Password tidak boleh kosong!'
+                                    },
+                                    {
+                                        type: 'minLength[5]',
+                                        prompt: 'Masukkan password valid!'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".ui.dropdown.status_role")
+            .dropdown()
+        ;
+
+        $(".ui.dropdown.status_mailed")
+            .dropdown()
+        ;
+
+        $("#form_tambah_pegawai")
+            .form({
+                inline: true,
+                //on: 'blur',
+                onSuccess: function (event, fields) {
+                    $('#submit_tambah_pegawai').addClass('disabled ui loading button');
+                    $('#submit_tambah_pegawai').addClass('disabled');
+                    //$('#form_daftar').form('clear');
+                },
+                fields: {
+                    nama: {
+                        identifier: 'nama',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Nama tidak boleh kosong!'
+                            },
+                            {
+                                type: 'minLength[3]',
+                                prompt: 'Masukkan nama valid!'
+                            }
+                        ]
+                    },
+                    nip: {
+                        identifier: 'nip',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'NIP tidak boleh kosong!'
+                            }
+                        ]
+                    },
+                    jabatan: {
+                        identifier: 'jabatan',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Jabatan tidak boleh kosong!'
+                            },
+                            {
+                                type: 'minLength[5]',
+                                prompt: 'Masukkan jabatan valid!'
+                            }
+                        ]
+                    },
+                    password: {
+                        identifier: 'password',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Password tidak boleh kosong!'
+                            },
+                            {
+                                type: 'minLength[5]',
+                                prompt: 'Masukkan password valid!'
+                            }
+                        ]
+                    }
+                }
+            })
+        ;
+    });
+</script>
+<div class="ui horizontal divider"><h3 class="ui huge header">Daftar Pegawai {% if results|length > 0 %} ({{ results|length }} data) {% endif %}</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="ui container">
+    <table class="ui celled compact selectable striped padded table">
+        <thead>
+        <tr>
+            <th class="center aligned">NIP</th>
+            <th class="center aligned">Nama</th>
+            <th class="center aligned">Jabatan</th>
+            <th class="center aligned">Email</th>
+            <th class="center aligned">Role</th>
+            <th class="center aligned">Mailed</th>
+            <th class="center aligned">Dibuat Tanggal</th>
+            <th class="center aligned">#</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td class="center aligned"> {{ result.nip }}</td>
+                    <td> {{ result.nama }} </td>
+                    <td> {{ result.jabatan }} </td>
+                    <td> {{ result.email }} </td>
+                    <td class="center aligned"> {{ result.role }} </td>
+                    <td class="center aligned"> {{ result.mailed }} </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                    <td class="center aligned two wide">
+                        <a class="ui teal tiny icon button" onclick="formUbahPegawai{{ result.id }}TriggerClick()">
+                            <i class="edit icon"></i>
+                        </a>
+                        {% if 'ADMIN' not in result.role %}
+                            <a class="ui red tiny icon button"
+                               onclick="if(confirm('Anda yakin menghapus pegawai?'))window.location.href = '{{ url_for('action_form_hapus_pegawai', random=random, id=result.id) }}'">
+                                <i class="trash alternate outline icon"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada Pegawai</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="8">
+                <button class="ui teal button" onclick="formTambahPegawaiTriggerClick()"><i
+                        class="plus square icon"></i> Tambah Pegawai
+                </button>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="ui large modal form_tambah_pegawai">
+    <i class="close icon"></i>
+    <div class="header">
+        Tambah Pegawai
+    </div>
+    <div class="ui content">
+        <form class="ui form" method="post" id="form_tambah_pegawai"
+              action="{{ url_for('action_form_tambah_pegawai', random=random) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="three fields">
+                <div class="ui field">
+                    <label>Nama</label>
+                    <input type="text" name="nama" value="" placeholder="Nama">
+                </div>
+                <div class="ui field">
+                    <label>NIP</label>
+                    <input type="text" name="nip" value="" placeholder="NIP">
+                </div>
+                <div class="ui field">
+                    <label>Jabatan</label>
+                    <input type="text" name="jabatan" value="" placeholder="Jabatan">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="ui field">
+                    <label>Email</label>
+                    <input type="text" name="email" value="" placeholder="Email">
+                </div>
+                <div class="ui field">
+                    <label>Password</label>
+                    <input type="text" name="password" value="" placeholder="Password">
+                </div>
+            </div>
+            <div class="ui field">
+                <label>Role?</label>
+                <select id="status_role" name="status_role" class="ui dropdown status_role">
+                    <!--<option value="USER">USER</option> -->
+                    <option selected value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+            <div class="ui field" style="display: none;">
+                <label>Ter-email?</label>
+                <select id="status_mailed" name="status_mailed" class="ui dropdown status_mailed">
+                    <option value="YA">Ya</option>
+                    <option value="TIDAK">Tidak</option>
+                </select>
+            </div>
+            <div class="field">
+                <div class="ui submit teal button" id="submit_tambah_pegawai"><i
+                        class="save icon"></i>Tambah
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if results|length > 0 %}
+    {% for result in results %}
+        <div class="ui large modal form_ubah_pegawai_{{ result.id }}">
+            <i class="close icon"></i>
+            <div class="header">
+                Ubah Pegawai
+            </div>
+            <div class="ui content">
+                <form class="ui form" method="post" id="form_ubah_pegawai_{{ result.id }}"
+                      action="{{ url_for('action_form_ubah_pegawai', random=random) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="three fields">
+                        <div class="ui field">
+                            <label>Nama</label>
+                            <input type="hidden" name="id" value="{{ encrypt_string(result.id) }}">
+                            <input type="text" name="nama" value="{{ result.nama }}" placeholder="Nama">
+                        </div>
+                        <div class="ui field">
+                            <label>NIP</label>
+                            <input type="text" name="nip" value="{{ result.nip }}" placeholder="NIP">
+                        </div>
+                        <div class="ui field">
+                            <label>Jabatan</label>
+                            <input type="text" name="jabatan" value="{{ result.jabatan }}" placeholder="Jabatan">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="ui field">
+                            <label>Email</label>
+                            <input type="text" name="email" value="{{ result.email }}" placeholder="Email">
+                        </div>
+                        <div class="ui disabled field">
+                            <label>Password</label>
+                            <input type="text" name="password" value="{{ result.password }}" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="ui field">
+                        <label>Role?</label>
+                        <select id="status_role" name="status_role" class="ui dropdown status_role_{{ result.id }}">
+                            <!-- <option value="USER" {% if 'USER' in result.role %} selected {% endif %}>USER</option> -->
+                            <option value="ADMIN" {% if 'ADMIN' in result.role %} selected {% endif %}>ADMIN</option>
+                        </select>
+                    </div>
+                    <div class="ui field" style="display: none;">
+                        <label>Ter-email?</label>
+                        <select id="status_mailed" name="status_mailed" class="ui dropdown status_mailed_{{ result.id }}">
+                            <option value="YA" {% if 'YA' in result.mailed %} selected {% endif %}>Ya
+                            </option>
+                            <option value="TIDAK" {% if 'TIDAK' in result.mailed %} selected {% endif %}>Tidak
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="ui submit teal button" id="submit_ubah_pegawai_{{ result.id }}"><i
+                                class="save icon"></i>Simpan
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

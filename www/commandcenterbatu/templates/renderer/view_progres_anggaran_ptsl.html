@@ -1,0 +1,76 @@
+<div class="ui horizontal divider"><h3 class="ui huge header">Progres Anggaran PTSL</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
+    <table class="ui celled compact selectable striped padded small table">
+        <thead>
+        <tr>
+            <th class="center aligned">Penyuluhan</th>
+            <th class="center aligned">Pendataan</th>
+            <th class="center aligned">Pengukuran</th>
+            <th class="center aligned">K4 ASN</th>
+            <th class="center aligned">SKB</th>
+            <th class="center aligned">K4 SKB</th>
+            <th class="center aligned">Pemeriksaan</th>
+            <th class="center aligned">Pengesahan</th>
+            <th class="center aligned">Penerbitan</th>
+            <th class="center aligned">Pelaporan</th>
+            <th class="center aligned">Diambil<br/>Tanggal</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td class="center aligned"> {{ formatrupiah(result.penyuluhan) }}
+                        ({{ result.penyuluhan_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ formatrupiah(result.pendataan) }} ({{ result.pendataan_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ formatrupiah(result.pengukuran) }}
+                        ({{ result.pengukuran_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ formatrupiah(result.k4_asn) }} ({{ result.k4_asn_persen }}%)</td>
+                    <td class="center aligned"> {{ formatrupiah(result.skb) }} ({{ result.skb_persen }}%)</td>
+                    <td class="center aligned"> {{ formatrupiah(result.k4_skb) }} ({{ result.k4_skb_persen }}%)</td>
+                    <td class="center aligned"> {{ formatrupiah(result.pemeriksaan) }} ({{ result.pemeriksaan_persen }}%)</td>
+                    <td class="center aligned"> {{ formatrupiah(result.pengesahan) }}
+                        ({{ result.pengesahan_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ formatrupiah(result.penerbitan) }}
+                        ({{ result.penerbitan_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ formatrupiah(result.pelaporan) }} ({{ result.pelaporan_persen }}%)
+                    </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="11" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada data progres anggaran PTSL</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

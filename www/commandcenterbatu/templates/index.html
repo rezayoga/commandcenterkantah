@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="{{ web_config['DEVELOPER'] }}"/>
+    <meta name="website" content="{{ web_config['DEVELOPER_WEBSITE'] }}"/>
+    <meta name="version" content="{{ web_config['APP_VERSION'] }}"/>
+    <meta
+            name="description"
+            content="{{ web_config['APP_NAME_LONG'] }}"
+    />
+    <meta name="keywords" content="{{ web_config['APP_NAME'] }}"/>
+    <title>{{ web_config['APP_NAME_LONG'] }}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_solid.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo_solid.png') }}" type="image/x-icon">
+
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='fomantic/semantic.chubby.min.css') }}"
+            type="text/css"
+    />
+
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='fomantic/semantic.js') }}"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,700;1,200;1,700&display=swap');
+    </style>
+
+    <style>
+
+        #bg {
+            /*
+            background: linear-gradient(0deg, rgba(69, 69, 69, 0.5), rgba(69, 69, 69, 0.5)), url(https://source.unsplash.com/1600x900/?calculator);
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            background-position: center;
+             */
+        }
+
+        @media only screen and (min-width: 1024px) {
+            body {
+                background-color: #2980b9;
+                -webkit-font-smoothing: antialiased;
+                -moz-font-smoothing: grayscale;
+                background: linear-gradient(0deg, rgba(69, 69, 69, 0.5), rgba(69, 69, 69, 0.5)), url(https://source.unsplash.com/1600x900/?nature,water);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+                background-position: center;
+            }
+
+            .container {
+                background: transparent;
+                color: white;
+                border-radius: 1em;
+                padding: 1em;
+                margin-top: 0px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%)
+            }
+        }
+
+        html,
+        html * {
+            font-family: 'Nunito', sans-serif;
+            letter-spacing: 1px;
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var hidden = true;
+            $("#show_hide_password").on('click', function () {
+                if (hidden === false) {
+                    hidden = true;
+                    $('#password').attr('type', 'password');
+                    $('#show_hide_password').removeClass('eye');
+                    $('#show_hide_password').addClass('eye slash');
+                } else {
+                    hidden = false;
+                    $('#password').attr('type', 'text');
+                    $('#show_hide_password').removeClass('eye slash');
+                    $('#show_hide_password').addClass('eye');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body id="root">
+
+<div class="ui container">
+
+    <div class="ui vertical masthead center aligned segment">
+        <div class="ui equal width middle aligned stackable center internally grid">
+            <div class="center aligned row">
+                <div class="ten wide column blurring computer only" style="height: 700px;">
+                    <div class="ui active dark dimmer inverted" style="background: white">
+                        <div class="content">
+                            <img class="ui big centered image"
+                                 src="{{ url_for('static', filename='images/commandcenter.png') }}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="six wide column" style="background-color: whitesmoke;height: 700px;">
+                    <div class="ui hidden divider"></div>
+                    <div class="ui hidden divider"></div>
+                    <img class="ui small centered image" src="{{ url_for('static', filename='images/logo_fit_small.png') }}">
+                    <div class="ui hidden divider"></div>
+
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    {% if error_login %}
+                        <div class="ui error floating message">{{ error_login }}</div>
+                    {% endif %}
+
+                    {% for error in form.email.errors %}
+                        <div class="ui error floating message">{{ error }}</div>
+                    {% endfor %}
+
+                    {% for error in form.password.errors %}
+                        <div class="ui error floating message">{{ error }}</div>
+                    {% endfor %}
+
+                    <form class="ui large form" method="post"
+                          action="{{ url_for('action_form_login', random=random) }}">
+
+                        <div class="ui basic left aligned segment">
+                            {{ form.csrf_token }}
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="email" value="admin@commandcenterbatu.id" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input type="password" name="password" id="password" value="admin2022"
+                                           placeholder="Password">
+                                    <i class="eye slash link icon" id="show_hide_password"></i>
+                                </div>
+                            </div>
+                            <div class="ui fluid labeled icon teal submit button" id="submit"><i
+                                    class="unlock icon"></i>Login
+                            </div>
+                            <div class="ui segment center aligned basic">
+                                <div class="ui divider"></div>
+                                <b style="color: darkgrey"><small>© {{ web_config['APP_STAKEHOLDER'] }} {{ web_config['CURRENT_YEAR'] }}
+                                    <br/>All right reserved</small>
+                                </b>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".ui.form").form({
+            //on: 'blur',
+            inline: true,
+            on: 'submit',
+            onSuccess: function (event, fields) {
+                $('#submit').addClass('disabled ui loading button');
+                //$('#form_daftar').form('clear');
+            },
+            fields: {
+                email: {
+                    identifier: "email",
+                    rules: [
+                        {
+                            type: "empty",
+                            prompt: "Email tidak boleh kosong!"
+                        }
+                    ]
+                }, password: {
+                    identifier: "password",
+                    rules: [
+                        {
+                            type: "empty",
+                            prompt: "Password tidak boleh kosong!"
+                        }
+                    ]
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+

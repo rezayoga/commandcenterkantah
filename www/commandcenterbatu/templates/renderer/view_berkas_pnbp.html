@@ -1,0 +1,131 @@
+<div class="ui horizontal divider"><h3 class="ui huge header">Daftar Berkas PNBP {% if results|length > 0 %} ({{ results|length }}+ data) {% endif %}</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<style>
+    p.title {
+        font-weight: bold;
+        background-color: #EFEFEF;
+        padding: 5px;
+    }
+</style>
+
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
+    <table class="ui celled compact selectable striped small table">
+        <thead>
+        <tr>
+            <th class="center aligned">No. Berkas</th>
+            <th class="center aligned">Tahun Berkas</th>
+            <th class="center aligned">Tanggal Terdaftar</th>
+            <th class="center aligned">Tgl. Jatuh Tempo</th>
+            <!--
+            <th class="center aligned">Tgl. Selesai</th>
+            <th class="center aligned">Tgl. Diserahkan</th>
+            -->
+            <th class="center aligned">Kegiatan</th>
+            <th class="center aligned">Nama Pemohon</th>
+            <th class="center aligned">Posisi Terakhir</th>
+            <th class="center aligned">Diambil<br />Tanggal</th>
+            <th class="center aligned">#</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td class="center aligned"> {{ result.nomor_berkas }}</td>
+                    <td class="center aligned"> {{ result.tahun_berkas }} </td>
+                    <td class="center aligned"> {{ result.tanggal_terdaftar }} </td>
+                    <td class="center aligned"> {{ result.jatuh_tempo }} </td>
+                    <!--
+                    <td class="center aligned"> {{ result.tanggal_selesai }} </td>
+                    <td class="center aligned"> {{ result.tanggal_diserahkan }} </td>
+                    -->
+                    <td> {{ result.nama_kegiatan }} </td>
+                    <td> {{ result.nama_pemohon }} </td>
+                    <td> {{ result.posisi_terakhir }} </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                    <td class="center aligned">
+
+                        <div class="ui small buttons">
+                            <button class="ui labeled grey icon button"
+                                    onclick="$('#view_informasi_berkas_{{ result.id }}').toggle()">
+                                <i class="info circle icon"></i>
+                                Informasi
+                            </button>
+                            <button class="ui labeled teal icon button"
+                                    onclick="$('#view_flow_berkas_{{ result.id }}').toggle()">
+                                <i class="tasks icon"></i>
+                                Riwayat
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <!--
+                <tr style="display: none;" id="view_perjalan_berkas_{{ result.id }}">
+                    <td colspan="11">
+                        <div class="ui segment">
+                            <h5 class="ui header">
+                                <i class="check double icon"></i>
+                                <div class="content">
+                                    Perjalanan Berkas
+                                </div>
+                            </h5>
+                            {{ result.json_perjalanan_berkas|string|replace("'", '"') }}
+                        </div>
+                    </td>
+                </tr>
+                -->
+                <tr style="display: none;" id="view_informasi_berkas_{{ result.id }}">
+                    <td colspan="11">
+                        <div class="ui segment">
+                            <h5 class="ui header">
+                                <i class="info circle icon"></i>
+                                <div class="content">
+                                    Informasi Berkas
+                                </div>
+                            </h5>
+                            {{ result.html_informasi_berkas_content_from_list|safe|replace("[", '')|replace("]", '') }}
+                        </div>
+                    </td>
+                </tr>
+                <tr style="display: none;" id="view_flow_berkas_{{ result.id }}">
+                    <td colspan="11">
+                        <h5 class="ui header">
+                            <i class="tasks icon"></i>
+                            <div class="content">
+                                Riwayat Berkas
+                            </div>
+                        </h5>
+                        {{ result.json_perjalanan_berkas|safe }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="11" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada Berkas PNBP</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
