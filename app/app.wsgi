@@ -3,8 +3,8 @@ import logging
 import sys
 
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0, "/home/www/commandcenterbatu")
-#sys.path.insert(1, "/home/www/commandcenterbatu/venv/lib/python3.9/site-packages")
+sys.path.insert(0, "/home/commandcenterkantah/app")
+#sys.path.insert(1, "/home/commandcenterkantah/app/venv/lib/python3.9/site-packages")
 
 # from app import monitor
 
