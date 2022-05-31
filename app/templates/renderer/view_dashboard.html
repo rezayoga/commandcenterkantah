@@ -56,11 +56,11 @@
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Statistik Jenis Permohonan s.d. {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Statistik Jenis Permohonan s.d. {{ get_current_date(False) }}</span>
             <canvas id="a" style="max-height: 400px; height: 400px;"></canvas>
         </div>
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Statistik Tunggakan Permohonan s.d. {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Statistik Tunggakan Permohonan s.d. {{ get_current_date(False) }}</span>
             <canvas id="b" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -80,7 +80,7 @@
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Early Warning Berkas Tanpa Bidang PTSL {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Early Warning Berkas Tanpa Bidang PTSL {{ get_current_date(False) }}</span>
             <canvas id="c" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Bidang Tanah Tanpa Berkas Yuridis PTSL {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Bidang Tanah Tanpa Berkas Yuridis PTSL {{ get_current_date(False) }}</span>
             <canvas id="d" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -120,7 +120,7 @@
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Early Warning Pengumuman Kadaluwarsa PTSL {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Early Warning Pengumuman Kadaluwarsa PTSL {{ get_current_date(False) }}</span>
             <canvas id="e" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -139,7 +139,7 @@
             </div>
         </div>
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui teal label">Bidang Tanah Tanpa Pemohon PTSL {{ get_current_date(False) }}</span>
+            <span class="ui grey label">Bidang Tanah Tanpa Pemohon PTSL {{ get_current_date(False) }}</span>
             <canvas id="f" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -167,10 +167,10 @@
         <div class="column">
             <div class="ui fluid raised card">
                 <div class="content">
-                    <div class="ui right floated header teal">
+                    <div class="ui right floated header grey">
                         <i class="icon check circle outline"></i>
                     </div>
-                    <div class="ui teal header">
+                    <div class="ui grey header">
                         {{ result_nominatif_pencairan_pengumpulan_data.total }}
                     </div>
                     <div class="meta">
@@ -181,7 +181,7 @@
                     </div>
                     <div class="ui hidden fitted divider"></div>
                     <div class="description">
-                        <div class="ui icon fluid teal small labeled button" onclick="callNominatifPencairanPuldadis()">
+                        <div class="ui icon fluid grey small labeled button" onclick="callNominatifPencairanPuldadis()">
                             <i
                                     class="eye icon"></i> Lihat Data
                         </div>
@@ -192,10 +192,10 @@
         <div class="column">
             <div class="ui fluid raised card">
                 <div class="content">
-                    <div class="ui right floated header teal">
+                    <div class="ui right floated header grey">
                         <i class="icon check circle outline"></i>
                     </div>
-                    <div class="ui teal header">
+                    <div class="ui grey header">
                         {{ result_nominatif_pencairan_pemeriksaan_tanah.total }}
                     </div>
                     <div class="meta">
@@ -206,7 +206,7 @@
                     </div>
                     <div class="ui hidden fitted divider"></div>
                     <div class="description">
-                        <div class="ui icon fluid teal small labeled button"
+                        <div class="ui icon fluid grey small labeled button"
                              onclick="callNominatifPencairanPemeriksaanTanah()"><i
                                 class="eye icon"></i> Lihat Data
                         </div>
@@ -218,10 +218,10 @@
         <div class="column">
             <div class="ui fluid raised card">
                 <div class="content">
-                    <div class="ui right floated header teal">
+                    <div class="ui right floated header grey">
                         <i class="icon check circle outline"></i>
                     </div>
-                    <div class="ui teal header">
+                    <div class="ui grey header">
                         {{ result_nominatif_pencairan_pengesahan_dan_di310.total }}
                     </div>
                     <div class="meta">
@@ -232,7 +232,7 @@
                     </div>
                     <div class="ui hidden fitted divider"></div>
                     <div class="description">
-                        <div class="ui icon fluid teal small labeled button"
+                        <div class="ui icon fluid grey small labeled button"
                              onclick="callNominatifPencairanPengesahanDanDI310()"><i
                                 class="eye icon"></i> Lihat Data
                         </div>
@@ -244,10 +244,10 @@
         <div class="column">
             <div class="ui fluid raised card">
                 <div class="content">
-                    <div class="ui right floated header teal">
+                    <div class="ui right floated header grey">
                         <i class="icon check circle outline"></i>
                     </div>
-                    <div class="ui teal header">
+                    <div class="ui grey header">
                         {{ result_nominatif_pencairan_penerbitan_sertipikat.total }}
                     </div>
                     <div class="meta">
@@ -258,7 +258,7 @@
                     </div>
                     <div class="ui hidden fitted divider"></div>
                     <div class="description">
-                        <div class="ui icon fluid teal small labeled button"
+                        <div class="ui icon fluid grey small labeled button"
                              onclick="callNominatifPenerbitanSertipikat()"><i
                                 class="eye icon"></i> Lihat Data
                         </div>

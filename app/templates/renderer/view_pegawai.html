@@ -216,7 +216,7 @@
                     <td class="center aligned"> {{ result.mailed }} </td>
                     <td class="center aligned"> {{ result.created_at }} </td>
                     <td class="center aligned two wide">
-                        <a class="ui teal tiny icon button" onclick="formUbahPegawai{{ result.id }}TriggerClick()">
+                        <a class="ui grey tiny icon button" onclick="formUbahPegawai{{ result.id }}TriggerClick()">
                             <i class="edit icon"></i>
                         </a>
                         {% if 'ADMIN' not in result.role %}
@@ -247,7 +247,7 @@
         <tfoot>
         <tr>
             <th colspan="8">
-                <button class="ui teal button" onclick="formTambahPegawaiTriggerClick()"><i
+                <button class="ui grey button" onclick="formTambahPegawaiTriggerClick()"><i
                         class="plus square icon"></i> Tambah Pegawai
                 </button>
             </th>
@@ -304,7 +304,7 @@
                 </select>
             </div>
             <div class="field">
-                <div class="ui submit teal button" id="submit_tambah_pegawai"><i
+                <div class="ui submit grey button" id="submit_tambah_pegawai"><i
                         class="save icon"></i>Tambah
                 </div>
             </div>
@@ -365,7 +365,7 @@
                         </select>
                     </div>
                     <div class="field">
-                        <div class="ui submit teal button" id="submit_ubah_pegawai_{{ result.id }}"><i
+                        <div class="ui submit grey button" id="submit_ubah_pegawai_{{ result.id }}"><i
                                 class="save icon"></i>Simpan
                         </div>
                     </div>
