@@ -35,7 +35,7 @@ db_config = {
     "host": "127.0.0.1",
     "port": 3306,
     "user": "root",
-    "passwd": "JyiI7tDdkcDqaI7x",
+    "passwd": "pmnP_AkjWk26x2020",
     "charset": "utf8mb4",
     "cursorclass": pymysql.cursors.DictCursor,
     "database": "db_c2s_kantah"
