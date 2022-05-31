@@ -38,26 +38,26 @@ db_config = {
     "passwd": "JyiI7tDdkcDqaI7x",
     "charset": "utf8mb4",
     "cursorclass": pymysql.cursors.DictCursor,
-    "database": "db_command_center_kantah"
+    "database": "db_c2s_kantah"
 }
 web_config = {
     "SECURE_KEY": Fernet.generate_key(),
-    "BASE_URL": "https://commandcenterbatu.id/",
-    "BASE_URL_ACTION_FORM": "https://commandcenterbatu.id/action_form/",
-    "MEDIA_IMAGES_DIR": "https://commandcenterbatu.id/media/images/",
-    "MEDIA_CSS_DIR": "https://commandcenterbatu.id/media/css/",
-    "MEDIA_JS_DIR": "https://commandcenterbatu.id/media/js/",
-    "MEDIA_DOCS_DIR": "https://commandcenterbatu.id/media/docs/",
-    "UPLOADS_DIR": "https://commandcenterbatu.id/uploads/",
-    "APP_NAME": "C2S Kantor Pertanahan Batu",
-    "APP_NAME_LONG": "Command Center System Kantor Pertanahan Batu",
+    "BASE_URL": "https://c2ssetup.pusakha.id/",
+    "BASE_URL_ACTION_FORM": "https://c2ssetup.pusakha.id/action_form/",
+    "MEDIA_IMAGES_DIR": "https://c2ssetup.pusakha.id/media/images/",
+    "MEDIA_CSS_DIR": "https://c2ssetup.pusakha.id/media/css/",
+    "MEDIA_JS_DIR": "https://c2ssetup.pusakha.id/media/js/",
+    "MEDIA_DOCS_DIR": "https://c2ssetup.pusakha.id/media/docs/",
+    "UPLOADS_DIR": "https://c2ssetup.pusakha.id/uploads/",
+    "APP_NAME": "C2S Kantor Pertanahan ...",
+    "APP_NAME_LONG": "Command Center System Kantor Pertanahan ...",
     "APP_SLOGAN": "Smart Work Pays Best",
     "APP_VERSION": "1.0.0",
-    "APP_STAKEHOLDER": "Kantor Pertanahan Kota Batu",
+    "APP_STAKEHOLDER": "Kantor Pertanahan ...",
     "DEVELOPER": "Reza Yogaswara",
     "DEVELOPER_ADDRESS": "Perum Green View Regency Blok B3 - Malang, Jawa Timur",
     "DEVELOPER_PHONE": "+6282228223500",
-    "DEVELOPER_WEBSITE": "https://me.rezayogaswara.com",
+    "DEVELOPER_WEBSITE": "https://me.rezayogaswara.dev",
     "CURRENT_DATE": todays_date,
     "CURRENT_YEAR": todays_date.year
 }
