@@ -47,7 +47,7 @@
 
     {% if results | length > 0 %}
     {% for result in results %}
-    function formUbahTimPTSL{ { result.id } }TriggerClick() {
+    function formUbahTimPTSL{{ result.id }}TriggerClick() {
         $('.large.modal.form_ubah_timptsl_{{ result.id }}')
             .modal({
                 //blurring: true,
