@@ -6,13 +6,13 @@
                 closable: false
             })
             .modal('show')
-        ;
+            ;
 
         $(".button.close.form_tambah_timptsl").on('click', function (event) {
 
             $('.large.modal.form_tambah_timptsl')
                 .modal('hide')
-            ;
+                ;
         });
     }
 </script>
@@ -28,7 +28,7 @@
                     $('#desa').val(value);
                 }
             })
-        ;
+            ;
 
         $('.ui.dropdown.daftar_anggota')
             .dropdown({
@@ -40,104 +40,104 @@
                     $('#anggota').val(value);
                 }
             })
-        ;
+            ;
     });
 </script>
 <script>
 
-    {% if results|length > 0 %}
-        {% for result in results %}
-            function formUbahTimPTSL{{ result.id }}TriggerClick() {
-                $('.large.modal.form_ubah_timptsl_{{ result.id }}')
-                    .modal({
-                        //blurring: true,
-                        closable: false
-                    })
-                    .modal('show')
+    {% if results | length > 0 %}
+    {% for result in results %}
+    function formUbahTimPTSL{ { result.id } } TriggerClick() {
+        $('.large.modal.form_ubah_timptsl_{{ result.id }}')
+            .modal({
+                //blurring: true,
+                closable: false
+            })
+            .modal('show')
+            ;
+        $(".button.close.form_ubah_timptsl_{{ result.id }}").on('click', function (event) {
+
+            $('.large.modal.form_ubah_timptsl_{{ result.id }}')
+                .modal('hide')
                 ;
-                $(".button.close.form_ubah_timptsl_{{ result.id }}").on('click', function (event) {
+        });
+    }
 
-                    $('.large.modal.form_ubah_timptsl_{{ result.id }}')
-                        .modal('hide')
-                    ;
-                });
-            }
-
-        {% endfor %}
+    {% endfor %}
     {% endif %}
     $(document).ready(function () {
-        {% if results|length > 0 %}
-            {% for result in results %}
+        {% if results | length > 0 %}
+        {% for result in results %}
 
-                $('.ui.dropdown.daftar_desa_{{ result.id }}')
-                    .dropdown({
-                        onChange: function (value, text, $selectedItem) {
-                            // custom action
-                            //console.log(value);
-                            //console.log(text);
-                            //console.log($selectedItem);
-                            $('#desa_{{ result.id }}').val(value);
-                        }
-                    })
-                ;
+        $('.ui.dropdown.daftar_desa_{{ result.id }}')
+            .dropdown({
+                onChange: function (value, text, $selectedItem) {
+                    // custom action
+                    //console.log(value);
+                    //console.log(text);
+                    //console.log($selectedItem);
+                    $('#desa_{{ result.id }}').val(value);
+                }
+            })
+            ;
 
-                $('.ui.dropdown.daftar_anggota_{{ result.id }}')
-                    .dropdown({
-                        onChange: function (value, text, $selectedItem) {
-                            // custom action
-                            //console.log(value);
-                            //console.log(text);
-                            //console.log($selectedItem);
-                            $('#anggota_{{ result.id }}').val(value);
-                        }
-                    })
-                ;
+        $('.ui.dropdown.daftar_anggota_{{ result.id }}')
+            .dropdown({
+                onChange: function (value, text, $selectedItem) {
+                    // custom action
+                    //console.log(value);
+                    //console.log(text);
+                    //console.log($selectedItem);
+                    $('#anggota_{{ result.id }}').val(value);
+                }
+            })
+            ;
 
-                $("#form_ubah_timptsl_{{ result.id }}")
-                    .form({
-                        inline: true,
-                        //on: 'blur',
-                        onSuccess: function (event, fields) {
-                            $('#submit_ubah_timptsl_{{ result.id }}').addClass('disabled ui loading button');
-                            $('#submit_ubah_timptsl_{{ result.id }}').addClass('disabled');
-                            //$('#form_daftar').form('clear');
-                        },
-                        fields: {
-                            tim_nama: {
-                                identifier: 'tim_nama',
-                                rules: [
-                                    {
-                                        type: 'empty',
-                                        prompt: 'Nama tim tidak boleh kosong!'
-                                    },
-                                    {
-                                        type: 'minLength[3]',
-                                        prompt: 'Masukkan nama tim valid!'
-                                    }
-                                ]
+        $("#form_ubah_timptsl_{{ result.id }}")
+            .form({
+                inline: true,
+                //on: 'blur',
+                onSuccess: function (event, fields) {
+                    $('#submit_ubah_timptsl_{{ result.id }}').addClass('disabled ui loading button');
+                    $('#submit_ubah_timptsl_{{ result.id }}').addClass('disabled');
+                    //$('#form_daftar').form('clear');
+                },
+                fields: {
+                    tim_nama: {
+                        identifier: 'tim_nama',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Nama tim tidak boleh kosong!'
                             },
-                            daftar_desa: {
-                                identifier: 'daftar_desa',
-                                rules: [
-                                    {
-                                        type: 'empty',
-                                        prompt: 'Daftar desa tidak boleh kosong!'
-                                    }
-                                ]
-                            },
-                            daftar_anggota: {
-                                identifier: 'daftar_anggota',
-                                rules: [
-                                    {
-                                        type: 'empty',
-                                        prompt: 'Daftar anggota tidak boleh kosong!'
-                                    }
-                                ]
+                            {
+                                type: 'minLength[3]',
+                                prompt: 'Masukkan nama tim valid!'
                             }
-                        }
-                    })
-                ;
-            {% endfor %}
+                        ]
+                    },
+                    daftar_desa: {
+                        identifier: 'daftar_desa',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Daftar desa tidak boleh kosong!'
+                            }
+                        ]
+                    },
+                    daftar_anggota: {
+                        identifier: 'daftar_anggota',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Daftar anggota tidak boleh kosong!'
+                            }
+                        ]
+                    }
+                }
+            })
+            ;
+        {% endfor %}
         {% endif %}
     });
 </script>
@@ -186,72 +186,74 @@
                     }
                 }
             })
-        ;
+            ;
     });
 </script>
-<div class="ui horizontal divider"><h3 class="ui huge header">Daftar Tim PTSL</h3></div>
+<div class="ui horizontal divider">
+    <h3 class="ui huge header">Daftar Tim PTSL</h3>
+</div>
 
 {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
 {% endwith %}
 
 <div class="ui container">
     <table class="ui celled compact selectable striped padded table">
         <thead>
-        <tr>
-            <th class="center aligned">ID</th>
-            <th class="center aligned">Nama Tim</th>
-            <th class="center aligned">Daftar Anggota</th>
-            <th class="center aligned">Daftar Desa</th>
-            <th class="center aligned">Dibuat Tanggal</th>
-            <th class="center aligned">#</th>
-        </tr>
+            <tr>
+                <th class="center aligned">ID</th>
+                <th class="center aligned">Nama Tim</th>
+                <th class="center aligned">Daftar Anggota</th>
+                <th class="center aligned">Daftar Desa</th>
+                <th class="center aligned">Dibuat Tanggal</th>
+                <th class="center aligned">#</th>
+            </tr>
         </thead>
         <tbody>
 
-        {% if results|length > 0 %}
+            {% if results|length > 0 %}
             {% for result in results %}
-                <tr>
-                    <td class="center aligned"> {{ result.id }}</td>
-                    <td> {{ result.tim_nama }} </td>
+            <tr>
+                <td class="center aligned"> {{ result.id }}</td>
+                <td> {{ result.tim_nama }} </td>
 
-                    {% set list_anggota = result.daftar_pegawai.split(',') %}
-                    <td>
-                        <div class="ui celled list">
-                            {% for item in list_anggota %}
-                                <div class="item">
-                                    {{ get_nama_pegawai(item)['nama'] }} / {{ get_nama_pegawai(item)['jabatan'] }}
-                                </div>
-                            {% endfor %}
+                {% set list_anggota = result.daftar_pegawai.split(',') %}
+                <td>
+                    <div class="ui celled list">
+                        {% for item in list_anggota %}
+                        <div class="item">
+                            {{ get_nama_pegawai(item)['nama'] }} / {{ get_nama_pegawai(item)['jabatan'] }}
                         </div>
-                    </td>
+                        {% endfor %}
+                    </div>
+                </td>
 
-                    {% set list_desa = result.daftar_desa.split(',') %}
-                    <td>
-                        <div class="ui celled list">
-                            {% for item in list_desa %}
-                                <div class="item">{{ item }}</div>
-                            {% endfor %}
-                        </div>
-                    </td>
+                {% set list_desa = result.daftar_desa.split(',') %}
+                <td>
+                    <div class="ui celled list">
+                        {% for item in list_desa %}
+                        <div class="item">{{ item }}</div>
+                        {% endfor %}
+                    </div>
+                </td>
 
-                    <td class="center aligned"> {{ result.created_at }} </td>
-                    <td class="center aligned">
-                        <a class="ui grey tiny icon button" onclick="formUbahTimPTSL{{ result.id }}TriggerClick()">
-                            <i class="edit icon"></i>
-                        </a>
-                        <a class="ui red tiny icon button"
-                           onclick="if(confirm('Anda yakin menghapus tim PTSL ini?'))window.location.href = '{{ url_for('action_form_hapus_tim_ptsl', random=random, id=result.id) }}'">
-                            <i class="trash alternate outline icon"></i>
-                        </a>
-                    </td>
-                </tr>
+                <td class="center aligned"> {{ result.created_at }} </td>
+                <td class="center aligned">
+                    <a class="ui blue tiny icon button" onclick="formUbahTimPTSL{{ result.id }}TriggerClick()">
+                        <i class="edit icon"></i>
+                    </a>
+                    <a class="ui red tiny icon button"
+                        onclick="if(confirm('Anda yakin menghapus tim PTSL ini?'))window.location.href = '{{ url_for('action_form_hapus_tim_ptsl', random=random, id=result.id) }}'">
+                        <i class="trash alternate outline icon"></i>
+                    </a>
+                </td>
+            </tr>
             {% endfor %}
-        {% else %}
+            {% else %}
             <tr>
                 <td colspan="6" class="center aligned">
                     <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
@@ -265,16 +267,16 @@
                     </div>
                 </td>
             </tr>
-        {% endif %}
+            {% endif %}
         </tbody>
         <tfoot>
-        <tr>
-            <th colspan="6">
-                <button class="ui grey button" onclick="formTambahTimPTSLTriggerClick()"><i
-                        class="plus square icon"></i> Tambah Tim PTSL
-                </button>
-            </th>
-        </tr>
+            <tr>
+                <th colspan="6">
+                    <button class="ui blue button" onclick="formTambahTimPTSLTriggerClick()"><i
+                            class="plus square icon"></i> Tambah Tim PTSL
+                    </button>
+                </th>
+            </tr>
         </tfoot>
     </table>
 </div>
@@ -286,8 +288,8 @@
     </div>
     <div class="ui content">
         <form class="ui form" method="post" id="form_tambah_timptsl"
-              action="{{ url_for('action_form_tambah_tim_ptsl', random=random) }}">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            action="{{ url_for('action_form_tambah_tim_ptsl', random=random) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div class="ui field">
                 <label>Nama Tim</label>
                 <input type="text" name="tim_nama" value="" placeholder="Nama Tim">
@@ -298,7 +300,7 @@
                 <select multiple="" class="ui fluid search dropdown daftar_anggota" id="daftar_anggota">
                     <option value="">Pilih Anggota</option>
                     {% for result_user in results_user %}
-                        <option value="{{ result_user.id }}">{{ result_user.nama }}, {{ result_user.jabatan }}</option>
+                    <option value="{{ result_user.id }}">{{ result_user.nama }}, {{ result_user.jabatan }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -308,13 +310,12 @@
                 <select multiple="" class="ui fluid search dropdown daftar_desa" id="daftar_desa">
                     <option value="">Pilih Desa/Kelurahan</option>
                     {% for result_tim_ptsl in results_tim_ptsl %}
-                        <option value="{{ result_tim_ptsl.desa_kelurahan }}">{{ result_tim_ptsl.desa_kelurahan }}</option>
+                    <option value="{{ result_tim_ptsl.desa_kelurahan }}">{{ result_tim_ptsl.desa_kelurahan }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="field">
-                <div class="ui submit grey button" id="submit_tambah_timptsl"><i
-                        class="save icon"></i>Tambah
+                <div class="ui submit blue button" id="submit_tambah_timptsl"><i class="save icon"></i>Tambah
                 </div>
             </div>
         </form>
@@ -322,59 +323,56 @@
 </div>
 
 {% if results|length > 0 %}
-    {% for result in results %}
-        <div class="ui large modal form_ubah_timptsl_{{ result.id }}">
-            <i class="close icon"></i>
-            <div class="header">
-                Ubah Tim PTSL
-            </div>
-            <div class="ui content">
-                <form class="ui form" method="post" id="form_ubah_timptsl_{{ result.id }}"
-                      action="{{ url_for('action_form_ubah_tim_ptsl', random=random) }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+{% for result in results %}
+<div class="ui large modal form_ubah_timptsl_{{ result.id }}">
+    <i class="close icon"></i>
+    <div class="header">
+        Ubah Tim PTSL
+    </div>
+    <div class="ui content">
+        <form class="ui form" method="post" id="form_ubah_timptsl_{{ result.id }}"
+            action="{{ url_for('action_form_ubah_tim_ptsl', random=random) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
-                    <div class="ui field">
-                        <label>Nama Tim</label>
-                        <input type="hidden" name="id" value="{{ encrypt_string(result.id) }}">
-                        <input type="text" name="tim_nama" value="{{ result.tim_nama }}" placeholder="Nama Tim">
-                    </div>
-                    <div class="ui field">
-                        <label>Daftar Anggota</label>
-                        <input type="hidden" name="daftar_anggota" value="{{ result.daftar_pegawai }}"
-                               id="anggota_{{ result.id }}">
-                        <select multiple="" class="ui fluid search dropdown daftar_anggota_{{ result.id }}"
-                                id="daftar_anggota_{{ result.id }}">
-                            <option value="">Pilih Anggota</option>
-                            {% for result_user in results_user %}
-                                <option value="{{ result_user.id }}"
-                                        {% if result_user.id|string in result.daftar_pegawai %}
-                                        selected {% endif %}>
-                                    {{ result_user.nama }}, {{ result_user.jabatan }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="ui field">
-                        <label>Daftar Desa</label>
-                        <input type="hidden" name="daftar_desa" value="{{ result.daftar_desa }}"
-                               id="desa_{{ result.id }}">
-                        <select multiple="" class="ui fluid search dropdown daftar_desa_{{ result.id }}"
-                                id="daftar_desa_{{ result.id }}">
-                            <option value="">Pilih Desa/Kelurahan</option>
-                            {% for result_tim_ptsl in results_tim_ptsl %}
-                                <option value="{{ result_tim_ptsl.desa_kelurahan }}"
-                                        {% if result_tim_ptsl.desa_kelurahan in result.daftar_desa %}
-                                        selected {% endif %}>{{ result_tim_ptsl.desa_kelurahan }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="field">
-                        <div class="ui submit grey button" id="submit_ubah_timptsl_{{ result.id }}"><i
-                                class="save icon"></i>Simpan
-                        </div>
-                    </div>
-                </form>
+            <div class="ui field">
+                <label>Nama Tim</label>
+                <input type="hidden" name="id" value="{{ encrypt_string(result.id) }}">
+                <input type="text" name="tim_nama" value="{{ result.tim_nama }}" placeholder="Nama Tim">
             </div>
-        </div>
-    {% endfor %}
+            <div class="ui field">
+                <label>Daftar Anggota</label>
+                <input type="hidden" name="daftar_anggota" value="{{ result.daftar_pegawai }}"
+                    id="anggota_{{ result.id }}">
+                <select multiple="" class="ui fluid search dropdown daftar_anggota_{{ result.id }}"
+                    id="daftar_anggota_{{ result.id }}">
+                    <option value="">Pilih Anggota</option>
+                    {% for result_user in results_user %}
+                    <option value="{{ result_user.id }}" {% if result_user.id|string in result.daftar_pegawai %}
+                        selected {% endif %}>
+                        {{ result_user.nama }}, {{ result_user.jabatan }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="ui field">
+                <label>Daftar Desa</label>
+                <input type="hidden" name="daftar_desa" value="{{ result.daftar_desa }}" id="desa_{{ result.id }}">
+                <select multiple="" class="ui fluid search dropdown daftar_desa_{{ result.id }}"
+                    id="daftar_desa_{{ result.id }}">
+                    <option value="">Pilih Desa/Kelurahan</option>
+                    {% for result_tim_ptsl in results_tim_ptsl %}
+                    <option value="{{ result_tim_ptsl.desa_kelurahan }}" {% if result_tim_ptsl.desa_kelurahan in
+                        result.daftar_desa %} selected {% endif %}>{{ result_tim_ptsl.desa_kelurahan }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <div class="ui submit blue button" id="submit_ubah_timptsl_{{ result.id }}"><i
+                        class="save icon"></i>Simpan
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
 {% endif %}
