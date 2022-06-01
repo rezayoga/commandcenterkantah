@@ -52,15 +52,11 @@
 
 <div class="ui padded grid">
     <div class="row">
-        <h1 class="ui huge dividing header"> Dashboard</h1>
+        <h2 class="ui huge dividing header"> PTSL</h2>
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Statistik Jenis Permohonan s.d. {{ get_current_date(False) }}</span>
-            <canvas id="a" style="max-height: 400px; height: 400px;"></canvas>
-        </div>
-        <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Statistik Tunggakan Permohonan s.d. {{ get_current_date(False) }}</span>
+            <span class="ui orange label">Tunggakan Permohonan per Jabatan s.d. {{ get_current_date(False) }}</span>
             <canvas id="b" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
@@ -69,49 +65,27 @@
                             class="ui search dropdown fluid filter_tunggakan_berdasarkan_jabatan"
                             onchange="if(chartB !== null) {chartB.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikTunggakanBerdasarkanJabatan(this.options[this.selectedIndex].value);">
                         {% if results_distinct_jabatan|length > 0 %}
-                            {% for result in results_distinct_jabatan %}
-                                <option value="{{ result.jabatan }}">{{ result.jabatan }}</option>
-                            {% endfor %}
+                        {% for result in results_distinct_jabatan %}
+                        <option value="{{ result.jabatan }}">{{ result.jabatan }}</option>
+                        {% endfor %}
                         {% endif %}
                     </select>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Early Warning Berkas Tanpa Bidang PTSL {{ get_current_date(False) }}</span>
+            <span class="ui orange label">Tunggakan Permohonan per Layanan s.d. {{ get_current_date(False) }}</span>
             <canvas id="c" style="max-height: 400px; height: 400px;"></canvas>
             <div class="ui form">
                 <div class="inline field">
                     <label>Filter Series Berdasarkan:</label>
-                    <select id="filter_early_warning_berkas_tanpa_bidang_tanah_berdasarkan_desa"
-                            name="filter_early_warning_berkas_tanpa_bidang_tanah_berdasarkan_desa"
-                            class="ui search dropdown fluid filter_early_warning_berkas_tanpa_bidang_tanah_berdasarkan_desa"
-                            onchange="if(chartC !== null) {chartC.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikEarlyWarningBerkasTanpaBidangTanah(this.options[this.selectedIndex].value);">
-                        {% if results_distinct_desa|length > 0 %}
-                            {% for result in results_distinct_desa %}
-                                <option value="{{ result.desa_kelurahan }}">{{ result.desa_kelurahan }}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Bidang Tanah Tanpa Berkas Yuridis PTSL {{ get_current_date(False) }}</span>
-            <canvas id="d" style="max-height: 400px; height: 400px;"></canvas>
-            <div class="ui form">
-                <div class="inline field">
-                    <label>Filter Series Berdasarkan:</label>
-                    <select id="filter_early_warning_bidang_tanah_tanpa_data_yuridis"
-                            name="filter_early_warning_bidang_tanah_tanpa_data_yuridis"
-                            class="ui search dropdown fluid filter_early_warning_bidang_tanah_tanpa_data_yuridis"
-                            onchange="if(chartD !== null) {chartD.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikEarlyWarningBidangTanahTanpaDataYuridis(this.options[this.selectedIndex].value);">
-                        {% if results_distinct_desa|length > 0 %}
-                            {% for result in results_distinct_desa %}
-                                <option value="{{ result.desa_kelurahan }}">{{ result.desa_kelurahan }}</option>
-                            {% endfor %}
+                    <select id="filter_tunggakan_berdasarkan_layanan" name="filter_tunggakan_berdasarkan_layanan"
+                            class="ui search dropdown fluid filter_tunggakan_berdasarkan_layanan"
+                            onchange="if(chartC !== null) {chartC.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikTunggakanBerdasarkanLayanan(this.options[this.selectedIndex].value);">
+                        {% if results_distinct_layanan|length > 0 %}
+                        {% for result in results_distinct_layanan %}
+                        <option value="{{ result.layanan }}">{{ result.layanan }}</option>
+                        {% endfor %}
                         {% endif %}
                     </select>
                 </div>
@@ -120,160 +94,145 @@
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Early Warning Pengumuman Kadaluwarsa PTSL {{ get_current_date(False) }}</span>
-            <canvas id="e" style="max-height: 400px; height: 400px;"></canvas>
-            <div class="ui form">
-                <div class="inline field">
-                    <label>Filter Series Berdasarkan:</label>
-                    <select id="filter_early_warning_pengumuman_kadaluwarsa_kantor_pertanahan"
-                            name="filter_early_warning_pengumuman_kadaluwarsa_kantor_pertanahan"
-                            class="ui search dropdown fluid filter_early_warning_pengumuman_kadaluwarsa_kantor_pertanahan"
-                            onchange="if(chartE !== null) {chartE.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikEarlyWarningPengumumanKadaluwarsaKantorPertanahan(this.options[this.selectedIndex].value);">
-                        {% if results_distinct_desa|length > 0 %}
-                            {% for result in results_distinct_desa %}
-                                <option value="{{ result.desa_kelurahan }}">{{ result.desa_kelurahan }}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-            </div>
+            <span class="ui orange label">Daftar Tunggakan Diterima Dimuka Tahun 2015 s.d 2020</span>
+            <canvas id="d" style="max-height: 400px; height: 400px;"></canvas>
         </div>
         <div class="eight wide mobile eight wide tablet eight wide computer column">
-            <span class="ui grey label">Bidang Tanah Tanpa Pemohon PTSL {{ get_current_date(False) }}</span>
-            <canvas id="f" style="max-height: 400px; height: 400px;"></canvas>
-            <div class="ui form">
-                <div class="inline field">
-                    <label>Filter Series Berdasarkan:</label>
-                    <select id="filter_early_warning_berkas_tanpa_pemohon"
-                            name="filter_early_warning_berkas_tanpa_pemohon"
-                            class="ui search dropdown fluid filter_early_warning_berkas_tanpa_pemohon"
-                            onchange="if(chartF !== null) {chartF.destroy();} this.options[this.selectedIndex].value && getFilterRenderGrafikEarlyWarningBidangTanpaPemohon(this.options[this.selectedIndex].value);">
-                        {% if results_distinct_desa|length > 0 %}
-                            {% for result in results_distinct_desa %}
-                                <option value="{{ result.desa_kelurahan }}">{{ result.desa_kelurahan }}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-            </div>
+            <span class="ui orange label">Daftar Tunggakan Diterima Dimuka Tahun 2021 s.d Sekarang</span>
+            <canvas id="e" style="max-height: 400px; height: 400px;"></canvas>
         </div>
     </div>
-</div>
-<div class="ui basic segment">
-    <h1 class="ui huge dividing header">Nominatif Pencairan
-        <div class="sub header">S.d. {{ get_current_date(False) }}</div>
-    </h1>
-    <div class="ui four column grid stackable">
-        <div class="column">
-            <div class="ui fluid raised card">
-                <div class="content">
-                    <div class="ui right floated header grey">
-                        <i class="icon check circle outline"></i>
-                    </div>
-                    <div class="ui grey header">
-                        {{ result_nominatif_pencairan_pengumpulan_data.total }}
-                    </div>
-                    <div class="meta">
-                        Bidang
-                    </div>
-                    <div class="description">
-                        <b>Pengumpulan Data Yuridis</b>
-                    </div>
-                    <div class="ui hidden fitted divider"></div>
-                    <div class="description">
-                        <div class="ui icon fluid grey small labeled button" onclick="callNominatifPencairanPuldadis()">
-                            <i
-                                    class="eye icon"></i> Lihat Data
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui fluid raised card">
-                <div class="content">
-                    <div class="ui right floated header grey">
-                        <i class="icon check circle outline"></i>
-                    </div>
-                    <div class="ui grey header">
-                        {{ result_nominatif_pencairan_pemeriksaan_tanah.total }}
-                    </div>
-                    <div class="meta">
-                        Bidang
-                    </div>
-                    <div class="description">
-                        <b>Pemeriksaan Tanah</b>
-                    </div>
-                    <div class="ui hidden fitted divider"></div>
-                    <div class="description">
-                        <div class="ui icon fluid grey small labeled button"
-                             onclick="callNominatifPencairanPemeriksaanTanah()"><i
-                                class="eye icon"></i> Lihat Data
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="ui fluid raised card">
-                <div class="content">
-                    <div class="ui right floated header grey">
-                        <i class="icon check circle outline"></i>
-                    </div>
-                    <div class="ui grey header">
-                        {{ result_nominatif_pencairan_pengesahan_dan_di310.total }}
-                    </div>
-                    <div class="meta">
-                        Bidang
-                    </div>
-                    <div class="description">
-                        <b>Pengesahan dan DI310</b>
-                    </div>
-                    <div class="ui hidden fitted divider"></div>
-                    <div class="description">
-                        <div class="ui icon fluid grey small labeled button"
-                             onclick="callNominatifPencairanPengesahanDanDI310()"><i
-                                class="eye icon"></i> Lihat Data
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="ui fluid raised card">
-                <div class="content">
-                    <div class="ui right floated header grey">
-                        <i class="icon check circle outline"></i>
-                    </div>
-                    <div class="ui grey header">
-                        {{ result_nominatif_pencairan_penerbitan_sertipikat.total }}
-                    </div>
-                    <div class="meta">
-                        Bidang
-                    </div>
-                    <div class="description">
-                        <b>Penerbitan Sertipikat</b>
-                    </div>
-                    <div class="ui hidden fitted divider"></div>
-                    <div class="description">
-                        <div class="ui icon fluid grey small labeled button"
-                             onclick="callNominatifPenerbitanSertipikat()"><i
-                                class="eye icon"></i> Lihat Data
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="center aligned row">
+        <div class="eight wide mobile eight wide tablet eight wide computer column">
+            <span class="ui orange label">Jenis Permohonan s.d. {{ get_current_date(False) }}</span>
+            <canvas id="a" style="max-height: 400px; height: 400px;"></canvas>
         </div>
     </div>
+    <div class="row">
+        <h2 class="ui huge dividing header"> Residu PTSL</h2>
+        <div id="view_data_residu_ptsl" style="width: 100%"></div>
+    </div>
 </div>
-
 <script>
+    var chartC;
+
+    function getFilterRenderGrafikTunggakanBerdasarkanLayanan(query) {
+        $.getJSON("{{ url_for('tunggakan_berkas_pnbp_per_layanan', random=random) }}?q=" + query, function (data) {
+            var layanan = [];
+            var jumlah_berkas = [];
+            var sesuai_durasi = [];
+            var hampir_jatuh_tempo = [];
+            var sudah_jatuh_tempo = [];
+            var created_at = [];
+
+            $.each(data, function (key, val) {
+                layanan.push(val['layanan']);
+                jumlah_berkas.push(val['jumlah_berkas']);
+                sesuai_durasi.push(val['sesuai_durasi']);
+                hampir_jatuh_tempo.push(val['hampir_jatuh_tempo']);
+                sudah_jatuh_tempo.push(val['sudah_jatuh_tempo']);
+                created_at.push(val['created_at']);
+            });
+
+            const config = {
+                    type: 'line',
+                    data: {
+                        labels: created_at,
+                        datasets: [{
+                            label: 'Jumlah Berkas',
+                            backgroundColor: 'rgb(150, 199, 232)',
+                            borderColor: 'rgb(67, 155, 214)',
+                            data: jumlah_berkas
+                        }, {
+                            label: 'Sesuai Durasi',
+                            backgroundColor: 'rgb(150, 199, 232)',
+                            borderColor: 'rgb(35, 203, 167)',
+                            data: sesuai_durasi
+                        }, {
+                            label: 'Hampir Jatuh Tempo',
+                            backgroundColor: 'rgb(244, 179, 80)',
+                            borderColor: 'rgb(230, 126, 34)',
+                            data: hampir_jatuh_tempo
+                        }, {
+                            label: 'Sudah Jatuh Tempo',
+                            backgroundColor: 'rgb(226, 106, 106)',
+                            borderColor: 'rgb(192, 57, 43)',
+                            data: sudah_jatuh_tempo
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animations: {
+                            radius: {
+                                duration: 400,
+                                easing: 'linear',
+                                loop: (context) => context.active
+                            }
+                        },
+                        hoverRadius: 12,
+                        hoverBackgroundColor: 'black',
+                        interaction: {
+                            mode: 'nearest',
+                            intersect: false,
+                            axis: 'x'
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Tanggal'
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Jumlah Permohonan'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    beginAtZero: true,
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 12,
+                                        family: "Baloo Tamma 2, cursive"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ;
+            chartC = new Chart(
+                document.getElementById('c'),
+                config
+            );
+        });
+    }
+
     var chartB;
 
     function getFilterRenderGrafikTunggakanBerdasarkanJabatan(query) {
-        $.getJSON("{{ url_for('tunggakan_berkas_pnbp', random=random) }}?q=" + query, function (data) {
+        $.getJSON("{{ url_for('tunggakan_berkas_pnbp_per_jabatan', random=random) }}?q=" + query, function (data) {
             var jabatan = [];
             var jumlah_berkas = [];
             var sesuai_durasi = [];
@@ -385,409 +344,31 @@
         });
     }
 
-    var chartC;
-
-    function getFilterRenderGrafikEarlyWarningBerkasTanpaBidangTanah(query) {
-        $.getJSON("{{ url_for('early_warning_berkas_tanpa_bidang_tanah', random=random) }}?q=" + query, function (data) {
-            var desa = [];
-            var kecamatan = [];
-            var jumlah = [];
-            var created_at = [];
-
-            $.each(data, function (key, val) {
-                desa.push(val['desa']);
-                kecamatan.push(val['kecamatan']);
-                jumlah.push(val['jumlah']);
-                created_at.push(val['created_at']);
-            });
-
-            const config = {
-                    type: 'line',
-                    data: {
-                        labels: created_at,
-                        datasets: [{
-                            label: 'Jumlah Bidang',
-                            backgroundColor: 'rgb(150, 199, 232)',
-                            borderColor: 'rgb(67, 155, 214)',
-                            data: jumlah
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        animations: {
-                            radius: {
-                                duration: 400,
-                                easing: 'linear',
-                                loop: (context) => context.active
-                            }
-                        },
-                        hoverRadius: 12,
-                        hoverBackgroundColor: 'black',
-                        interaction: {
-                            mode: 'nearest',
-                            intersect: false,
-                            axis: 'x'
-                        },
-                        responsive: true,
-                        scales: {
-                            x: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Tanggal'
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            },
-                            y: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Jumlah Bidang'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    beginAtZero: true,
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 12,
-                                        family: "Baloo Tamma 2, cursive"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            ;
-            chartC = new Chart(
-                document.getElementById('c'),
-                config
-            );
-        });
-    }
-
-    var chartD;
-
-    function getFilterRenderGrafikEarlyWarningBidangTanahTanpaDataYuridis(query) {
-        $.getJSON("{{ url_for('early_warning_bidang_tanah_tanpa_data_yuridis_kantah', random=random) }}?q=" + query, function (data) {
-            var desa = [];
-            var kecamatan = [];
-            var jumlah = [];
-            var created_at = [];
-
-            $.each(data, function (key, val) {
-                desa.push(val['desa']);
-                kecamatan.push(val['kecamatan']);
-                jumlah.push(val['jumlah']);
-                created_at.push(val['created_at']);
-            });
-
-            const config = {
-                    type: 'line',
-                    data: {
-                        labels: created_at,
-                        datasets: [{
-                            label: 'Jumlah Bidang',
-                            backgroundColor: 'rgb(150, 199, 232)',
-                            borderColor: 'rgb(67, 155, 214)',
-                            data: jumlah
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        animations: {
-                            radius: {
-                                duration: 400,
-                                easing: 'linear',
-                                loop: (context) => context.active
-                            }
-                        },
-                        hoverRadius: 12,
-                        hoverBackgroundColor: 'black',
-                        interaction: {
-                            mode: 'nearest',
-                            intersect: false,
-                            axis: 'x'
-                        },
-                        responsive: true,
-                        scales: {
-                            x: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Tanggal'
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            },
-                            y: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Jumlah Bidang'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    beginAtZero: true,
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 12,
-                                        family: "Baloo Tamma 2, cursive"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            ;
-            chartD = new Chart(
-                document.getElementById('d'),
-                config
-            );
-        });
-    }
-
-    var chartE;
-
-    function getFilterRenderGrafikEarlyWarningPengumumanKadaluwarsaKantorPertanahan(query) {
-        $.getJSON("{{ url_for('early_warning_pengumuman_kadaluwarsa_kantor_pertanahan', random=random) }}?q=" + query, function (data) {
-            var desa = [];
-            var kecamatan = [];
-            var jumlah = [];
-            var created_at = [];
-
-            $.each(data, function (key, val) {
-                desa.push(val['desa']);
-                kecamatan.push(val['kecamatan']);
-                jumlah.push(val['jumlah']);
-                created_at.push(val['created_at']);
-            });
-
-            const config = {
-                    type: 'line',
-                    data: {
-                        labels: created_at,
-                        datasets: [{
-                            label: 'Jumlah Bidang',
-                            backgroundColor: 'rgb(150, 199, 232)',
-                            borderColor: 'rgb(67, 155, 214)',
-                            data: jumlah
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        animations: {
-                            radius: {
-                                duration: 400,
-                                easing: 'linear',
-                                loop: (context) => context.active
-                            }
-                        },
-                        hoverRadius: 12,
-                        hoverBackgroundColor: 'black',
-                        interaction: {
-                            mode: 'nearest',
-                            intersect: false,
-                            axis: 'x'
-                        },
-                        responsive: true,
-                        scales: {
-                            x: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Tanggal'
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            },
-                            y: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Jumlah Bidang'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    beginAtZero: true,
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 12,
-                                        family: "Baloo Tamma 2, cursive"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            ;
-            chartE = new Chart(
-                document.getElementById('e'),
-                config
-            );
-        });
-    }
-
-    var chartF;
-
-    function getFilterRenderGrafikEarlyWarningBidangTanpaPemohon(query) {
-        $.getJSON("{{ url_for('early_warning_berkas_tanpa_pemohon', random=random) }}?q=" + query, function (data) {
-            var desa = [];
-            var kecamatan = [];
-            var jumlah = [];
-            var created_at = [];
-
-            $.each(data, function (key, val) {
-                desa.push(val['desa']);
-                kecamatan.push(val['kecamatan']);
-                jumlah.push(val['jumlah']);
-                created_at.push(val['created_at']);
-            });
-
-            const config = {
-                    type: 'line',
-                    data: {
-                        labels: created_at,
-                        datasets: [{
-                            label: 'Jumlah Bidang',
-                            backgroundColor: 'rgb(150, 199, 232)',
-                            borderColor: 'rgb(67, 155, 214)',
-                            data: jumlah
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        animations: {
-                            radius: {
-                                duration: 400,
-                                easing: 'linear',
-                                loop: (context) => context.active
-                            }
-                        },
-                        hoverRadius: 12,
-                        hoverBackgroundColor: 'black',
-                        interaction: {
-                            mode: 'nearest',
-                            intersect: false,
-                            axis: 'x'
-                        },
-                        responsive: true,
-                        scales: {
-                            x: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Tanggal'
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            },
-                            y: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Jumlah Bidang'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    beginAtZero: true,
-                                },
-                                font: {
-                                    family: 'Baloo Tamma 2, cursive',
-                                    size: 4,
-                                    style: 'normal',
-                                    lineHeight: 1.2
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 12,
-                                        family: "Baloo Tamma 2, cursive"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            ;
-            chartF = new Chart(
-                document.getElementById('f'),
-                config
-            );
-        });
-    }
-
     $(document).ready(function () {
+
+        $.ajax({
+            url: "{{ url_for('total_residu_ptsl', random=random) }}",
+            type: "GET",
+            cache: false,
+            beforeSend: function () {
+                $("#view_data_residu_ptsl").html("<div class=\"ui basic segment\" style='margin:1px auto;' \n" +
+                    "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
+                    "    <div class=\"ui text tiny centered inline loader\">Loading...</div>\n" +
+                    "  </div>\n" +
+                    "  <p></p>\n" +
+                    "</div>");
+            },
+            success: function (data) {
+                $("#view_data_residu_ptsl").empty();
+                $("#view_data_residu_ptsl").html(data);
+            }
+        });
 
         $(".ui.dropdown.filter_tunggakan_berdasarkan_jabatan")
             .dropdown()
         ;
 
-        $(".ui.dropdown.filter_early_warning_berkas_tanpa_bidang_tanah_berdasarkan_desa")
-            .dropdown()
-        ;
-
-        $(".ui.dropdown.filter_early_warning_bidang_tanah_tanpa_data_yuridis")
-            .dropdown()
-        ;
-
-        $(".ui.dropdown.filter_early_warning_pengumuman_kadaluwarsa_kantor_pertanahan")
-            .dropdown()
-        ;
-
-        $(".ui.dropdown.filter_early_warning_berkas_tanpa_pemohon")
+        $(".ui.dropdown.filter_tunggakan_berdasarkan_layanan")
             .dropdown()
         ;
 
@@ -879,11 +460,183 @@
             );
         });
 
-        getFilterRenderGrafikTunggakanBerdasarkanJabatan('Kepala Kantor Pertanahan');
-        getFilterRenderGrafikEarlyWarningBerkasTanpaBidangTanah('Campor');
-        getFilterRenderGrafikEarlyWarningBidangTanahTanpaDataYuridis('Campor');
-        getFilterRenderGrafikEarlyWarningPengumumanKadaluwarsaKantorPertanahan('Campor');
-        getFilterRenderGrafikEarlyWarningBidangTanpaPemohon('Campor');
+        $.getJSON("{{ url_for('tunggakan_penerimaan_dimuka_per_tahun', random=random) }}", function (data) {
+            var labels = [];
+            var data_ = [];
 
+            $.each(data, function (key, val) {
+                labels.push(val['tahun']);
+                data_.push(val['jumlah_tunggakan']);
+            });
+
+            const config = {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Tunggakan',
+                            backgroundColor: 'rgb(150, 199, 232)',
+                            borderColor: 'rgb(67, 155, 214)',
+                            data: data_
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animations: {
+                            radius: {
+                                duration: 400,
+                                easing: 'linear',
+                                loop: (context) => context.active
+                            }
+                        },
+                        hoverRadius: 12,
+                        hoverBackgroundColor: 'black',
+                        interaction: {
+                            mode: 'nearest',
+                            intersect: false,
+                            axis: 'x'
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Tahun'
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Jumlah Tunggakan'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    beginAtZero: true,
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 12,
+                                        family: "Baloo Tamma 2, cursive"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ;
+            var chartD = new Chart(
+                document.getElementById('d'),
+                config
+            );
+        });
+
+        $.getJSON("{{ url_for('tunggakan_penerimaan_dimuka_per_bulan', random=random) }}", function (data) {
+            var labels = [];
+            var data_ = [];
+
+            $.each(data, function (key, val) {
+                labels.push(val['bulan'] + ' ' + val['tahun']);
+                data_.push(val['jumlah_tunggakan']);
+            });
+
+            const config = {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Tunggakan',
+                            backgroundColor: 'rgb(150, 199, 232)',
+                            borderColor: 'rgb(67, 155, 214)',
+                            data: data_
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animations: {
+                            radius: {
+                                duration: 400,
+                                easing: 'linear',
+                                loop: (context) => context.active
+                            }
+                        },
+                        hoverRadius: 12,
+                        hoverBackgroundColor: 'black',
+                        interaction: {
+                            mode: 'nearest',
+                            intersect: false,
+                            axis: 'x'
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Bulan Tahun'
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Jumlah Tunggakan'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    beginAtZero: true,
+                                },
+                                font: {
+                                    family: 'Baloo Tamma 2, cursive',
+                                    size: 4,
+                                    style: 'normal',
+                                    lineHeight: 1.2
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 12,
+                                        family: "Baloo Tamma 2, cursive"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ;
+            var chartE = new Chart(
+                document.getElementById('e'),
+                config
+            );
+        });
+
+        getFilterRenderGrafikTunggakanBerdasarkanJabatan('Kepala Kantor Pertanahan');
+        getFilterRenderGrafikTunggakanBerdasarkanLayanan('Blokir')
     });
 </script>

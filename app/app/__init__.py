@@ -449,38 +449,19 @@ def view_dashboard(random):
         with conn.cursor() as cur:
             cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
 
-            sql_tunggakan_berkas_pnbp = "SELECT DISTINCT (jabatan) AS jabatan FROM tb_daftar_tunggakan_berkas_pnbp ORDER BY jabatan ASC;"
+            sql_tunggakan_berkas_pnbp = "SELECT DISTINCT (jabatan) AS jabatan FROM tb_daftar_tunggakan_berkas_pnbp_per_jabatan ORDER BY jabatan ASC;"
             cur.execute(sql_tunggakan_berkas_pnbp)
             results_distinct_jabatan = cur.fetchall()
 
-            sql = "SELECT DISTINCT (desa_kelurahan) as desa_kelurahan FROM `tb_progres_ptsl_kantah` WHERE desa_kelurahan != 'Total'"
-            cur.execute(sql)
-            results_distinct_desa = cur.fetchall()
+            sql_tunggakan_berkas_pnbp = "SELECT DISTINCT (layanan) AS layanan FROM tb_daftar_tunggakan_berkas_pnbp_per_layanan ORDER BY layanan ASC;"
+            cur.execute(sql_tunggakan_berkas_pnbp)
+            results_distinct_layanan = cur.fetchall()
 
-            sql_nominatif_pencairan_pengumpulan_data = "SELECT COUNT(*) AS total FROM `tb_daftar_nominatif_pencairan_pengumpulan_data` "
-            cur.execute(sql_nominatif_pencairan_pengumpulan_data)
-            result_nominatif_pencairan_pengumpulan_data = cur.fetchone()
-
-            sql_nominatif_pencairan_pemeriksaan_tanah = "SELECT COUNT(*) AS total FROM `tb_daftar_nominatif_pencairan_pemeriksaan_tanah` "
-            cur.execute(sql_nominatif_pencairan_pemeriksaan_tanah)
-            result_nominatif_pencairan_pemeriksaan_tanah = cur.fetchone()
-
-            sql_nominatif_pencairan_pengesahan_dan_di310 = "SELECT COUNT(*) AS total FROM `tb_daftar_nominatif_pencairan_pengesahan_dan_di310` "
-            cur.execute(sql_nominatif_pencairan_pengesahan_dan_di310)
-            result_nominatif_pencairan_pengesahan_dan_di310 = cur.fetchone()
-
-            sql_nominatif_pencairan_penerbitan_sertipikat = "SELECT COUNT(*) AS total FROM `tb_daftar_nominatif_pencairan_penerbitan_sertipikat` "
-            cur.execute(sql_nominatif_pencairan_penerbitan_sertipikat)
-            result_nominatif_pencairan_penerbitan_sertipikat = cur.fetchone()
-
+            
     finally:
         conn.close()
     return render_template(template, random=random, results_distinct_jabatan=results_distinct_jabatan,
-                           results_distinct_desa=results_distinct_desa,
-                           result_nominatif_pencairan_pengumpulan_data=result_nominatif_pencairan_pengumpulan_data,
-                           result_nominatif_pencairan_pemeriksaan_tanah=result_nominatif_pencairan_pemeriksaan_tanah,
-                           result_nominatif_pencairan_pengesahan_dan_di310=result_nominatif_pencairan_pengesahan_dan_di310,
-                           result_nominatif_pencairan_penerbitan_sertipikat=result_nominatif_pencairan_penerbitan_sertipikat
+                           results_distinct_layanan=results_distinct_layanan
                            )
     # return str(results_total_berkas_pnbp)
 
