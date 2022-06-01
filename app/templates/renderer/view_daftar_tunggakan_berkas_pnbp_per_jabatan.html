@@ -1,0 +1,56 @@
+<div class="ui horizontal divider"><h3 class="ui huge header">Daftar Tunggakan Berkas PNBP Per Jabatan {% if results|length > 0 %} ({{ results|length }} data) {% endif %}</h3></div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
+    <table class="ui celled compact definition selectable striped padded small table">
+        <thead>
+        <tr>
+            <th class="center aligned">Jabatan</th>
+            <th class="center aligned">Jumlah Berkas</th>
+            <th class="center aligned">Jumlah Berkas<br />Sesuai Durasi</th>
+            <th class="center aligned">Jumlah Berkas<br />Hampir Jatuh Tempo</th>
+            <th class="center aligned">Jumlah Berkas<br />Sudah Jatuh Tempo</th>
+            <th class="center aligned">Diambil<br />Tanggal</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if results|length > 0 %}
+            {% for result in results %}
+                <tr>
+                    <td> {{ result.jabatan }}</td>
+                    <td class="center aligned"> {{ result.jumlah_berkas }} </td>
+                    <td class="center aligned"> {{ result.sesuai_durasi }} </td>
+                    <td class="center aligned"> {{ result.hampir_jatuh_tempo }} </td>
+                    <td class="center aligned"> {{ result.sudah_jatuh_tempo }} </td>
+                    <td class="center aligned"> {{ result.created_at }} </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="6" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+    position: absolute;
+    top:70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)">
+                        <p>Tidak ada Tunggakan Berkas PNBP</p>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
