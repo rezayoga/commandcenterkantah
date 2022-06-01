@@ -1322,7 +1322,7 @@ def view_progres_anggaran_ptsl_search(random):
 @login_required
 @app.route('/view_pnbp.<string:random>', methods=['GET'])
 def view_pnbp(random):
-        try:
+    try:
         f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
     except:
         session.pop('USER', None)
@@ -1364,8 +1364,8 @@ def view_pnbp(random):
     finally:
         conn.close()
     return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
-                           results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
-                           result_pnbp_seksi_2=result_pnbp_seksi_2)
+                        results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
+                        result_pnbp_seksi_2=result_pnbp_seksi_2)
     
     
 @login_required
