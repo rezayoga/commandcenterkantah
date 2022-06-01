@@ -1329,7 +1329,7 @@ def view_pnbp(random):
         session.clear()
         flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
         return redirect(url_for('index', random=encrypted_string))
-    template = '/renderer/pnbp.html'
+    template = '/renderer/view_pnbp.html'
 
     conn = pymysql.connect(**db_config)
     results_total_potensi_pencairan = None
