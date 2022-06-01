@@ -71,7 +71,17 @@ web_menu = {
     "MENU_PEGAWAI": f.encrypt(bytes('PEGAWAI', encoding='utf8')).decode("utf-8"),
     "MENU_TIM_PTSL": f.encrypt(bytes('TIM_PTSL', encoding='utf8')).decode("utf-8"),
     "MENU_BERKAS_PNBP": f.encrypt(bytes('BERKAS_PNBP', encoding='utf8')).decode("utf-8"),
-    "MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP": f.encrypt(bytes('DAFTAR_TUNGGAKAN_BERKAS_PNBP', encoding='utf8')).decode(
+    "MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_JABATAN": f.encrypt(
+        bytes('DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_JABATAN', encoding='utf8')).decode(
+        "utf-8"),
+    "MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_LAYANAN": f.encrypt(
+        bytes('DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_LAYANAN', encoding='utf8')).decode(
+        "utf-8"),
+    "MENU_DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_TAHUN": f.encrypt(
+        bytes('DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_TAHUN', encoding='utf8')).decode(
+        "utf-8"),
+    "MENU_DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_BULAN": f.encrypt(
+        bytes('DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_BULAN', encoding='utf8')).decode(
         "utf-8"),
     "MENU_PROGRES_PTSL_KANTAH": f.encrypt(bytes('PROGRES_PTSL_KANTAH', encoding='utf8')).decode(
         "utf-8"),
@@ -79,20 +89,11 @@ web_menu = {
         "utf-8"),
     "MENU_BERKAS_TANPA_DATA_YURIDIS": f.encrypt(bytes('BERKAS_TANPA_DATA_YURIDIS', encoding='utf8')).decode(
         "utf-8"),
+    "MENU_BERKAS_TANPA_PEMOHON": f.encrypt(bytes('BERKAS_TANPA_PEMOHON', encoding='utf8')).decode(
+        "utf-8"),
     "MENU_PENGUMUMAN_KADALUWARSA": f.encrypt(bytes('PENGUMUMAN_KADALUWARSA', encoding='utf8')).decode(
         "utf-8"),
     "MENU_PROGRES_ANGGARAN_PTSL": f.encrypt(bytes('PROGRES_ANGGARAN_PTSL', encoding='utf8')).decode(
-        "utf-8"),
-    "MENU_NOMINATIF_PENCAIRAN_PULDADIS": f.encrypt(bytes('NOMINATIF_PENCAIRAN_PULDADIS', encoding='utf8')).decode(
-        "utf-8"),
-    "MENU_NOMINATIF_PENCAIRAN_PEMERIKSAAN_TANAH": f.encrypt(
-        bytes('NOMINATIF_PENCAIRAN_PEMERIKSAAN_TANAH', encoding='utf8')).decode(
-        "utf-8"),
-    "MENU_NOMINATIF_PENCAIRAN_PENGESAHAN_DAN_DI310": f.encrypt(
-        bytes('NOMINATIF_PENCAIRAN_PENGESAHAN_DAN_DI310', encoding='utf8')).decode(
-        "utf-8"),
-    "MENU_NOMINATIF_PENCAIRAN_PENERBITAN_SERTIPIKAT": f.encrypt(
-        bytes('NOMINATIF_PENCAIRAN_PENERBITAN_SERTIPIKAT', encoding='utf8')).decode(
         "utf-8")
 }
 
@@ -281,8 +282,8 @@ def total_berkas_pnbp(random):
 
 
 @login_required
-@app.route('/tunggakan_berkas_pnbp.<string:random>.json', methods=['GET'])
-def tunggakan_berkas_pnbp(random):
+@app.route('/tunggakan_berkas_pnbp_per_jabatan.<string:random>.json', methods=['GET'])
+def tunggakan_berkas_pnbp_per_jabatan(random):
     try:
         f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
     except:
@@ -298,7 +299,7 @@ def tunggakan_berkas_pnbp(random):
     try:
         with conn.cursor() as cur:
             # cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
-            sql = "SELECT * FROM tb_daftar_tunggakan_berkas_pnbp WHERE jabatan = '{}' ORDER BY created_at ASC;".format(
+            sql = "SELECT * FROM tb_daftar_tunggakan_berkas_pnbp_per_jabatan WHERE jabatan = '{}' ORDER BY created_at ASC;".format(
                 q)
             # print(sql_tunggakan_berkas_pnbp)
             cur.execute(sql)
@@ -309,6 +310,103 @@ def tunggakan_berkas_pnbp(random):
     r = make_response(jsonify(results))
     r.mimetype = 'application/json'
     return r
+
+
+@login_required
+@app.route('/tunggakan_berkas_pnbp_per_layanan.<string:random>.json', methods=['GET'])
+def tunggakan_berkas_pnbp_per_layanan(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    q = request.args.get('q') or None
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            # cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+            sql = "SELECT * FROM tb_daftar_tunggakan_berkas_pnbp_per_layanan WHERE layanan = '{}' ORDER BY created_at ASC;".format(
+                q)
+            # print(sql_tunggakan_berkas_pnbp)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+
+    r = make_response(jsonify(results))
+    r.mimetype = 'application/json'
+    return r
+
+
+@login_required
+@app.route('/tunggakan_penerimaan_dimuka_per_tahun.<string:random>.json', methods=['GET'])
+def tunggakan_penerimaan_dimuka_per_tahun(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            # cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+            sql = """SELECT * FROM `tb_tunggakan_penerimaan_dimuka_tahunan` WHERE created_at LIKE '%{}%' AND created_at = (
+                SELECT MAX(created_at)
+                FROM `tb_tunggakan_penerimaan_dimuka_tahunan` AS b
+                WHERE 1
+            )""".format(datetime.date.today())
+            # print(sql_tunggakan_berkas_pnbp)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+
+    r = make_response(jsonify(results))
+    r.mimetype = 'application/json'
+    return r
+
+
+@login_required
+@app.route('/tunggakan_penerimaan_dimuka_per_bulan.<string:random>.json', methods=['GET'])
+def tunggakan_penerimaan_dimuka_per_bulan(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            # cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+            sql = """SELECT * FROM `tb_tunggakan_penerimaan_dimuka_bulanan` WHERE created_at LIKE '%{}%' AND created_at = (
+    SELECT MAX(created_at)
+    FROM `tb_tunggakan_penerimaan_dimuka_bulanan` AS b
+    WHERE 1
+) GROUP BY jumlah_tunggakan, nilai_tunggakan""".format(
+                datetime.date.today())
+            # print(sql_tunggakan_berkas_pnbp)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+
+    r = make_response(jsonify(results))
+    r.mimetype = 'application/json'
+    return r
+
 
 
 @login_required
@@ -1069,318 +1167,6 @@ def view_progres_anggaran_ptsl_search(random):
 
 
 @login_required
-@app.route('/view_nominatif_pencairan_puldadis.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_puldadis(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_puldadis.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengumpulan_data` WHERE created_at LIKE '%{}%' ".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_limited = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengumpulan_data` WHERE created_at LIKE '%{}%' LIMIT 500".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql_limited)
-            results_limited = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-FROM tb_daftar_nominatif_pencairan_pengumpulan_data 
-GROUP BY nama_desa 
-ORDER BY nama_desa DESC"""
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa, results_limited=results_limited)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_puldadis_search.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_puldadis_search(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_puldadis.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            '''
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengumpulan_data` WHERE created_at LIKE '%{}%' ".format(
-                datetime.date.today())
-            '''
-            # print(sql)
-            search = request.args.get('q') or None
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengumpulan_data` WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'".format(
-                search, search, search, search)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-FROM tb_daftar_nominatif_pencairan_pengumpulan_data WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'
-GROUP BY nama_desa 
-ORDER BY nama_desa DESC""".format(
-                search, search, search, search)
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_pemeriksaan_tanah.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_pemeriksaan_tanah(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_pemeriksaan_tanah.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pemeriksaan_tanah` WHERE created_at LIKE '%{}%' ".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_limited = "SELECT * FROM `tb_daftar_nominatif_pencairan_pemeriksaan_tanah` WHERE created_at LIKE '%{}%' LIMIT 500".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql_limited)
-            results_limited = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-            FROM tb_daftar_nominatif_pencairan_pemeriksaan_tanah 
-            GROUP BY nama_desa 
-            ORDER BY nama_desa DESC"""
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa, results_limited=results_limited)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_pemeriksaan_tanah_search.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_pemeriksaan_tanah_search(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_pemeriksaan_tanah.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            search = request.args.get('q') or None
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pemeriksaan_tanah` WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'".format(
-                search, search, search, search)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-            FROM tb_daftar_nominatif_pencairan_pemeriksaan_tanah WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'
-            GROUP BY nama_desa 
-            ORDER BY nama_desa DESC""".format(
-                search, search, search, search)
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_pengesahan_dan_di310.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_pengesahan_dan_di310(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_pengesahan_dan_di310.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengesahan_dan_di310` WHERE created_at LIKE '%{}%' ".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_limited = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengesahan_dan_di310` WHERE created_at LIKE '%{}%' LIMIT 500".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql_limited)
-            results_limited = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-                        FROM tb_daftar_nominatif_pencairan_pengesahan_dan_di310 
-                        GROUP BY nama_desa 
-                        ORDER BY nama_desa DESC"""
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa, results_limited=results_limited)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_pengesahan_dan_di310_search.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_pengesahan_dan_di310_search(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_pengesahan_dan_di310.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            search = request.args.get('q') or None
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_pengesahan_dan_di310` WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'".format(
-                search, search, search, search)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-                        FROM tb_daftar_nominatif_pencairan_pengesahan_dan_di310 WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'
-                        GROUP BY nama_desa 
-                        ORDER BY nama_desa DESC""".format(
-                search, search, search, search)
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_penerbitan_sertipikat.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_penerbitan_sertipikat(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_penerbitan_sertipikat.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_penerbitan_sertipikat` WHERE created_at LIKE '%{}%' ".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_limited = "SELECT * FROM `tb_daftar_nominatif_pencairan_penerbitan_sertipikat` WHERE created_at LIKE '%{}%' LIMIT 500".format(
-                datetime.date.today())
-            # print(sql)
-            cur.execute(sql_limited)
-            results_limited = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-                                    FROM tb_daftar_nominatif_pencairan_penerbitan_sertipikat 
-                                    GROUP BY nama_desa 
-                                    ORDER BY nama_desa DESC"""
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa, results_limited=results_limited)
-
-
-@login_required
-@app.route('/view_nominatif_pencairan_penerbitan_sertipikat_search.<string:random>', methods=['GET'])
-def view_nominatif_pencairan_penerbitan_sertipikat_search(random):
-    try:
-        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
-    except:
-        session.pop('USER', None)
-        session.clear()
-        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
-        return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_nominatif_pencairan_penerbitan_sertipikat.html'
-
-    conn = pymysql.connect(**db_config)
-    results = None
-    try:
-        with conn.cursor() as cur:
-            search = request.args.get('q') or None
-            sql = "SELECT * FROM `tb_daftar_nominatif_pencairan_penerbitan_sertipikat` WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'".format(
-                search, search, search, search)
-            cur.execute(sql)
-            results = cur.fetchall()
-
-            sql_stat_per_desa = """SELECT nama_desa,COUNT(*) as count 
-                                    FROM tb_daftar_nominatif_pencairan_penerbitan_sertipikat WHERE nomor_berkas LIKE '%{}%' OR nama_desa LIKE '%{}%' OR nib LIKE '%{}%' OR created_at LIKE '%{}%'
-                                    GROUP BY nama_desa 
-                                    ORDER BY nama_desa DESC""".format(
-                search, search, search, search)
-            cur.execute(sql_stat_per_desa)
-            results_stat_per_desa = cur.fetchall()
-    finally:
-        conn.close()
-    return render_template(template, random=random, results=results, web_menu=web_menu,
-                           results_stat_per_desa=results_stat_per_desa)
-
-
 @app.route('/view_get_tim_detail_by_desa.<string:random>.<string:desa>', methods=['GET'])
 def view_get_tim_detail_by_desa(random, desa):
     try:
