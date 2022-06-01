@@ -246,9 +246,9 @@
     </script>
 
     <script type="text/javascript">
-        function callDaftarTunggakanBerkasPNBP() {
+        function callDaftarTunggakanBerkasPNBPPerJabatan() {
             $.ajax({
-                url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp', random=random) }}",
+                url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp_per_jabatan', random=random) }}",
                 type: "GET",
                 cache: false,
                 beforeSend: function () {
@@ -269,7 +269,82 @@
             });
         }
     </script>
+    
+    <script type="text/javascript">
+        function callDaftarTunggakanBerkasPNBPPerLayanan() {
+            $.ajax({
+                url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp_per_layanan', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
 
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+    
+    <script type="text/javascript">
+        function callDaftarTunggakanPenerimaanDimukaPerTahun() {
+            $.ajax({
+                url: "{{ url_for('view_daftar_tunggakan_penerimaan_dimuka_per_tahun', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+    
+    <script type="text/javascript">
+        function callDaftarTunggakanPenerimaanDimukaPerBulan() {
+            $.ajax({
+                url: "{{ url_for('view_daftar_tunggakan_penerimaan_dimuka_per_bulan', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+    
     <script type="text/javascript">
         function callProgresPTSLKantah() {
             $.ajax({
@@ -442,8 +517,14 @@
         <body id="root" onload="callTimPTSL()">
     {% elif request.args.get('m') == web_menu['MENU_BERKAS_PNBP'] %}
         <body id="root" onload="callBerkasPNBP()">
-    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP'] %}
-        <body id="root" onload="callDaftarTunggakanBerkasPNBP()">
+    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_JABATAN'] %}
+        <body id="root" onload="callDaftarTunggakanBerkasPNBPPerJabatan()">
+    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_BERKAS_PNBP_PER_LAYANAN'] %}
+        <body id="root" onload="callDaftarTunggakanBerkasPNBPPerLayanan()">
+    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_TAHUN'] %}
+        <body id="root" onload="callDaftarTunggakanPenerimaanDimukaPerTahun()">
+    {% elif request.args.get('m') == web_menu['MENU_DAFTAR_TUNGGAKAN_PENERIMAAN_DIMUKA_PER_BULAN'] %}
+        <body id="root" onload="callDaftarTunggakanPenerimaanDimukaPerBulan()">
     {% elif request.args.get('m') == web_menu['MENU_PROGRES_PTSL_KANTAH'] %}
         <body id="root" onload="callProgresPTSLKantah()">
     {% elif request.args.get('m') == web_menu['MENU_BERKAS_TANPA_BIDANG_TANAH'] %}
@@ -521,7 +602,14 @@
                     class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" onclick="callBerkasPNBP()">Daftar Berkas PNBP</a>
-                    <a class="item" onclick="callDaftarTunggakanBerkasPNBP()">Daftar Tunggakan Berkas PNBP</a>
+                    <a class="item" onclick="callDaftarTunggakanBerkasPNBPPerJabatan()">Daftar Tunggakan Berkas PNBP Per
+                        Jabatan</a>
+                    <a class="item" onclick="callDaftarTunggakanBerkasPNBPPerLayanan()">Daftar Tunggakan Berkas PNBP Per
+                        Layanan</a>
+                    <a class="item" onclick="callDaftarTunggakanPenerimaanDimukaPerTahun()">Daftar Tunggakan Penerimaan
+                        Dimuka Tahun 2015 s.d 2020</a>
+                    <a class="item" onclick="callDaftarTunggakanPenerimaanDimukaPerBulan()">Daftar Tunggakan Penerimaan
+                        Dimuka Tahun 2021 s.d Sekarang</a>
                 </div>
             </div>
             <div class="ui dropdown item">
@@ -574,7 +662,14 @@
             <a class="item" onclick="callTimPTSL()">Daftar Tim PTSL</a>
             <div class="ui divider"></div>
             <a class="item" onclick="callBerkasPNBP()">Daftar Berkas PNBP</a>
-            <a class="item" onclick="callDaftarTunggakanBerkasPNBP()">Daftar Tunggakan Berkas PNBP</a>
+            <a class="item" onclick="callDaftarTunggakanBerkasPNBPPerJabatan()">Daftar Tunggakan Berkas PNBP Per
+                Jabatan</a>
+            <a class="item" onclick="callDaftarTunggakanBerkasPNBPPerLayanan()">Daftar Tunggakan Berkas PNBP Per
+                Layanan</a>
+            <a class="item" onclick="callDaftarTunggakanPenerimaanDimukaPerTahun()">Daftar Tunggakan Penerimaan
+                Dimuka Tahun 2015 s.d 2020</a>
+            <a class="item" onclick="callDaftarTunggakanPenerimaanDimukaPerBulan()">Daftar Tunggakan Penerimaan
+                Dimuka Tahun 2021 s.d Sekarang</a>
             <div class="ui divider"></div>
             <a class="item" onclick="callProgresPTSLKantah()">Progres Fisik/Yuridis PTSL</a>
             <a class="item" onclick="callBerkasTanpaBidangTanah()">Berkas Tanpa Bidang Tanah</a>
