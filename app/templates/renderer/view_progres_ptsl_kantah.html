@@ -13,7 +13,7 @@
         {% for result in results %}
             function formTampilkanTimPTSL{{ result.id }}TriggerClick() {
                 $.ajax({
-                    url: "{{ url_for('view_get_tim_detail_by_desa', random=random, desa=result.desa_kelurahan) }}",
+                    url: "{{ url_for('view_get_tim_detail_by_desa', random=random, desa=result.lokasi_desa) }}",
                     type: "GET",
                     cache: false,
                     beforeSend: function () {
@@ -72,7 +72,7 @@
                 <tr>
                     <td class="two wide"><a class="ui grey tiny labeled icon fluid button"
                            onclick="formTampilkanTimPTSL{{ result.id }}TriggerClick()">
-                        <i class="users icon"></i> {{ result.desa_kelurahan }}
+                        <i class="users icon"></i> {{ result.lokasi_desa }}
                     </a></td>
                     <td class="center aligned"> {{ result.target_pbt }} </td>
                     <td class="center aligned"> {{ result.target_shat }} </td>
@@ -118,7 +118,7 @@
     {% for result in results %}
         <div class="ui toast" id="domtoast_timptsl_{{ result.id }}">
             <div class="content">
-                <div class="ui header">Desa {{ result.desa_kelurahan }}</div>
+                <div class="ui header">Desa {{ result.lokasi_desa }}</div>
                 <div id="view_data_inner_{{ result.id }}">OK</div>
             </div>
         </div>
