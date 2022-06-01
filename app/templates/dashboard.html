@@ -420,106 +420,6 @@
         }
     </script>
 
-    <script type="text/javascript">
-        function callNominatifPencairanPuldadis() {
-            $.ajax({
-                url: "{{ url_for('view_nominatif_pencairan_puldadis', random=random) }}",
-                type: "GET",
-                cache: false,
-                beforeSend: function () {
-                    $("#view_data").empty();
-                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
-                        "  <div class=\"ui active inverted dimmer\">\n" +
-                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                        "  </div>\n" +
-                        "  <p></p>\n" +
-                        "</div>");
-                    // $("#loader").appendTo("#view_data");
-
-                },
-                success: function (data) {
-                    $("#view_data").empty();
-                    $("#view_data").html(data);
-                }
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-        function callNominatifPencairanPemeriksaanTanah() {
-            $.ajax({
-                url: "{{ url_for('view_nominatif_pencairan_pemeriksaan_tanah', random=random) }}",
-                type: "GET",
-                cache: false,
-                beforeSend: function () {
-                    $("#view_data").empty();
-                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
-                        "  <div class=\"ui active inverted dimmer\">\n" +
-                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                        "  </div>\n" +
-                        "  <p></p>\n" +
-                        "</div>");
-                    // $("#loader").appendTo("#view_data");
-
-                },
-                success: function (data) {
-                    $("#view_data").empty();
-                    $("#view_data").html(data);
-                }
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-        function callNominatifPencairanPengesahanDanDI310() {
-            $.ajax({
-                url: "{{ url_for('view_nominatif_pencairan_pengesahan_dan_di310', random=random) }}",
-                type: "GET",
-                cache: false,
-                beforeSend: function () {
-                    $("#view_data").empty();
-                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
-                        "  <div class=\"ui active inverted dimmer\">\n" +
-                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                        "  </div>\n" +
-                        "  <p></p>\n" +
-                        "</div>");
-                    // $("#loader").appendTo("#view_data");
-
-                },
-                success: function (data) {
-                    $("#view_data").empty();
-                    $("#view_data").html(data);
-                }
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-        function callNominatifPenerbitanSertipikat() {
-            $.ajax({
-                url: "{{ url_for('view_nominatif_pencairan_penerbitan_sertipikat', random=random) }}",
-                type: "GET",
-                cache: false,
-                beforeSend: function () {
-                    $("#view_data").empty();
-                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
-                        "  <div class=\"ui active inverted dimmer\">\n" +
-                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                        "  </div>\n" +
-                        "  <p></p>\n" +
-                        "</div>");
-                    // $("#loader").appendTo("#view_data");
-
-                },
-                success: function (data) {
-                    $("#view_data").empty();
-                    $("#view_data").html(data);
-                }
-            });
-        }
-    </script>
-
     <script>
         function formUbahAkunTriggerClick() {
             $('.medium.modal.form_ubah_akun_saya')
@@ -554,14 +454,6 @@
         <body id="root" onload="callPengumumanKadaluwarsa()">
     {% elif request.args.get('m') == web_menu['MENU_PROGRES_ANGGARAN_PTSL'] %}
         <body id="root" onload="callProgresAnggaranPTSL()">
-    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PULDADIS'] %}
-        <body id="root" onload="callNominatifPencairanPuldadis()">
-    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PEMERIKSAAN_TANAH'] %}
-        <body id="root" onload="callNominatifPencairanPemeriksaanTanah()">
-    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PENGESAHAN_DAN_DI310'] %}
-        <body id="root" onload="callNominatifPencairanPengesahanDanDI310()">
-    {% elif request.args.get('m') == web_menu['MENU_NOMINATIF_PENCAIRAN_PENERBITAN_SERTIPIKAT'] %}
-        <body id="root" onload="callNominatifPenerbitanSertipikat()">
     {% else %}
         <body id="root" onload="callDashboard()">
     {% endif %}
@@ -648,13 +540,6 @@
                     class="dropdown icon"></i>
                 <div class="fixed menu">
                     <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
-                    <a class="item" onclick="callNominatifPencairanPuldadis()">Nominatif Pencairan PULDADIS</a>
-                    <a class="item" onclick="callNominatifPencairanPemeriksaanTanah()">Nominatif Pencairan Pemeriksaan
-                        Tanah</a>
-                    <a class="item" onclick="callNominatifPencairanPengesahanDanDI310()">Nominatif Pencairan Pengesahan
-                        dan DI310</a>
-                    <a class="item" onclick="callNominatifPenerbitanSertipikat()">Nominatif Pencairan Penerbitan
-                        Sertipikat</a>
                 </div>
             </div>
         </div>
@@ -698,11 +583,6 @@
             <a class="item" onclick="callBerkasTanpaPemohon()">Berkas Tanpa Pemohon</a>
             <div class="ui divider"></div>
             <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
-            <a class="item" onclick="callNominatifPencairanPuldadis()">Nominatif Pencairan PULDADIS</a>
-            <a class="item" onclick="callNominatifPencairanPemeriksaanTanah()">Nominatif Pencairan Pemeriksaan Tanah</a>
-            <a class="item" onclick="callNominatifPencairanPengesahanDanDI310()">Nominatif Pencairan Pengesahan dan
-                DI310</a>
-            <a class="item" onclick="callNominatifPenerbitanSertipikat()">Nominatif Pencairan Penerbitan Sertipikat</a>
         </div>
     </div>
 
@@ -721,22 +601,12 @@
                     <option value="-">- Berdasarkan -</option>
                     <option value="pegawai">Pegawai</option>
                     <option value="berkas_pnbp">Berkas PNBP</option>
-                    <option value="tunggakan_berkas_pnbp">Tunggakan Berkas PNBP</option>
                     <option value="progres_fisik_yuridis_ptsl">Progres Fisik/Yuridis PTSL</option>
                     <option value="berkas_tanpa_bidang_tanah">Berkas Tanpa Bidang Tanah</option>
                     <option value="bidang_tanpa_berkas_yuridis">Bidang Tanpa Berkas Yuridis</option>
                     <option value="pengumuman_kadaluwarsa">Pengumuman Kadaluwarsa</option>
                     <option value="berkas_tanpa_pemohon">Berkas Tanpa Pemohon</option>
                     <option value="progres_anggaran_ptsl">Progres Anggaran PTSL</option>
-                    <option value="nominatif_pencairan_puldadis">Nominatif Pencairan PULDADIS</option>
-                    <option value="nominatif_pencairan_pemeriksaan_tanah">Nominatif Pencairan Pemeriksaan Tanah
-                    </option>
-                    <option value="nominatif_pencairan_pengesahan_dan_di310">Nominatif Pencairan Pengesahan dan
-                        DI310
-                    </option>
-                    <option value="nominatif_pencairan_penerbitan_sertipikat">Nominatif Pencairan Penerbitan
-                        Sertipikat
-                    </option>
                 </select>
             </div>
         </div>
@@ -786,27 +656,6 @@
                 } else if (filterBy === 'berkas_pnbp') {
                     $.ajax({
                         url: "{{ url_for('view_berkas_pnbp_search', random=random) }}?q=" + keyword,
-                        type: "GET",
-                        cache: false,
-                        beforeSend: function () {
-                            $(".pencarian").addClass("loading");
-                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
-                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
-                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                                "  </div>\n" +
-                                "  <p></p>\n" +
-                                "</div>");
-                        },
-                        success: function (data) {
-                            $(".pencarian").removeClass("loading");
-                            $("#view_data").empty();
-                            $("#view_data").html(data);
-
-                        }
-                    });
-                } else if (filterBy === 'tunggakan_berkas_pnbp') {
-                    $.ajax({
-                        url: "{{ url_for('view_daftar_tunggakan_berkas_pnbp_search', random=random) }}?q=" + keyword,
                         type: "GET",
                         cache: false,
                         beforeSend: function () {
@@ -951,99 +800,13 @@
 
                         }
                     });
-                } else if (filterBy === 'nominatif_pencairan_puldadis') {
-                    $.ajax({
-                        url: "{{ url_for('view_nominatif_pencairan_puldadis_search', random=random) }}?q=" + keyword,
-                        type: "GET",
-                        cache: false,
-                        beforeSend: function () {
-                            $(".pencarian").addClass("loading");
-                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
-                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
-                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                                "  </div>\n" +
-                                "  <p></p>\n" +
-                                "</div>");
-                        },
-                        success: function (data) {
-                            $(".pencarian").removeClass("loading");
-                            $("#view_data").empty();
-                            $("#view_data").html(data);
-
-                        }
-                    });
-                } else if (filterBy === 'nominatif_pencairan_pemeriksaan_tanah') {
-                    $.ajax({
-                        url: "{{ url_for('view_nominatif_pencairan_pemeriksaan_tanah_search', random=random) }}?q=" + keyword,
-                        type: "GET",
-                        cache: false,
-                        beforeSend: function () {
-                            $(".pencarian").addClass("loading");
-                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
-                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
-                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                                "  </div>\n" +
-                                "  <p></p>\n" +
-                                "</div>");
-                        },
-                        success: function (data) {
-                            $(".pencarian").removeClass("loading");
-                            $("#view_data").empty();
-                            $("#view_data").html(data);
-
-                        }
-                    });
-                } else if (filterBy === 'nominatif_pencairan_pengesahan_dan_di310') {
-                    $.ajax({
-                        url: "{{ url_for('view_nominatif_pencairan_pengesahan_dan_di310_search', random=random) }}?q=" + keyword,
-                        type: "GET",
-                        cache: false,
-                        beforeSend: function () {
-                            $(".pencarian").addClass("loading");
-                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
-                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
-                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                                "  </div>\n" +
-                                "  <p></p>\n" +
-                                "</div>");
-                        },
-                        success: function (data) {
-                            $(".pencarian").removeClass("loading");
-                            $("#view_data").empty();
-                            $("#view_data").html(data);
-
-                        }
-                    });
-                } else if (filterBy === 'nominatif_pencairan_penerbitan_sertipikat') {
-                    $.ajax({
-                        url: "{{ url_for('view_nominatif_pencairan_penerbitan_sertipikat_search', random=random) }}?q=" + keyword,
-                        type: "GET",
-                        cache: false,
-                        beforeSend: function () {
-                            $(".pencarian").addClass("loading");
-                            $("#view_data").html("<div class=\"ui basic segment\" style='margin:450px auto;'>\n" +
-                                "  <div class=\"ui active inverted dimmer\" style='background: transparent;'>\n" +
-                                "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
-                                "  </div>\n" +
-                                "  <p></p>\n" +
-                                "</div>");
-                        },
-                        success: function (data) {
-                            $(".pencarian").removeClass("loading");
-                            $("#view_data").empty();
-                            $("#view_data").html(data);
-
-                        }
-                    });
-                }
+                } 
             } else {
                 $(".pencarian").removeClass("loading");
                 if (filterBy === 'pegawai') {
                     callPegawai();
                 } else if (filterBy === 'berkas_pnbp') {
                     callBerkasPNBP();
-                } else if (filterBy === 'tunggakan_berkas_pnbp') {
-                    callDaftarTunggakanBerkasPNBP();
                 } else if (filterBy === 'progres_fisik_yuridis_ptsl') {
                     callProgresPTSLKantah();
                 } else if (filterBy === 'berkas_tanpa_bidang_tanah') {
@@ -1056,15 +819,7 @@
                     callBerkasTanpaPemohon();
                 } else if (filterBy === 'progres_anggaran_ptsl') {
                     callProgresAnggaranPTSL();
-                } else if (filterBy === 'nominatif_pencairan_puldadis') {
-                    callNominatifPencairanPuldadis();
-                } else if (filterBy === 'nominatif_pencairan_pemeriksaan_tanah') {
-                    callNominatifPencairanPemeriksaanTanah();
-                } else if (filterBy === 'nominatif_pencairan_pengesahan_dan_di310') {
-                    callNominatifPencairanPengesahanDanDI310();
-                } else if (filterBy === 'nominatif_pencairan_penerbitan_sertipikat') {
-                    callNominatifPenerbitanSertipikat();
-                }
+                } 
             }
         }
 
