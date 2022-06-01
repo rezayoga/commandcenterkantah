@@ -917,9 +917,9 @@ def view_progres_ptsl_kantah(random):
     results = None
     try:
         with conn.cursor() as cur:
-            sql = """SELECT * FROM `tb_progres_ptsl_kantah` WHERE desa_kelurahan != 'Total' AND created_at LIKE '%{}%' AND created_at = (
+            sql = """SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total' AND created_at LIKE '%{}%' AND created_at = (
     SELECT MAX(created_at)
-    FROM `tb_progres_ptsl_kantah` AS b
+    FROM `tb_residu_ptsl_tahun_berjalan` AS b
     WHERE 1
 ) """.format(
                 datetime.date.today())
@@ -949,15 +949,15 @@ def view_progres_ptsl_kantah_search(random):
     try:
         with conn.cursor() as cur:
             '''
-            sql = """SELECT * FROM `tb_progres_ptsl_kantah` WHERE desa_kelurahan != 'Total' AND created_at LIKE '%{}%' AND created_at = (
+            sql = """SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total' AND created_at LIKE '%{}%' AND created_at = (
     SELECT MAX(created_at)
-    FROM `tb_progres_ptsl_kantah` AS b
+    FROM `tb_residu_ptsl_tahun_berjalan` AS b
     WHERE 1
 ) """.format(
                 datetime.date.today())
                 '''
             search = request.args.get('q') or None
-            sql = "SELECT * FROM `tb_progres_ptsl_kantah` WHERE desa_kelurahan != 'Total'AND ( created_at LIKE '%{}%' OR desa_kelurahan LIKE '%{}%') ORDER BY id DESC".format(
+            sql = "SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total'AND ( created_at LIKE '%{}%' OR lokasi_desa LIKE '%{}%') ORDER BY id DESC".format(
                 search, search)
 
             # print(sql)
