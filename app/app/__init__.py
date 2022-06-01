@@ -1350,6 +1350,7 @@ def view_pnbp(random):
             cur.execute(sql)
             results_pnbp_seksi_2 = cur.fetchall()
 
+            '''
             sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Petugas Pemetaan'"
             # print(sql)
             cur.execute(sql)
@@ -1359,13 +1360,12 @@ def view_pnbp(random):
             # print(sql)
             cur.execute(sql)
             result_pnbp_seksi_2 = cur.fetchone()
-
+            '''
 
     finally:
         conn.close()
     return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
-                        results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
-                        result_pnbp_seksi_2=result_pnbp_seksi_2)
+                        results_pnbp_seksi_2=results_pnbp_seksi_2)
     
     
 @login_required
