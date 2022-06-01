@@ -94,6 +94,8 @@ web_menu = {
     "MENU_PENGUMUMAN_KADALUWARSA": f.encrypt(bytes('PENGUMUMAN_KADALUWARSA', encoding='utf8')).decode(
         "utf-8"),
     "MENU_PROGRES_ANGGARAN_PTSL": f.encrypt(bytes('PROGRES_ANGGARAN_PTSL', encoding='utf8')).decode(
+        "utf-8"),
+     "MENU_PNBP": f.encrypt(bytes('PNBP', encoding='utf8')).decode(
         "utf-8")
 }
 
@@ -141,6 +143,27 @@ def formatrupiah(uang):
         print
         'Rp ' + formatrupiah(q) + '.' + p
 
+def extract_biaya(s):
+    r = 0
+    sc = s.split(' ')
+    valid = False
+    for i in range(len(sc)):
+        if sc[i] == 'NTPN:':
+            valid = True
+            break
+
+    if valid == True:
+        for i in range(len(sc)):
+            if sc[i] == 'Biaya:':
+                new_string = sc[i + 1].replace('.', '')
+                biaya = ""
+                for m in new_string:
+                    if m.isdigit():
+                        biaya = biaya + m
+                r = biaya
+                break
+
+    return int(r)
 
 '''
 Function, Tools, and Helper ============================================
@@ -173,6 +196,7 @@ app.add_template_global(encrypt_string, name='encrypt_string')
 app.add_template_global(get_nama_pegawai, name='get_nama_pegawai')
 app.add_template_global(formatrupiah, name='formatrupiah')
 app.add_template_global(get_current_date, name='get_current_date')
+app.add_template_global(extract_biaya, name='extract_biaya')
 
 
 def login_required(f):
@@ -1295,7 +1319,55 @@ def view_progres_anggaran_ptsl_search(random):
         conn.close()
     return render_template(template, random=random, results=results)
 
+@login_required
+@app.route('/view_pnbp.<string:random>', methods=['GET'])
+def view_pnbp(random):
+        try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
 
+    template = '/renderer/view_keuangan.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    result_pnbp_seksi_1 = None
+    result_pnbp_seksi_2 = None
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+
+            sql = "SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Petugas Pemetaan%' ORDER BY id ASC"
+            # print(sql)
+            cur.execute(sql)
+            results_pnbp_seksi_1 = cur.fetchall()
+
+            sql = "SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Ketua Panitia/Ketua Peneliti Tanah%' ORDER BY id ASC"
+            # print(sql)
+            cur.execute(sql)
+            results_pnbp_seksi_2 = cur.fetchall()
+
+            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Petugas Pemetaan'"
+            # print(sql)
+            cur.execute(sql)
+            result_pnbp_seksi_1 = cur.fetchone()
+
+            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Ketua Panitia/Ketua Peneliti Tanah'"
+            # print(sql)
+            cur.execute(sql)
+            result_pnbp_seksi_2 = cur.fetchone()
+
+
+    finally:
+        conn.close()
+    return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
+                           results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
+                           result_pnbp_seksi_2=result_pnbp_seksi_2)
+    
+    
 @login_required
 @app.route('/view_get_tim_detail_by_desa.<string:random>.<string:desa>', methods=['GET'])
 def view_get_tim_detail_by_desa(random, desa):

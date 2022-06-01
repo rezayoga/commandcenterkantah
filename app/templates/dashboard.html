@@ -495,6 +495,31 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function callPNBP() {
+            $.ajax({
+                url: "{{ url_for('view_pnbp', random=random) }}",
+                type: "GET",
+                cache: false,
+                beforeSend: function () {
+                    $("#view_data").empty();
+                    $("#view_data").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                        "  <div class=\"ui active inverted dimmer\">\n" +
+                        "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                        "  </div>\n" +
+                        "  <p></p>\n" +
+                        "</div>");
+                    // $("#loader").appendTo("#view_data");
+
+                },
+                success: function (data) {
+                    $("#view_data").empty();
+                    $("#view_data").html(data);
+                }
+            });
+        }
+    </script>
+
     <script>
         function formUbahAkunTriggerClick() {
             $('.medium.modal.form_ubah_akun_saya')
@@ -535,6 +560,8 @@
         <body id="root" onload="callPengumumanKadaluwarsa()">
     {% elif request.args.get('m') == web_menu['MENU_PROGRES_ANGGARAN_PTSL'] %}
         <body id="root" onload="callProgresAnggaranPTSL()">
+    {% elif request.args.get('m') == web_menu['MENU_PNBP'] %}
+        <body id="root" onload="callPNBP()">
     {% else %}
         <body id="root" onload="callDashboard()">
     {% endif %}
@@ -628,6 +655,7 @@
                     class="dropdown icon"></i>
                 <div class="fixed menu">
                     <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
+                    <a class="item" onclick="callPNBP()">PNBP</a>
                 </div>
             </div>
         </div>
@@ -678,6 +706,7 @@
             <a class="item" onclick="callBerkasTanpaPemohon()">Berkas Tanpa Pemohon</a>
             <div class="ui divider"></div>
             <a class="item" onclick="callProgresAnggaranPTSL()">Progres Anggaran PTSL</a>
+            <a class="item" onclick="callPNBP()">PNBP</a>
         </div>
     </div>
 
