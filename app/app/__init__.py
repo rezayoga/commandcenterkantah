@@ -408,6 +408,126 @@ def tunggakan_penerimaan_dimuka_per_bulan(random):
     return r
 
 
+@login_required
+@app.route('/view_daftar_tunggakan_berkas_pnbp_per_jabatan.<string:random>', methods=['GET'])
+def view_daftar_tunggakan_berkas_pnbp_per_jabatan(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    template = '/renderer/view_daftar_tunggakan_berkas_pnbp_per_jabatan.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            sql = """SELECT * FROM `tb_daftar_tunggakan_berkas_pnbp_per_jabatan` WHERE created_at LIKE '%{}%' AND created_at = (
+    SELECT MAX(created_at)
+    FROM `tb_daftar_tunggakan_berkas_pnbp_per_jabatan` AS b
+    WHERE 1
+)""".format(datetime.date.today())
+            print(sql)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+    return render_template(template, random=random, results=results)
+
+
+@login_required
+@app.route('/view_daftar_tunggakan_berkas_pnbp_per_layanan.<string:random>', methods=['GET'])
+def view_daftar_tunggakan_berkas_pnbp_per_layanan(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    template = '/renderer/view_daftar_tunggakan_berkas_pnbp_per_layanan.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            sql = """SELECT * FROM `tb_daftar_tunggakan_berkas_pnbp_per_layanan` WHERE created_at LIKE '%{}%' AND created_at = (
+    SELECT MAX(created_at)
+    FROM `tb_daftar_tunggakan_berkas_pnbp_per_layanan` AS b
+    WHERE 1
+)""".format(datetime.date.today())
+            # print(sql)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+    return render_template(template, random=random, results=results)
+
+
+@login_required
+@app.route('/view_daftar_tunggakan_penerimaan_dimuka_per_tahun.<string:random>', methods=['GET'])
+def view_daftar_tunggakan_penerimaan_dimuka_per_tahun(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    template = '/renderer/view_daftar_tunggakan_penerimaan_dimuka_per_tahun.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            sql = """SELECT * FROM `tb_tunggakan_penerimaan_dimuka_tahunan` WHERE created_at LIKE '%{}%' AND created_at = (
+    SELECT MAX(created_at)
+    FROM `tb_tunggakan_penerimaan_dimuka_tahunan` AS b
+    WHERE 1
+)""".format(datetime.date.today())
+            # print(sql)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+    return render_template(template, random=random, results=results)
+
+
+@login_required
+@app.route('/view_daftar_tunggakan_penerimaan_dimuka_per_bulan.<string:random>', methods=['GET'])
+def view_daftar_tunggakan_penerimaan_dimuka_per_bulan(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    template = '/renderer/view_daftar_tunggakan_penerimaan_dimuka_per_bulan.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    try:
+        with conn.cursor() as cur:
+            sql = """SELECT * FROM `tb_tunggakan_penerimaan_dimuka_bulanan` WHERE created_at LIKE '%{}%' AND created_at = (
+    SELECT MAX(created_at)
+    FROM `tb_tunggakan_penerimaan_dimuka_bulanan` AS b
+    WHERE 1
+) GROUP BY jumlah_tunggakan, nilai_tunggakan""".format(
+                datetime.date.today())
+            print(sql)
+            cur.execute(sql)
+            results = cur.fetchall()
+    finally:
+        conn.close()
+    return render_template(template, random=random, results=results)
+
 
 @login_required
 @app.route('/early_warning_berkas_tanpa_bidang_tanah.<string:random>.json', methods=['GET'])
