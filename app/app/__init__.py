@@ -49,11 +49,11 @@ web_config = {
     "MEDIA_JS_DIR": "https://c2ssetup.pusakha.id/media/js/",
     "MEDIA_DOCS_DIR": "https://c2ssetup.pusakha.id/media/docs/",
     "UPLOADS_DIR": "https://c2ssetup.pusakha.id/uploads/",
-    "APP_NAME": "C2S Kantor Pertanahan ...",
-    "APP_NAME_LONG": "Command Center System Kantor Pertanahan ...",
+    "APP_NAME": "C2S Kantor Pertanahan Kab. Nganjuk",
+    "APP_NAME_LONG": "Command Center System Kantor Pertanahan Kab. Nganjuk",
     "APP_SLOGAN": "Smart Work Pays Best",
     "APP_VERSION": "1.0.0",
-    "APP_STAKEHOLDER": "Kantor Pertanahan ...",
+    "APP_STAKEHOLDER": "Kantor Pertanahan Kab. Nganjuk",
     "DEVELOPER": "Reza Yogaswara",
     "DEVELOPER_ADDRESS": "Perum Green View Regency Blok B3 - Malang, Jawa Timur",
     "DEVELOPER_PHONE": "+6282228223500",
@@ -555,10 +555,20 @@ def view_dashboard(random):
             cur.execute(sql_tunggakan_berkas_pnbp)
             results_distinct_layanan = cur.fetchall()
 
+            sql = "select count(*) as total from tb_residu_ptsl_tahun_berjalan WHERE lokasi_desa != 'Total'"
+            # print(sql)
+            cur.execute(sql)
+            results_total_desa = cur.fetchone()
+
+            sql = "SELECT target_pbt, target_shat, survei, pemetaan, puldadis, pemberkasan FROM `tb_residu_ptsl_tahun_berjalan` WHERE `lokasi_desa` = 'Total'"
+            # print(sql)
+            cur.execute(sql)
+            results_target_realisai_pbt_shat = cur.fetchone()
             
     finally:
         conn.close()
-    return render_template(template, random=random, results_distinct_jabatan=results_distinct_jabatan,
+    return render_template(template, random=random,  results_total_desa=results_total_desa['total'],
+                           results_target_realisai_pbt_shat=results_target_realisai_pbt_shat, results_distinct_jabatan=results_distinct_jabatan,
                            results_distinct_layanan=results_distinct_layanan
                            )
     # return str(results_total_berkas_pnbp)

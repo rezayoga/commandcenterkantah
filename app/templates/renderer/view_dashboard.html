@@ -48,11 +48,44 @@
         border: 1px solid #e4e9ed;
         border-radius: 15px;
     }
+
+    #j {
+        margin: 10px;
+        padding: 10px;
+        height: 400px;
+        border: 1px solid #e4e9ed;
+        border-radius: 15px;
+    }
+
+    #k {
+        margin: 10px;
+        padding: 10px;
+        height: 400px;
+        border: 1px solid #e4e9ed;
+        border-radius: 15px;
+    }
+
+
+    #l {
+        margin: 10px;
+        padding: 10px;
+        height: 400px;
+        border: 1px solid #e4e9ed;
+        border-radius: 15px;
+    }
+
+    #m {
+        margin: 10px;
+        padding: 10px;
+        height: 400px;
+        border: 1px solid #e4e9ed;
+        border-radius: 15px;
+    }
 </style>
 
 <div class="ui padded grid">
     <div class="row">
-        <h2 class="ui huge dividing header"> PTSL</h2>
+        <h2 class="ui huge dividing header"> Dashboard Tunggakan Permohonan</h2>
     </div>
     <div class="center aligned row">
         <div class="eight wide mobile eight wide tablet eight wide computer column">
@@ -106,6 +139,29 @@
         <div class="eight wide mobile eight wide tablet eight wide computer column">
             <span class="ui grey label">Jenis Permohonan s.d. {{ get_current_date(False) }}</span>
             <canvas id="a" style="max-height: 400px; height: 400px;"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <h2 class="ui huge dividing header"> Dashboard Progres PTSL</h2>
+    </div>
+    <div class="center aligned row">
+        <div class="eight wide mobile eight wide tablet eight wide computer column">
+            <span class="ui orange label">Progres Survei vs Target</span>
+            <canvas id="j" style="max-height: 400px; height: 400px;"></canvas>
+        </div>
+        <div class="eight wide mobile eight wide tablet eight wide computer column">
+            <span class="ui orange label">Progres Pemetaan vs Target</span>
+            <canvas id="k" style="max-height: 400px; height: 400px;"></canvas>
+        </div>
+    </div>
+    <div class="center aligned row">
+        <div class="eight wide mobile eight wide tablet eight wide computer column">
+            <span class="ui orange label">Progres Puldadis vs Target</span>
+            <canvas id="l" style="max-height: 400px; height: 400px;"></canvas>
+        </div>
+        <div class="eight wide mobile eight wide tablet eight wide computer column">
+            <span class="ui orange label">Progres Pemberkasan vs Target</span>
+            <canvas id="m" style="max-height: 400px; height: 400px;"></canvas>
         </div>
     </div>
 </div>
@@ -341,6 +397,8 @@
     }
 
     $(document).ready(function () {
+
+        
 
         $(".ui.dropdown.filter_tunggakan_berdasarkan_jabatan")
             .dropdown()
@@ -616,5 +674,191 @@
 
         getFilterRenderGrafikTunggakanBerdasarkanJabatan('Kepala Kantor Pertanahan');
         getFilterRenderGrafikTunggakanBerdasarkanLayanan('Blokir')
+
+
+        const config_survei = {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Progres Survei',
+                        'Target',
+                    ],
+                    datasets: [{
+                        label: 'Progres Survei vs Target',
+                        data: [{{results_target_realisai_pbt_shat.survei|int}}, {{results_target_realisai_pbt_shat.target_pbt|int}}],
+                        backgroundColor: [
+                            'rgb(241, 196, 15)',
+                            'rgb(243, 156, 18)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    animations: {
+                        radius: {
+                            duration: 400,
+                            easing: 'linear',
+                            loop: (context) => context.active
+                        }
+                    },
+                    hoverRadius: 12,
+                    hoverBackgroundColor: 'grey',
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 12,
+                                    family: "Baloo Tamma 2, cursive"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ;
+        var chartD = new Chart(
+            document.getElementById('j'),
+            config_survei
+        );
+
+        var config_pemetaan = {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Progres Pemetaan',
+                        'Target',
+                    ],
+                    datasets: [{
+                        label: 'Progres Pemetaan vs Target',
+                        data: [{{results_target_realisai_pbt_shat.pemetaan|int}}, {{results_target_realisai_pbt_shat.target_pbt|int}}],
+                        backgroundColor: [
+                            'rgb(52, 152, 219)',
+                            'rgb(52, 73, 94)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    animations: {
+                        radius: {
+                            duration: 400,
+                            easing: 'linear',
+                            loop: (context) => context.active
+                        }
+                    },
+                    hoverRadius: 12,
+                    hoverBackgroundColor: 'grey',
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 12,
+                                    family: "Baloo Tamma 2, cursive"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ;
+        var chartE = new Chart(
+            document.getElementById('k'),
+            config_pemetaan
+        );
+
+        var config_puldadis = {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Progres Puldadis',
+                        'Target',
+                    ],
+                    datasets: [{
+                        label: 'Progres Puldadis vs Target',
+                        data: [{{results_target_realisai_pbt_shat.puldadis|int}}, {{results_target_realisai_pbt_shat.target_shat|int}}],
+                        backgroundColor: [
+                            '#fd79a8',
+                            'rgb(231, 76, 60)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    animations: {
+                        radius: {
+                            duration: 400,
+                            easing: 'linear',
+                            loop: (context) => context.active
+                        }
+                    },
+                    hoverRadius: 12,
+                    hoverBackgroundColor: 'grey',
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 12,
+                                    family: "Baloo Tamma 2, cursive"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ;
+        var chartA = new Chart(
+            document.getElementById('l'),
+            config_puldadis
+        );
+
+
+        var config_pemberkasan = {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Progres Pemberkasan',
+                        'Target',
+                    ],
+                    datasets: [{
+                        label: 'Progres Pemberkasan vs Target',
+                        data: [{{results_target_realisai_pbt_shat.pemberkasan|int}}, {{results_target_realisai_pbt_shat.target_shat|int}}],
+                        backgroundColor: [
+                            'rgb(46, 204, 113)',
+                            'rgb(22, 160, 133)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    animations: {
+                        radius: {
+                            duration: 400,
+                            easing: 'linear',
+                            loop: (context) => context.active
+                        }
+                    },
+                    hoverRadius: 12,
+                    hoverBackgroundColor: 'grey',
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 12,
+                                    family: "Baloo Tamma 2, cursive"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ;
+        var chartB = new Chart(
+            document.getElementById('m'),
+            config_pemberkasan
+        );
     });
 </script>
