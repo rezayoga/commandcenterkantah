@@ -1329,43 +1329,38 @@ def view_pnbp(random):
         session.clear()
         flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
         return redirect(url_for('index', random=encrypted_string))
-
-    template = '/renderer/view_pnbp.html'
+    template = '/renderer/pnbp.html'
 
     conn = pymysql.connect(**db_config)
-    results = None
-    result_pnbp_seksi_1 = None
-    result_pnbp_seksi_2 = None
+    results_total_potensi_pencairan = None
     try:
         with conn.cursor() as cur:
             cur.execute("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
 
-            sql = "SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Petugas Pemetaan%' ORDER BY id ASC"
-            # print(sql)
+            sql = "select * from tb_tunggakan_penerimaan_dimuka_detail_permohonan ORDER BY id ASC"
             cur.execute(sql)
-            results_pnbp_seksi_1 = cur.fetchall()
+            results = cur.fetchall()
 
-            sql = "SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Ketua Panitia/Ketua Peneliti Tanah%' ORDER BY id ASC"
-            # print(sql)
+            sql = "SELECT nama_prosedur, SUM(besarnya) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` GROUP BY nama_prosedur ORDER BY nama_prosedur ASC"
             cur.execute(sql)
-            results_pnbp_seksi_2 = cur.fetchall()
+            results_permohonan_per_layanan = cur.fetchall()
 
-            '''
-            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Petugas Pemetaan'"
-            # print(sql)
+            sql = "select sum(besarnya) as total from tb_tunggakan_penerimaan_dimuka_detail_permohonan"
             cur.execute(sql)
-            result_pnbp_seksi_1 = cur.fetchone()
+            results_total_potensi_pencairan = cur.fetchone()
 
-            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Ketua Panitia/Ketua Peneliti Tanah'"
-            # print(sql)
+            sql = "select count(*) as total from tb_tunggakan_penerimaan_dimuka_detail_permohonan"
             cur.execute(sql)
-            result_pnbp_seksi_2 = cur.fetchone()
-            '''
+            results_total_berkas = cur.fetchone()
 
     finally:
         conn.close()
-    return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
-                        results_pnbp_seksi_2=results_pnbp_seksi_2)
+    return render_template(template, random=random, results=results,
+                           results_permohonan_per_layanan=results_permohonan_per_layanan,
+                           results_total_potensi_pencairan=results_total_potensi_pencairan,
+                           results_total_berkas=results_total_berkas
+                           )
+    # return str(results_total_berkas_pnbp)
     
     
 @login_required

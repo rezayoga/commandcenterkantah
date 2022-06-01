@@ -1,189 +1,62 @@
 <div class="ui horizontal divider">
-    <h3 class="ui huge header">Potensi Pencairan Keuangan Kegiatan PNBP </h3>
+    <h3 class="ui huge header">Dashboard Keuangan</h3>
 </div>
 
-<script>
-    function modalDaftarBerkasSPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_sp')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
+<h4 class="ui header">Pemasukan Negara per Jenis Permohonan {% if results_permohonan_per_layanan|length > 0 %} ({{
+    results_permohonan_per_layanan|length }} data)
+    {% endif %}</h4>
+<table class="ui celled compact selectable striped padded table">
+    <thead>
+        <tr>
+            <th class="center aligned">Nama Layanan</th>
+            <th class="center aligned">Total</th>
+        </tr>
+    </thead>
+    <tbody>
 
-    function modalDaftarBerkasPHPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_php')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
-</script>
-
-{% set total_biaya_sp = namespace(value=0) %}
-{% if results_pnbp_seksi_1|length > 0 %}
-{% for result in results_pnbp_seksi_1 %}
-{# total_biaya_sp.value #}
-{# result['nomor_berkas'] #}
-{# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-{% set total_biaya_sp.value = total_biaya_sp.value +
-(extract_biaya(result['html_informasi_berkas_content_from_list'])|int) %}
-{% endfor %}
-{# formatrupiah(total_biaya_sp.value) #}
-{% endif %}
-
-{% set total_biaya_php = namespace(value=0) %}
-{% if results_pnbp_seksi_2|length > 0 %}
-{% for result in results_pnbp_seksi_2 %}
-{# total_biaya_php.value #}
-{# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-{% set total_biaya_php.value = total_biaya_php.value +
-(extract_biaya(result['html_informasi_berkas_content_from_list'])|int) %}
-{% endfor %}
-{# formatrupiah(total_biaya_php.value) #}
-{% endif %}
-
-<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
-    <table class="ui celled definition selectable striped stackable table">
-        <thead>
-            <tr>
-                <th class="five wide center aligned"><b>Seksi</b></th>
-                <th class="center aligned">Profile</th>
-                <th class="center aligned">Jumlah s.d {{ get_current_date(False) }}</th>
-                <th class="center aligned">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Survei dan Pemetaan</td>
-                <td>{{ result_pnbp_seksi_1['nama_profile'] }}</td>
-                <!-- <td class="right aligned">{{ formatrupiah(result_pnbp_seksi_1['total']|int) }}</td> -->
-                <td class="right aligned">{{ formatrupiah(total_biaya_sp.value) }}</td>
-                <td class="center aligned">
-                    <button class="ui icon labeled small orange button" onclick="modalDaftarBerkasSPTriggerClick()">
-                        <i class="eye icon"></i> Daftar Berkas
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Penetapan Hak dan Pendaftaran</td>
-                <td>{{ result_pnbp_seksi_2['nama_profile'] }}</td>
-                <!-- <td class="right aligned">{{ formatrupiah(result_pnbp_seksi_2['total']|int) }}</td> -->
-                <td class="right aligned">{{ formatrupiah(total_biaya_php.value) }}</td>
-                <td class="center aligned">
-                    <button class="ui icon labeled small orange button" onclick="modalDaftarBerkasPHPTriggerClick()">
-                        <i class="eye icon"></i> Daftar Berkas
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-
-        </tfoot>
-    </table>
-
-    <!-- MODAL -->
-    <div class="ui small modal modal_daftar_berkas_sp">
-        <i class="close icon"></i>
-        <div class="header">
-            Daftar Berkas Petugas Pemetaan ({{ results_pnbp_seksi_1|length }} Data)
-        </div>
-        <div class="ui scrolling content">
-
-            <table class="ui celled selectable striped stackable table">
-                <thead>
-                    <tr>
-                        <th class="two wide center aligned"><b>No. Berkas</b></th>
-                        <th class="center aligned">Nama Kegiatan</th>
-                        <th class="center aligned">Biaya</th>
-                        <th class="center aligned">Posisi Terakhir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if results_pnbp_seksi_1|length > 0 %}
-                    {% for result in results_pnbp_seksi_1 %}
-                    {# total_biaya_sp.value #}
-                    {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-                    <tr>
-                        <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-                        <td>{{ result['nama_kegiatan'] }}</td>
-                        <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-                        <td>{{result['posisi_terakhir']}}</td>
-                    </tr>
-                    {% endfor %}
-                    {# formatrupiah(total_biaya_sp.value) #}
-                    {% else %}
-                    <tr>
-                        <td colspan="2" class="center aligned">
-                            <img class="ui centered medium image"
-                                src="{{ url_for('static', filename='images/no_data.png') }}">
-                            <div class="ui centered compact inverted segment" style="margin: 0;
+        {% if results_permohonan_per_layanan|length > 0 %}
+        {% for result in results_permohonan_per_layanan %}
+        <tr>
+            <td class="left aligned"> {{ result.nama_prosedur }}</td>
+            <td class="right aligned"> {{ formatrupiah(result.total|int) }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="2" class="center aligned">
+                <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                <div class="ui centered compact inverted segment" style="margin: 0;
     position: absolute;
     top:70%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)">
-                                <p>Tidak ada data</p>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+                    <p>Tidak ada Jenis Layanan</p>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<div class="ui raised center aligned segment" style="border-radius: 20px;">
+    <div class="ui statistics">
+        <div class="ui orange statistic">
+            <div class="value">
+                {{ "{:,.0f}".format(results_total_berkas.total) }}
+            </div>
+            <div class="label">
+                Berkas
+            </div>
+        </div>
+        <div class="ui horizontal teal statistic">
+            <div class="value">
+                {{formatrupiah(results_total_potensi_pencairan.total|int)}}
+            </div>
+            <div class="label">
+                Potensi Pencairan
+            </div>
         </div>
     </div>
 
-    <div class="ui small modal modal_daftar_berkas_php">
-        <i class="close icon"></i>
-        <div class="header">
-            Daftar Berkas Ketua Panitia/Ketua Peneliti Tanah ({{ results_pnbp_seksi_2|length }} Data)
-        </div>
-        <div class="ui scrolling content">
-
-            <table class="ui celled selectable striped stackable table">
-                <thead>
-                    <tr>
-                        <th class="two wide center aligned"><b>No. Berkas</b></th>
-                        <th class="center aligned">Nama Kegiatan</th>
-                        <th class="center aligned">Biaya</th>
-                        <th class="center aligned">Posisi Terakhir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if results_pnbp_seksi_2|length > 0 %}
-                    {% for result in results_pnbp_seksi_2 %}
-                    {# total_biaya_sp.value #}
-                    {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-                    <tr>
-                        <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-                        <td>{{ result['nama_kegiatan'] }}</td>
-                        <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-                        <td>{{result['posisi_terakhir']}}</td>
-                    </tr>
-                    {% endfor %}
-                    {# formatrupiah(total_biaya_sp.value) #}
-                    {% else %}
-                    <tr>
-                        <td colspan="2" class="center aligned">
-                            <img class="ui centered medium image"
-                                src="{{ url_for('static', filename='images/no_data.png') }}">
-                            <div class="ui centered compact inverted segment" style="margin: 0;
-    position: absolute;
-    top:70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)">
-                                <p>Tidak ada data</p>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
