@@ -649,7 +649,7 @@ def view_tim_ptsl(random):
             cur.execute(sql)
             results = cur.fetchall()
 
-            sql = "SELECT DISTINCT (lokasi_desa) as desa_kelurahan FROM `tb_residu_ptsl_tahun_berjalan` WHERE desa_kelurahan != 'Total'"
+            sql = "SELECT DISTINCT (lokasi_desa) as desa_kelurahan FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total'"
             cur.execute(sql)
             results_tim_ptsl = cur.fetchall()
 
