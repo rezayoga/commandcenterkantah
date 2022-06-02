@@ -201,7 +201,7 @@
 {% endif %}
 {% endwith %}
 
-<div class="ui container">
+<div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
     <table class="ui celled compact selectable striped padded table">
         <thead>
             <tr>
@@ -218,11 +218,11 @@
             {% if results|length > 0 %}
             {% for result in results %}
             <tr>
-                <td class="center aligned"> {{ result.id }}</td>
-                <td> {{ result.tim_nama }} </td>
+                <td class="top aligned center aligned"> {{ result.id }}</td>
+                <td class="top aligned"> {{ result.tim_nama }} </td>
 
                 {% set list_anggota = result.daftar_pegawai.split(',') %}
-                <td>
+                <td class="top aligned">
                     <div class="ui celled list">
                         {% for item in list_anggota %}
                         <div class="item">
@@ -233,7 +233,7 @@
                 </td>
 
                 {% set list_desa = result.daftar_desa.split(',') %}
-                <td>
+                <td class="top aligned">
                     <div class="ui celled list">
                         {% for item in list_desa %}
                         <div class="item">{{ item }}</div>
@@ -241,8 +241,8 @@
                     </div>
                 </td>
 
-                <td class="center aligned"> {{ result.created_at }} </td>
-                <td class="center aligned">
+                <td class="top aligned center aligned"> {{ result.created_at }} </td>
+                <td class="top aligned center aligned">
                     <a class="ui blue tiny icon button" onclick="formUbahTimPTSL{{ result.id }}TriggerClick()">
                         <i class="edit icon"></i>
                     </a>
