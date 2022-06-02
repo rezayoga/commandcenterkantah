@@ -7,7 +7,7 @@
 # * Crafted by: [**Reza Yogaswara**](http://me.rezayogaswara.com)
 # * Output Report: SQL Data
 
-# In[47]:
+# In[1]:
 
 
 from datetime import datetime, timedelta, date
@@ -21,7 +21,7 @@ hari_ini = date.today()
 start_time = time.time()
 
 
-# In[48]:
+# In[2]:
 
 
 #from IPython.core.interactiveshell import InteractiveShell
@@ -34,7 +34,7 @@ start_time = time.time()
 
 
 
-# In[49]:
+# In[3]:
 
 
 print('\n=> Crafted by: Reza D Yogaswara | me@rezayogaswara.com')
@@ -49,7 +49,7 @@ print('\n=> Output Report: SQL / Progres Kegiatan APBN dan Rutin Kantor Pertanah
 
 # # Bot Init!
 
-# In[50]:
+# In[4]:
 
 
 print('\n=> Bot Init!\n')
@@ -57,19 +57,19 @@ import time
 start_time = time.time()
 
 
-# In[51]:
+# In[5]:
 
 
 get_ipython().system('python -V')
 
 
-# In[52]:
+# In[6]:
 
 
 import pandas as pd
 
 
-# In[53]:
+# In[7]:
 
 
 pd.show_versions(as_json=False)
@@ -83,7 +83,7 @@ pd.show_versions(as_json=False)
 
 # # Variables
 
-# In[54]:
+# In[8]:
 
 
 username = ''
@@ -99,14 +99,14 @@ mysql_password = 'pmnP_AkjWk26x2020'
 mysql_database = 'db_c2s_kantah'
 
 
-# In[55]:
+# In[9]:
 
 
 import pymysql
 # Connect to the database
 
 
-# In[56]:
+# In[10]:
 
 
 config_mysql = {
@@ -157,7 +157,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[57]:
+# In[11]:
 
 
 import datetime
@@ -188,7 +188,7 @@ def getCurrentDate(withTime = False):
   return '%s-%s-%s' % (time.strftime('%d'), month[int(time.strftime('%m')) - 1].upper(), now.year)
 
 
-# In[58]:
+# In[42]:
 
 
 import smtplib
@@ -216,7 +216,7 @@ def send_mail(to, subject, text):
       <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Command Center System Kantor Pertanahan Kabupaten Nganjuk</title>
+        <title>Command Center System Kantor Pertanahan</title>
         <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
         <style>
 
@@ -502,7 +502,7 @@ def send_mail(to, subject, text):
               <div class="content">
 
                 <!-- START CENTERED WHITE CONTAINER -->
-                <span class="preheader">Command Center System Kantor Pertanahan Kabupaten Nganjuk</span>
+                <span class="preheader">Command Center System Kantor Pertanahan</span>
                 <table class="main">
 
                   <!-- START MAIN CONTENT AREA -->
@@ -511,11 +511,11 @@ def send_mail(to, subject, text):
                       <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td>
-                            <p><img src="https://sievan.id/static/images/logo_fit_small.png" alt="Command Center System Kantor Pertanahan Kabupaten Nganjuk" height="70" border="0" style="border:0; outline:none; text-decoration:none; display:block;"></p>
+                            <p><img src="https://c2ssetup.pusakha.id/static/images/logo_fit_small.png" alt="Command Center System Kantor Pertanahan" height="70" border="0" style="border:0; outline:none; text-decoration:none; display:block;"></p>
                             <p>&nbsp;</p>
                             <p>""" + text + """</p>
                             <p>&nbsp;</p>
-                            <p>Regards,<br />🤖 C2S Kab. Nganjuk</p>
+                            <p>Regards,<br />🤖 C2S Kantor Pertanahan</p>
                           </td>
                         </tr>
                       </table>
@@ -530,7 +530,7 @@ def send_mail(to, subject, text):
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td class="content-block">
-                        <span class="apple-link">Command Center System Kantor Pertanahan Kabupaten Nganjuk</span>
+                        <span class="apple-link">Command Center System Kantor Pertanahan</span>
                         <br> <i>Smart Work Pays Best</i>.
                       </td>
                     </tr>
@@ -570,7 +570,7 @@ def send_mail(to, subject, text):
     mail.quit()
 
 
-# In[59]:
+# In[13]:
 
 
 #send_mail('reza.yoga@gmail.com', 'Bot Scrap Init', '[%s] Hi!\n<i>Bot Scrap</i> init:' % (getCurrentDate(True)))
@@ -584,7 +584,7 @@ def send_mail(to, subject, text):
 
 # # Login SSO
 
-# In[60]:
+# In[14]:
 
 
 import http.cookiejar
@@ -688,7 +688,7 @@ get_ipython().run_line_magic('time', '')
 
 # # Daftar Tunggakan Berkas
 
-# In[61]:
+# In[ ]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -766,7 +766,7 @@ def get_data():
     return df
 
 
-# In[62]:
+# In[ ]:
 
 
 df = get_data()
@@ -782,7 +782,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[63]:
+# In[ ]:
 
 
 # for col_name, data in df.items():
@@ -796,7 +796,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[64]:
+# In[ ]:
 
 
 # Example format: "21/10/2021 - 21/10/2021"
@@ -804,7 +804,7 @@ def getCurrentDateFilterPenghasilanNegaraDI307():
     return '%s/%s/%s - %s/%s/%s' % (time.strftime('%d'), time.strftime('%m'), time.strftime('%Y'), time.strftime('%d'), time.strftime('%m'), time.strftime('%Y'))
 
 
-# In[65]:
+# In[ ]:
 
 
 print(getCurrentDateFilterPenghasilanNegaraDI307())
@@ -816,7 +816,7 @@ print(getCurrentDateFilterPenghasilanNegaraDI307())
 
 
 
-# In[66]:
+# In[ ]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -861,7 +861,7 @@ print('"Daftar Tunggakan Berkas" done!')
 
 
 
-# In[67]:
+# In[ ]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -939,7 +939,7 @@ def get_data():
     return df
 
 
-# In[68]:
+# In[ ]:
 
 
 df = get_data()
@@ -955,7 +955,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[69]:
+# In[ ]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -1004,7 +1004,7 @@ print('"Daftar Tunggakan Berkas" done!')
 
 # ## Tahunan
 
-# In[70]:
+# In[ ]:
 
 
 from urllib.error import URLError
@@ -1114,7 +1114,7 @@ def get_data(th):
     return df
 
 
-# In[71]:
+# In[ ]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -1124,15 +1124,15 @@ for i in range(2015, 2021, 1):
     df = get_data(i)
     #display(df)
     #print(i)
-    print(f"Jumlah Tunggakan: {df.loc['Kab. Nganjuk', 'Jumlah Tunggakan']}")
-    print(f"Nilai Tunggakan: {df.loc['Kab. Nganjuk', 'Nilai Tunggakan']}")
+    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah, 'Jumlah Tunggakan']}")
+    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah, 'Nilai Tunggakan']}")
     print(f"Tahun Tunggakan: {i}")
     print("-----------------------------")
     try:
         with connection.cursor() as cursor:
             # Create a new record
             sql = "INSERT INTO `tb_tunggakan_penerimaan_dimuka_tahunan` (kantah, jumlah_tunggakan, nilai_tunggakan, tahun, created_at) VALUES (%s, %s, %s, %s, %s)"
-            cursor.execute(sql, ('Kab. Nganjuk', str(df.loc['Kab. Nganjuk', 'Jumlah Tunggakan']), str(df.loc['Kab. Nganjuk', 'Nilai Tunggakan']), str(i), now))
+            cursor.execute(sql, (satker_nama_kantah, str(df.loc[satker_nama_kantah, 'Jumlah Tunggakan']), str(df.loc[satker_nama_kantah, 'Nilai Tunggakan']), str(i), now))
             # connection is not autocommit by default. So you must commit to save
             # your changes.
             connection.commit()
@@ -1159,7 +1159,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Bulanan
 
-# In[72]:
+# In[ ]:
 
 
 #connection = pymysql.connect(**config_mysql)
@@ -1285,13 +1285,13 @@ def get_data(kt, nm):
 
     #print(df.columns.tolist())
 
-    print(f"Jumlah Tunggakan: {df.loc['Kab. Nganjuk', 'Jumlah Tunggakan']}")
-    print(f"Nilai Tunggakan: {df.loc['Kab. Nganjuk', 'Nilai Tunggakan']}")
+    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah, 'Jumlah Tunggakan']}")
+    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah, 'Nilai Tunggakan']}")
     print("-----------------------------")
     try:
         with connection.cursor() as cursor:
             # Create a new record
-            sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_bulanan` (kantah, jumlah_tunggakan, nilai_tunggakan, idx, bulan, tahun, created_at) VALUES ('Kab. Nganjuk', '{str(df.loc['Kab. Nganjuk', 'Jumlah Tunggakan'])}', '{str(df.loc['Kab. Nganjuk', 'Nilai Tunggakan'])}', '{kt}', '{nm.split()[0]}', '{nm.split()[1]}', '{now}')"
+            sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_bulanan` (kantah, jumlah_tunggakan, nilai_tunggakan, idx, bulan, tahun, created_at) VALUES ('{satker_nama_kantah}', '{str(df.loc[satker_nama_kantah, 'Jumlah Tunggakan'])}', '{str(df.loc[satker_nama_kantah, 'Nilai Tunggakan'])}', '{kt}', '{nm.split()[0]}', '{nm.split()[1]}', '{now}')"
             cursor.execute(sql)
             # connection is not autocommit by default. So you must commit to save
             # your changes.
@@ -1311,7 +1311,7 @@ def get_data(kt, nm):
     return df
 
 
-# In[73]:
+# In[ ]:
 
 
 #df = get_data('0', 'Desember 2021')
@@ -1356,9 +1356,185 @@ get_ipython().run_line_magic('time', '')
 
 
 
+# ## Detail Tunggakan
+
+# In[ ]:
+
+
+@retry((Exception), tries=1, delay=10, backoff=0)
+def get_data(page_num):
+    """
+     var showTunggakanKanwil = function (v, n) {
+        $.blockUI({ message: '<div style=\"padding:10px\"><b>Sedang proses... </b><p>harap tunggu</p></div>' });
+        $.ajax({
+            type: 'POST',
+            url: '/Keuangan/TunggakanTriwulanKanwil',
+            data: ({ Kt: $('#Kategori').val(), Nm: $('#Kategori :selected').text(), Th: $('#TahunBerkas').val(), Id: v, NamaKantor: n }),
+            success: function (data, textStatus, XMLHttpRequest) {
+                $('#dataplaceholder').html(data);
+                //$.unblockUI();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.unblockUI();
+            }
+        });
+    };
+    """
+    
+    #time.sleep(2)
+    #
+    #
+    # INI BIKIN RESET COOKIE< HARUS  DI COMMENT!
+    #
+    #
+    # Store the cookies and create an opener that will hold them
+    #cj = http.cookiejar.CookieJar()
+    #opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    # Add our headers
+    opener.addheaders = [("X-Requested-With", "XMLHttpRequest",),('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/70.0')]
+
+    # Install our opener (note that this changes the global opener to the one
+    # we just made, but you can also just call opener.open() if you want)
+    urllib.request.install_opener(opener)
+
+    # The action/ target from the form
+    authentication_url = 'https://statistik.atrbpn.go.id/Keuangan/TunggakanTriwulanKantah?q=EAAAALtIvtOCqARoMgr7YA%2FvLzO7O42%2Bw8n9vZkMyUU3ifTPEhJqmRgDbsfOu2BSJEvuNGB15jHdtTE6O04Cqtgl631PB4MOukHqqkCw7ovgssajxFXKrn%2FpDvKA3XE0onzzSbq8v8ZaCZJQ8PKjos1zydo%3D'
+
+    # Input parameters we are going to send
+    
+    #print(f"{page_num}")
+    
+    payload = {
+        "pageNum": page_num
+    }
+    
+    # Use urllib to encode the payload
+    data = urllib.parse.urlencode(payload).encode("utf-8")
+
+    #print(data)
+    
+    # Build our Request object (supplying 'data' makes it a POST)
+    req = urllib.request.Request(url=authentication_url, data=data)
+    #req = urllib.request.Request(authentication_url)
+
+    # Make the request and read the response
+    resp = urllib.request.urlopen(req, data=data)
+    
+    #print(resp.info())
+    
+    html = urllib.request.urlopen(req,data=data).read()
+    
+    #print(html)
+    #bs = BeautifulSoup(html, "html5lib")
+    bs = BeautifulSoup(resp, 'html.parser')
+    
+    #print(bs)
+
+    for script in bs.find_all('script'):
+        script.extract()
+
+    for i in bs.find_all('i'):
+        i.extract()
+    
+    soup = BeautifulSoup("<table class='table'><tr>"+
+                         "<td>no</td>"+
+                         "<td>nomor_305</td>"+
+                         "<td>tanggal_305</td>"+
+                         "<td>besarnya</td>"+
+                         "<td>nama_pemohon</td>"+
+                         "<td>nomor_berkas</td>"+
+                         "<td>nama_prosedur</td>"+
+                         "<td>kode_billing</td>"+
+                         "<td>ntpn</td>"+
+                         "<td>alas_hak</td>"+
+                         "<td>nomor_sk</td>"+
+                         "<td>nomor_hak</td>"+
+                         "<td>di_penyelesaian</td>"+
+                         "<td>tgl_selesai</td>"+
+                         "<td>nama_profile</td>"+
+                         "</tr></table>", "lxml")
+    tag = soup.table
+    tag.append(bs)    
+
+    data = pd.read_html(str(tag).replace('\'', ''), header=0, flavor = 'bs4', decimal=",", thousands='.')
+    
+    #print(data)
+    
+    df = data[0]
+
+    #del df['no']
+
+    df.set_index("nomor_305", inplace = True) 
+    #df=df.sort_index()
+
+    #print(df.columns.tolist())
+    return df
+
+
+# In[ ]:
+
+
+#df = get_data(0)
+#display(df)
+connection = pymysql.connect(**config_mysql)
+now = getCurrentDate(True)
+
+with connection.cursor() as cursor:
+    # Create a new record
+    sql = "TRUNCATE `tb_tunggakan_penerimaan_dimuka_detail_permohonan`"
+    cursor.execute(sql)
+    # connection is not autocommit by default. So you must commit to save
+    # your changes.
+    print(cursor.rowcount, " current records.")
+    connection.commit()
+
+for i in range(175):
+    df = get_data(i)
+    #display(df)
+    
+    for index, row in df.iterrows():
+        #print(str(row['no']))
+    
+        try:
+            with connection.cursor() as cursor:
+                # Create a new record
+                
+                sql = f"SELECT * FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE nomor_305 = '{str(index)}' AND tanggal_305 = '{str(row['tanggal_305'])}' AND nomor_berkas = '{str(row['nomor_berkas'])}' ORDER BY id DESC"
+                cursor.execute(sql)
+                
+                # print(cursor.fetchall())
+                
+                if cursor.rowcount == 0:
+                    sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_detail_permohonan` (nomor_305, tanggal_305, besarnya, nama_pemohon, nomor_berkas, nama_prosedur, kode_billing, ntpn, alas_hak, nomor_sk, nomor_hak, di_penyelesaian, tgl_selesai, nama_profile, created_at) VALUES ('{str(index)}', '{str(row['tanggal_305'])}', '{str(row['besarnya'])}', '{str(row['nama_pemohon'])}', '{str(row['nomor_berkas'])}', '{str(row['nama_prosedur'])}', '{str(row['kode_billing'])}', '{str(row['ntpn'])}', '{str(row['alas_hak'])}', '{str(row['nomor_sk'])}', '{str(row['nomor_hak'])}', '{str(row['di_penyelesaian'])}', '{str(row['tgl_selesai'])}', '{str(row['nama_profile'])}', '{now}')"
+                    cursor.execute(sql)
+                    # connection is not autocommit by default. So you must commit to save
+                    # your changes.
+                    connection.commit()
+            #with connection.cursor() as cursor:
+                # Read a single record
+                #sql = "SELECT * FROM `tb_daftar_tunggakan_berkas_pnbp` ORDER BY id DESC"
+                #cursor.execute(sql, ())
+                #result = cursor.fetchone()
+                #print(result)
+        finally:
+            #connection.close()
+            pass
+
+    
+connection.close()
+print('"Daftar Tunggakan Penerimaan Dimuka Detail Permohonan" done!')
+get_ipython().run_line_magic('time', '')
+
+
+# In[ ]:
+
+
+
+
+
 # # Informasi Detail Berkas
 
-# In[74]:
+# In[ ]:
 
 
 import re
@@ -1724,7 +1900,7 @@ get_ipython().run_line_magic('time', '')
 
 # # Daftar Penghasilan Negara DI.307
 
-# In[75]:
+# In[ ]:
 
 
 import json
@@ -1855,7 +2031,7 @@ get_ipython().run_line_magic('time', '')
 
 # # Realisasi PTSL Rupiah Murni Kantah
 
-# In[76]:
+# In[21]:
 
 
 import re
@@ -1938,7 +2114,7 @@ def get_data():
     
 
 
-# In[77]:
+# In[22]:
 
 
 df = get_data()
@@ -2027,16 +2203,16 @@ def range_switcher(val):
 
 connection = pymysql.connect(**config_mysql)
 now = getCurrentDate(True)
-'''
+
 with connection.cursor() as cursor:
     # Create a new record
-    sql = "DELETE FROM `tb_berkas_sebelumnya` WHERE tahun_berkas = '2022'"
+    sql = "TRUNCATE `tb_residu_ptsl_tahun_berjalan` "
     cursor.execute(sql)
     # connection is not autocommit by default. So you must commit to save
     # your changes.
     print(cursor.rowcount, " current records.")
     connection.commit()
-'''
+
 try:
     with connection.cursor() as cursor:
 
@@ -2147,7 +2323,7 @@ connection.close()
 
 # # Rekapitulasi Realisasi Anggaran PTSL Kantah
 
-# In[78]:
+# In[23]:
 
 
 '''======================================================================================Move to Jawa Timur'''
@@ -2246,13 +2422,13 @@ df = df.sort_index()
 df
 
 
-# In[79]:
+# In[24]:
 
 
 print(df.loc[satker_nama_kantah, :])
 
 
-# In[80]:
+# In[25]:
 
 
 print(df.loc[satker_nama_kantah, :]['Penyuluhan'])
@@ -2261,7 +2437,7 @@ data = df.loc[satker_nama_kantah, :]
 print(data['Pendataan'])
 
 
-# In[81]:
+# In[26]:
 
 
 now = getCurrentDate(True)
@@ -2286,7 +2462,7 @@ finally:
 
 # # Re-Login SSO
 
-# In[82]:
+# In[27]:
 
 
 login()
@@ -2297,7 +2473,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Rekapitulasi Bidang Tanah Tanpa Data Yuridis Kantah
 
-# In[83]:
+# In[28]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -2366,7 +2542,7 @@ def get_data():
     return df
 
 
-# In[84]:
+# In[29]:
 
 
 df = get_data()
@@ -2390,7 +2566,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Rekapitulasi Pengumuman Kedaluwarsa Kantah
 
-# In[85]:
+# In[30]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -2459,7 +2635,7 @@ def get_data():
     return df
 
 
-# In[86]:
+# In[31]:
 
 
 df = get_data()
@@ -2483,7 +2659,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Rekapitulasi Berkas Tanpa Bidang Tanah Kantah
 
-# In[87]:
+# In[32]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -2552,7 +2728,7 @@ def get_data():
     return df
 
 
-# In[88]:
+# In[33]:
 
 
 df = get_data()
@@ -2576,7 +2752,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Rekapitulasi Berkas Tanpa Pemohon Kantah
 
-# In[89]:
+# In[34]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -2644,7 +2820,7 @@ def get_data():
     return df
 
 
-# In[90]:
+# In[35]:
 
 
 df = get_data()
@@ -2672,7 +2848,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[91]:
+# In[36]:
 
 
 print('\n=> Finished')
@@ -2682,10 +2858,10 @@ print('%f minutes:' % (float(elapsed_time/60)))
 print('\n')
 
 
-# In[92]:
+# In[43]:
 
 
-#send_mail("dimasardi1349@gmail.com", "Bot Scrap Done", '[%s] Hi!\n<i>Bot Scrap</i> task done in %f minutes:' % (getCurrentDate(True), float(elapsed_time/60)))
+send_mail("me@rezayogaswara.com", "Bot Scrap Done", '[%s] Hi!\n<i>Bot Scrap</i> task done in %f minutes:' % (getCurrentDate(True), float(elapsed_time/60)))
 
 
 # In[ ]:
