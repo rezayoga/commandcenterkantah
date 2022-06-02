@@ -942,7 +942,7 @@ def view_progres_ptsl_kantah(random):
     try:
         with conn.cursor() as cur:
             sql = "SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total' ORDER BY lokasi_desa ASC"
-            print(sql)
+            #print(sql)
             cur.execute(sql)
             results = cur.fetchall()
     finally:
