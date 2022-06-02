@@ -941,12 +941,7 @@ def view_progres_ptsl_kantah(random):
     results = None
     try:
         with conn.cursor() as cur:
-            sql = """SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total' AND created_at LIKE '%{}%' AND created_at = (
-    SELECT MAX(created_at)
-    FROM `tb_residu_ptsl_tahun_berjalan` AS b
-    WHERE 1
-) """.format(
-                datetime.date.today())
+            sql = "SELECT * FROM `tb_residu_ptsl_tahun_berjalan` WHERE lokasi_desa != 'Total' ORDER BY lokasi_desa ASC"
             print(sql)
             cur.execute(sql)
             results = cur.fetchall()
