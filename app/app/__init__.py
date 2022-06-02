@@ -947,7 +947,7 @@ def view_progres_ptsl_kantah(random):
     WHERE 1
 ) """.format(
                 datetime.date.today())
-            # print(sql)
+            print(sql)
             cur.execute(sql)
             results = cur.fetchall()
     finally:
