@@ -1368,6 +1368,60 @@ def view_pnbp(random):
     
     
 @login_required
+@app.route('/view_pnbp_per_tahun.<string:random>', methods=['GET'])
+def view_pnbp_per_tahun(random):
+    try:
+        f.decrypt(bytes(unquote(random), encoding='utf-8')).decode("utf-8")
+    except:
+        session.pop('USER', None)
+        session.clear()
+        flash(Markup('<div class="ui error floating message">Invalid URL!</div>'))
+        return redirect(url_for('index', random=encrypted_string))
+
+    tahun = request.args.get('tahun') or None
+    if not tahun:
+        return '404'
+
+    template = '/renderer/view_pnbp_per_tahun.html'
+
+    conn = pymysql.connect(**db_config)
+    results = None
+    result_pnbp_seksi_1 = None
+    result_pnbp_seksi_2 = None
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+
+            sql = f"SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Petugas Pemetaan%' AND tahun_berkas = '{tahun}' ORDER BY id ASC"
+            # print(sql)
+            cur.execute(sql)
+            results_pnbp_seksi_1 = cur.fetchall()
+
+            sql = f"SELECT nomor_berkas, tahun_berkas, nama_kegiatan, posisi_terakhir, json_perjalanan_berkas, html_informasi_berkas_content_from_list FROM `tb_berkas_pnbp` WHERE `json_perjalanan_berkas` LIKE '%Ketua Panitia/Ketua Peneliti Tanah%' AND tahun_berkas = '{tahun}' ORDER BY id ASC"
+            # print(sql)
+            cur.execute(sql)
+            results_pnbp_seksi_2 = cur.fetchall()
+
+            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Petugas Pemetaan'"
+            # print(sql)
+            cur.execute(sql)
+            result_pnbp_seksi_1 = cur.fetchone()
+
+            sql = "SELECT nomor_berkas, nama_profile, SUM(`besarnya`) AS total FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE `nama_profile` = 'Ketua Panitia/Ketua Peneliti Tanah'"
+            # print(sql)
+            cur.execute(sql)
+            result_pnbp_seksi_2 = cur.fetchone()
+
+    finally:
+        conn.close()
+    return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
+                           results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
+                           result_pnbp_seksi_2=result_pnbp_seksi_2)
+    
+    
+    
+@login_required
 @app.route('/view_get_tim_detail_by_desa.<string:random>.<string:desa>', methods=['GET'])
 def view_get_tim_detail_by_desa(random, desa):
     try:

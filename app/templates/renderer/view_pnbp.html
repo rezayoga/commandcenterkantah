@@ -2,53 +2,7 @@
     <h3 class="ui huge header">Potensi Pencairan Keuangan Kegiatan PNBP </h3>
 </div>
 
-<script>
-    function modalDaftarBerkasSPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_sp')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
-
-    function modalDaftarBerkasPHPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_php')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
-</script>
-
-{% set total_biaya_sp = namespace(value=0) %}
-{% if results_pnbp_seksi_1|length > 0 %}
-{% for result in results_pnbp_seksi_1 %}
-{# total_biaya_sp.value #}
-{# result['nomor_berkas'] #}
-{# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-{% set total_biaya_sp.value = total_biaya_sp.value +
-(extract_biaya(result['html_informasi_berkas_content_from_list'])|int) %}
-{% endfor %}
-{# formatrupiah(total_biaya_sp.value) #}
-{% endif %}
-
-{% set total_biaya_php = namespace(value=0) %}
-{% if results_pnbp_seksi_2|length > 0 %}
-{% for result in results_pnbp_seksi_2 %}
-{# total_biaya_php.value #}
-{# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-{% set total_biaya_php.value = total_biaya_php.value +
-(extract_biaya(result['html_informasi_berkas_content_from_list'])|int) %}
-{% endfor %}
-{# formatrupiah(total_biaya_php.value) #}
-{% endif %}
-
 <div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
-
 
     <div class="ui form">
         <div class="inline fields">
@@ -56,7 +10,7 @@
                 <label>Tahun Berkas</label>
                 <select id="filter_tahun_berkas" name="filter_tahun_berkas"
                     class="ui search dropdown fluid filter_tahun_berkas"
-                    onchange="">
+                    onchange="this.options[this.selectedIndex].value && (getDataPNBP(this.options[this.selectedIndex].value));">
                     {% if results_tahun_berkas|length > 0 %}
                     {% for result in results_tahun_berkas %}
                     <option value="{{ result.tahun_berkas }}">{{ result.tahun_berkas }}</option>
@@ -67,145 +21,8 @@
         </div>
     </div>
 
-
-    <table class="ui celled definition selectable striped stackable table">
-        <thead>
-            <tr>
-                <th class="five wide center aligned"><b>Seksi</b></th>
-                <th class="center aligned">Profile</th>
-                <th class="center aligned">Jumlah s.d {{ get_current_date(False) }}</th>
-                <th class="center aligned">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Survei dan Pemetaan</td>
-                <td>{{ result_pnbp_seksi_1['nama_profile'] }}</td>
-                <!-- <td class="right aligned">{{ formatrupiah(result_pnbp_seksi_1['total']|int) }}</td> -->
-                <td class="right aligned">{{ formatrupiah(total_biaya_sp.value) }}</td>
-                <td class="center aligned">
-                    <button class="ui icon labeled small orange button" onclick="modalDaftarBerkasSPTriggerClick()">
-                        <i class="eye icon"></i> Daftar Berkas
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Penetapan Hak dan Pendaftaran</td>
-                <td>{{ result_pnbp_seksi_2['nama_profile'] }}</td>
-                <!-- <td class="right aligned">{{ formatrupiah(result_pnbp_seksi_2['total']|int) }}</td> -->
-                <td class="right aligned">{{ formatrupiah(total_biaya_php.value) }}</td>
-                <td class="center aligned">
-                    <button class="ui icon labeled small orange button" onclick="modalDaftarBerkasPHPTriggerClick()">
-                        <i class="eye icon"></i> Daftar Berkas
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-
-        </tfoot>
-    </table>
-
-    <!-- MODAL -->
-    <div class="ui small modal modal_daftar_berkas_sp">
-        <i class="close icon"></i>
-        <div class="header">
-            Daftar Berkas Petugas Pemetaan ({{ results_pnbp_seksi_1|length }} Data)
-        </div>
-        <div class="ui scrolling content">
-
-            <table class="ui celled selectable striped stackable table">
-                <thead>
-                    <tr>
-                        <th class="two wide center aligned"><b>No. Berkas</b></th>
-                        <th class="center aligned">Nama Kegiatan</th>
-                        <th class="center aligned">Biaya</th>
-                        <th class="center aligned">Posisi Terakhir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if results_pnbp_seksi_1|length > 0 %}
-                    {% for result in results_pnbp_seksi_1 %}
-                    {# total_biaya_sp.value #}
-                    {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-                    <tr>
-                        <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-                        <td>{{ result['nama_kegiatan'] }}</td>
-                        <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-                        <td>{{result['posisi_terakhir']}}</td>
-                    </tr>
-                    {% endfor %}
-                    {# formatrupiah(total_biaya_sp.value) #}
-                    {% else %}
-                    <tr>
-                        <td colspan="2" class="center aligned">
-                            <img class="ui centered medium image"
-                                src="{{ url_for('static', filename='images/no_data.png') }}">
-                            <div class="ui centered compact inverted segment" style="margin: 0;
-    position: absolute;
-    top:70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)">
-                                <p>Tidak ada data</p>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="ui small modal modal_daftar_berkas_php">
-        <i class="close icon"></i>
-        <div class="header">
-            Daftar Berkas Ketua Panitia/Ketua Peneliti Tanah ({{ results_pnbp_seksi_2|length }} Data)
-        </div>
-        <div class="ui scrolling content">
-
-            <table class="ui celled selectable striped stackable table">
-                <thead>
-                    <tr>
-                        <th class="two wide center aligned"><b>No. Berkas</b></th>
-                        <th class="center aligned">Nama Kegiatan</th>
-                        <th class="center aligned">Biaya</th>
-                        <th class="center aligned">Posisi Terakhir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if results_pnbp_seksi_2|length > 0 %}
-                    {% for result in results_pnbp_seksi_2 %}
-                    {# total_biaya_sp.value #}
-                    {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-                    <tr>
-                        <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-                        <td>{{ result['nama_kegiatan'] }}</td>
-                        <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-                        <td>{{result['posisi_terakhir']}}</td>
-                    </tr>
-                    {% endfor %}
-                    {# formatrupiah(total_biaya_sp.value) #}
-                    {% else %}
-                    <tr>
-                        <td colspan="2" class="center aligned">
-                            <img class="ui centered medium image"
-                                src="{{ url_for('static', filename='images/no_data.png') }}">
-                            <div class="ui centered compact inverted segment" style="margin: 0;
-    position: absolute;
-    top:70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)">
-                                <p>Tidak ada data</p>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <div class="container" id="view_data_pnbp_pnbp"></div>
+    
 </div>
 
 <script>
@@ -214,4 +31,29 @@ $(document).ready(function () {
     $(".ui.dropdown.filter_tahun_berkas").dropdown();
 })
 
+</script>
+
+<script type="text/javascript">
+    function getDataPNBP(tahun) {
+        $.ajax({
+            url: "{{ url_for('view_pnbp_per_tahun', random=random) }}?tahun=" + tahun,
+            type: "GET",
+            cache: false,
+            beforeSend: function () {
+                $("#view_data_pnbp").empty();
+                $("#view_data_pnbp").html("<div class=\"ui basic segment\" style='margin:350px auto;'>\n" +
+                    "  <div class=\"ui active inverted dimmer\">\n" +
+                    "    <div class=\"ui text medium centered inline loader\">Loading...</div>\n" +
+                    "  </div>\n" +
+                    "  <p></p>\n" +
+                    "</div>");
+                // $("#loader").appendTo("#view_data_pnbp");
+
+            },
+            success: function (data) {
+                $("#view_data_pnbp").empty();
+                $("#view_data_pnbp").html(data);
+            }
+        });
+    }
 </script>
