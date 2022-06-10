@@ -50,15 +50,23 @@
 <div class="ui container" style="overflow-x: auto; white-space: nowrap; width: 100%;">
 
 
-    <select id="filter_tahun_berkas" name="filter_tahun_berkas"
-        class="ui search dropdown fluid filter_tahun_berkas"
-        onchange="">
-        {% if results_tahun_berkas|length > 0 %}
-        {% for result in results_tahun_berkas %}
-        <option value="{{ result.tahun_berkas }}">{{ result.tahun_berkas }}</option>
-        {% endfor %}
-        {% endif %}
-    </select>
+    <div class="ui form">
+        <div class="inline fields">
+            <div class="wide field">
+                <label>Tahun Berkas</label>
+                <select id="filter_tahun_berkas" name="filter_tahun_berkas"
+                    class="ui search dropdown fluid filter_tahun_berkas"
+                    onchange="">
+                    {% if results_tahun_berkas|length > 0 %}
+                    {% for result in results_tahun_berkas %}
+                    <option value="{{ result.tahun_berkas }}">{{ result.tahun_berkas }}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+    </div>
+
 
     <table class="ui celled definition selectable striped stackable table">
         <thead>
