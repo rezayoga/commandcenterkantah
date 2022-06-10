@@ -2,29 +2,6 @@
     <h4 class="ui huge header">Tahun {{ tahun_berkas }}</h4>
 </div>
 
-<script>
-    function modalDaftarBerkasSPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_sp')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
-
-    function modalDaftarBerkasPHPTriggerClick() {
-        $('.small.modal.modal_daftar_berkas_php')
-            .modal({
-                blurring: true,
-                closable: false
-            })
-            .modal('show')
-            ;
-    }
-</script>
-
-
 {% set total_biaya_sp = namespace(value=0) %}
 {% if results_pnbp_seksi_1|length > 0 %}
 {% for result in results_pnbp_seksi_1 %}
@@ -54,7 +31,6 @@
             <th class="five wide center aligned"><b>Seksi</b></th>
             <th class="center aligned">Profile</th>
             <th class="center aligned">Jumlah</th>
-            <th class="center aligned">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -63,11 +39,6 @@
             <td>{{ result_pnbp_seksi_1['nama_profile'] }}</td>
             <!-- <td class="right aligned">{{ formatrupiah(result_pnbp_seksi_1['total']|int) }}</td> -->
             <td class="right aligned">{{ formatrupiah(total_biaya_sp.value) }}</td>
-            <td class="center aligned">
-                <button class="ui icon labeled small orange button" onclick="modalDaftarBerkasSPTriggerClick()">
-                    <i class="eye icon"></i> Daftar Berkas
-                </button>
-            </td>
         </tr>
         <tr>
             <td>Penetapan Hak dan Pendaftaran</td>
