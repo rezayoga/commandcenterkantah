@@ -6,10 +6,8 @@
 
     <div class="ui form">
         <div class="inline fields">
-            <div class="four wide field">
+            <div class="sixteen wide field">
                 <label>Tahun Berkas</label>
-            </div>
-            <div class="twelve wide field">
                 <select id="filter_tahun_berkas" name="filter_tahun_berkas" class="ui search dropdown fluid filter_tahun_berkas"
                     onchange="this.options[this.selectedIndex].value && (getDataPNBP(this.options[this.selectedIndex].value));">
                     {% if results_tahun_berkas|length > 0 %}
