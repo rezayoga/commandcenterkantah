@@ -1417,7 +1417,7 @@ def view_pnbp_per_tahun(random):
         conn.close()
     return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
                            results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
-                           result_pnbp_seksi_2=result_pnbp_seksi_2)
+                           result_pnbp_seksi_2=result_pnbp_seksi_2, tahun_berkas=tahun)
     
     
     
