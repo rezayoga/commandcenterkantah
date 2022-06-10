@@ -87,93 +87,97 @@
 </table>
 
 
-<div class="ui header">
-    Daftar Berkas Petugas Pemetaan ({{ results_pnbp_seksi_1|length }} Data)
+<div style="width: 100%;height:300px;overflow-y:auto;display:inline-block;">
+    <div class="ui header">
+        Daftar Berkas Petugas Pemetaan ({{ results_pnbp_seksi_1|length }} Data)
+    </div>
+    <table class="ui celled selectable striped stackable table">
+        <thead>
+            <tr>
+                <th class="two wide center aligned"><b>No. Berkas</b></th>
+                <th class="center aligned">Nama Kegiatan</th>
+                <th class="center aligned">Tahun Berkas</th>
+                <th class="center aligned">Biaya</th>
+                <th class="center aligned">Posisi Terakhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if results_pnbp_seksi_1|length > 0 %}
+            {% for result in results_pnbp_seksi_1 %}
+            {# total_biaya_sp.value #}
+            {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
+            <tr>
+                <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
+                <td>{{ result['nama_kegiatan'] }}</td>
+                <td>{{ result['tahun_berkas'] }}</td>
+                <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
+                <td>{{result['posisi_terakhir']}}</td>
+            </tr>
+            {% endfor %}
+            {# formatrupiah(total_biaya_sp.value) #}
+            {% else %}
+            <tr>
+                <td colspan="2" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+        position: absolute;
+        top:70%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)">
+                        <p>Tidak ada data</p>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
 </div>
-<table class="ui celled selectable striped stackable table">
-    <thead>
-        <tr>
-            <th class="two wide center aligned"><b>No. Berkas</b></th>
-            <th class="center aligned">Nama Kegiatan</th>
-            <th class="center aligned">Tahun Berkas</th>
-            <th class="center aligned">Biaya</th>
-            <th class="center aligned">Posisi Terakhir</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if results_pnbp_seksi_1|length > 0 %}
-        {% for result in results_pnbp_seksi_1 %}
-        {# total_biaya_sp.value #}
-        {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-        <tr>
-            <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-            <td>{{ result['nama_kegiatan'] }}</td>
-            <td>{{ result['tahun_berkas'] }}</td>
-            <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-            <td>{{result['posisi_terakhir']}}</td>
-        </tr>
-        {% endfor %}
-        {# formatrupiah(total_biaya_sp.value) #}
-        {% else %}
-        <tr>
-            <td colspan="2" class="center aligned">
-                <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
-                <div class="ui centered compact inverted segment" style="margin: 0;
-    position: absolute;
-    top:70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)">
-                    <p>Tidak ada data</p>
-                </div>
-            </td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
 
 
-<div class="ui header">
-    Daftar Berkas Ketua Panitia/Ketua Peneliti Tanah ({{ results_pnbp_seksi_2|length }} Data)
+<div style="width: 100%;height:300px;overflow-y:auto;display:inline-block;">
+    <div class="ui header">
+        Daftar Berkas Ketua Panitia/Ketua Peneliti Tanah ({{ results_pnbp_seksi_2|length }} Data)
+    </div>
+    <table class="ui celled selectable striped stackable table">
+        <thead>
+            <tr>
+                <th class="two wide center aligned"><b>No. Berkas</b></th>
+                <th class="center aligned">Nama Kegiatan</th>
+                <th class="center aligned">Tahun Berkas</th>
+                <th class="center aligned">Biaya</th>
+                <th class="center aligned">Posisi Terakhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if results_pnbp_seksi_2|length > 0 %}
+            {% for result in results_pnbp_seksi_2 %}
+            {# total_biaya_sp.value #}
+            {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
+            <tr>
+                <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
+                <td>{{ result['nama_kegiatan'] }}</td>
+                <td>{{ result['tahun_berkas'] }}</td>
+                <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
+                <td>{{result['posisi_terakhir']}}</td>
+            </tr>
+            {% endfor %}
+            {# formatrupiah(total_biaya_sp.value) #}
+            {% else %}
+            <tr>
+                <td colspan="2" class="center aligned">
+                    <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
+                    <div class="ui centered compact inverted segment" style="margin: 0;
+        position: absolute;
+        top:70%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)">
+                        <p>Tidak ada data</p>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
 </div>
-<table class="ui celled selectable striped stackable table">
-    <thead>
-        <tr>
-            <th class="two wide center aligned"><b>No. Berkas</b></th>
-            <th class="center aligned">Nama Kegiatan</th>
-            <th class="center aligned">Tahun Berkas</th>
-            <th class="center aligned">Biaya</th>
-            <th class="center aligned">Posisi Terakhir</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if results_pnbp_seksi_2|length > 0 %}
-        {% for result in results_pnbp_seksi_2 %}
-        {# total_biaya_sp.value #}
-        {# extract_biaya(result['html_informasi_berkas_content_from_list'])|int #}
-        <tr>
-            <td>{{ result['nomor_berkas'] }}/{{ result['tahun_berkas'] }}</td>
-            <td>{{ result['nama_kegiatan'] }}</td>
-            <td>{{ result['tahun_berkas'] }}</td>
-            <td>{{ formatrupiah(extract_biaya(result['html_informasi_berkas_content_from_list'])) }}</td>
-            <td>{{result['posisi_terakhir']}}</td>
-        </tr>
-        {% endfor %}
-        {# formatrupiah(total_biaya_sp.value) #}
-        {% else %}
-        <tr>
-            <td colspan="2" class="center aligned">
-                <img class="ui centered medium image" src="{{ url_for('static', filename='images/no_data.png') }}">
-                <div class="ui centered compact inverted segment" style="margin: 0;
-    position: absolute;
-    top:70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)">
-                    <p>Tidak ada data</p>
-                </div>
-            </td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
