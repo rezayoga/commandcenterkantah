@@ -1355,12 +1355,16 @@ def view_pnbp(random):
             cur.execute(sql)
             result_pnbp_seksi_2 = cur.fetchone()
 
+            sql = "SELECT DISTINCT(tahun_berkas) FROM `tb_berkas_pnbp` ORDER BY tahun_berkas DESC"
+            # print(sql)
+            cur.execute(sql)
+            results_tahun_berkas = cur.fetchall()
 
     finally:
         conn.close()
     return render_template(template, random=random, results_pnbp_seksi_1=results_pnbp_seksi_1,
                            results_pnbp_seksi_2=results_pnbp_seksi_2, result_pnbp_seksi_1=result_pnbp_seksi_1,
-                           result_pnbp_seksi_2=result_pnbp_seksi_2)
+                           result_pnbp_seksi_2=result_pnbp_seksi_2, results_tahun_berkas=results_tahun_berkas)
     
     
 @login_required
