@@ -2083,7 +2083,7 @@ def get_data():
 
     payload = {
         'Id': satker_id_kantah,
-        'Nama': satker_nama_kantah,
+        'Nama': satker_nama_kantah_pendek,
         '_pjax': '#panelplaceholder',
         'Tipe': 'RM'
     }
@@ -2455,15 +2455,15 @@ df
 # In[24]:
 
 
-print(df.loc[satker_nama_kantah, :])
+print(df.loc[satker_nama_kantah_pendek, :])
 
 
 # In[25]:
 
 
-print(df.loc[satker_nama_kantah, :]['Penyuluhan'])
+print(df.loc[satker_nama_kantah_pendek, :]['Penyuluhan'])
 
-data = df.loc[satker_nama_kantah, :]
+data = df.loc[satker_nama_kantah_pendek, :]
 print(data['Pendataan'])
 
 
@@ -2542,7 +2542,7 @@ def get_data():
     # Input parameters we are going to send
     payload = {
       'Id': satker_id_kantah,
-      'Nama': satker_nama_kantah
+      'Nama': satker_nama_kantah_pendek
       }
 
     # Use urllib to encode the payload
@@ -2635,7 +2635,7 @@ def get_data():
     # Input parameters we are going to send
     payload = {
       'Id': satker_id_kantah,
-      'Nama': satker_nama_kantah
+      'Nama': satker_nama_kantah_pendek
       }
 
     # Use urllib to encode the payload
@@ -2728,7 +2728,7 @@ def get_data():
     # Input parameters we are going to send
     payload = {
       'Id': satker_id_kantah,
-      'Nama': satker_nama_kantah
+      'Nama': satker_nama_kantah_pendek
       }
 
     # Use urllib to encode the payload
@@ -2820,7 +2820,7 @@ def get_data():
     # Input parameters we are going to send
     payload = {
       'Id': satker_id_kantah,
-      'Nama': satker_nama_kantah
+      'Nama': satker_nama_kantah_pendek
       }
 
     # Use urllib to encode the payload
