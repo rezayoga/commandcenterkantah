@@ -7,7 +7,7 @@
 # * Crafted by: [**Reza Yogaswara**](http://me.rezayogaswara.com)
 # * Output Report: SQL Data
 
-# In[1]:
+# In[44]:
 
 
 from datetime import datetime, timedelta, date
@@ -21,7 +21,7 @@ hari_ini = date.today()
 start_time = time.time()
 
 
-# In[2]:
+# In[45]:
 
 
 #from IPython.core.interactiveshell import InteractiveShell
@@ -34,7 +34,7 @@ start_time = time.time()
 
 
 
-# In[3]:
+# In[46]:
 
 
 print('\n=> Crafted by: Reza D Yogaswara | me@rezayogaswara.com')
@@ -49,7 +49,7 @@ print('\n=> Output Report: SQL / Progres Kegiatan APBN dan Rutin Kantor Pertanah
 
 # # Bot Init!
 
-# In[4]:
+# In[47]:
 
 
 print('\n=> Bot Init!\n')
@@ -57,19 +57,19 @@ import time
 start_time = time.time()
 
 
-# In[5]:
+# In[48]:
 
 
 get_ipython().system('python -V')
 
 
-# In[6]:
+# In[49]:
 
 
 import pandas as pd
 
 
-# In[7]:
+# In[50]:
 
 
 pd.show_versions(as_json=False)
@@ -83,7 +83,7 @@ pd.show_versions(as_json=False)
 
 # # Variables
 
-# In[8]:
+# In[51]:
 
 
 username = ''
@@ -92,6 +92,7 @@ satker_id_kanwil = 'A1DED793DAF0C64DE0400B0A9A144C4A'
 satker_kanwil = 'Jatim'
 satker_id_kantah = ''
 satker_nama_kantah = ''
+satker_nama_kantah_pendek = ''
 mysql_host = 'localhost'
 mysql_port = 3306
 mysql_user = 'root'
@@ -99,14 +100,14 @@ mysql_password = 'pmnP_AkjWk26x2020'
 mysql_database = 'db_c2s_kantah'
 
 
-# In[9]:
+# In[52]:
 
 
 import pymysql
 # Connect to the database
 
 
-# In[10]:
+# In[53]:
 
 
 config_mysql = {
@@ -144,7 +145,13 @@ try:
         result = cursor.fetchone()
         satker_nama_kantah = result['value']
         
-        print(f"{username}//{password}//{satker_id_kantah}//{satker_nama_kantah}")
+        
+        sql = "SELECT * FROM `tb_config` WHERE `key` = 'SATKER_PENDEK'"
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        satker_nama_kantah_pendek = result['value']
+        
+        print(f"{username}//{password}//{satker_id_kantah}//{satker_nama_kantah}//{satker_nama_kantah_pendek}")
 finally:
     connection.close()
    
@@ -157,7 +164,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[11]:
+# In[54]:
 
 
 import datetime
@@ -188,7 +195,7 @@ def getCurrentDate(withTime = False):
   return '%s-%s-%s' % (time.strftime('%d'), month[int(time.strftime('%m')) - 1].upper(), now.year)
 
 
-# In[42]:
+# In[55]:
 
 
 import smtplib
@@ -570,7 +577,7 @@ def send_mail(to, subject, text):
     mail.quit()
 
 
-# In[13]:
+# In[56]:
 
 
 #send_mail('reza.yoga@gmail.com', 'Bot Scrap Init', '[%s] Hi!\n<i>Bot Scrap</i> init:' % (getCurrentDate(True)))
@@ -584,7 +591,7 @@ def send_mail(to, subject, text):
 
 # # Login SSO
 
-# In[14]:
+# In[57]:
 
 
 import http.cookiejar
@@ -626,7 +633,7 @@ def login():
     payload = {
       'UserName': username,
       'Password': password,
-      'IpPublic': '201.132.123.123',
+      'IpPublic': '207.138.123.123',
       'IpLocal': '2.2.2.2',
       'MacAddress' :'00:1B:44:11:3A:B7',
       'DeviceName' : ''
@@ -688,7 +695,7 @@ get_ipython().run_line_magic('time', '')
 
 # # Daftar Tunggakan Berkas
 
-# In[ ]:
+# In[58]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -766,7 +773,7 @@ def get_data():
     return df
 
 
-# In[ ]:
+# In[59]:
 
 
 df = get_data()
@@ -782,7 +789,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[ ]:
+# In[60]:
 
 
 # for col_name, data in df.items():
@@ -796,7 +803,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[ ]:
+# In[61]:
 
 
 # Example format: "21/10/2021 - 21/10/2021"
@@ -804,7 +811,7 @@ def getCurrentDateFilterPenghasilanNegaraDI307():
     return '%s/%s/%s - %s/%s/%s' % (time.strftime('%d'), time.strftime('%m'), time.strftime('%Y'), time.strftime('%d'), time.strftime('%m'), time.strftime('%Y'))
 
 
-# In[ ]:
+# In[62]:
 
 
 print(getCurrentDateFilterPenghasilanNegaraDI307())
@@ -816,7 +823,7 @@ print(getCurrentDateFilterPenghasilanNegaraDI307())
 
 
 
-# In[ ]:
+# In[63]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -861,7 +868,7 @@ print('"Daftar Tunggakan Berkas" done!')
 
 
 
-# In[ ]:
+# In[64]:
 
 
 @retry((Exception), tries=25, delay=10, backoff=0)
@@ -939,7 +946,7 @@ def get_data():
     return df
 
 
-# In[ ]:
+# In[65]:
 
 
 df = get_data()
@@ -955,7 +962,7 @@ get_ipython().run_line_magic('time', '')
 
 
 
-# In[ ]:
+# In[66]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -1004,7 +1011,7 @@ print('"Daftar Tunggakan Berkas" done!')
 
 # ## Tahunan
 
-# In[ ]:
+# In[67]:
 
 
 from urllib.error import URLError
@@ -1114,7 +1121,7 @@ def get_data(th):
     return df
 
 
-# In[ ]:
+# In[69]:
 
 
 connection = pymysql.connect(**config_mysql)
@@ -1124,15 +1131,15 @@ for i in range(2015, 2021, 1):
     df = get_data(i)
     #display(df)
     #print(i)
-    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah, 'Jumlah Tunggakan']}")
-    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah, 'Nilai Tunggakan']}")
+    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah_pendek, 'Jumlah Tunggakan']}")
+    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah_pendek, 'Nilai Tunggakan']}")
     print(f"Tahun Tunggakan: {i}")
     print("-----------------------------")
     try:
         with connection.cursor() as cursor:
             # Create a new record
             sql = "INSERT INTO `tb_tunggakan_penerimaan_dimuka_tahunan` (kantah, jumlah_tunggakan, nilai_tunggakan, tahun, created_at) VALUES (%s, %s, %s, %s, %s)"
-            cursor.execute(sql, (satker_nama_kantah, str(df.loc[satker_nama_kantah, 'Jumlah Tunggakan']), str(df.loc[satker_nama_kantah, 'Nilai Tunggakan']), str(i), now))
+            cursor.execute(sql, (satker_nama_kantah_pendek, str(df.loc[satker_nama_kantah_pendek, 'Jumlah Tunggakan']), str(df.loc[satker_nama_kantah_pendek, 'Nilai Tunggakan']), str(i), now))
             # connection is not autocommit by default. So you must commit to save
             # your changes.
             connection.commit()
@@ -1159,7 +1166,7 @@ get_ipython().run_line_magic('time', '')
 
 # ## Bulanan
 
-# In[ ]:
+# In[85]:
 
 
 #connection = pymysql.connect(**config_mysql)
@@ -1177,6 +1184,7 @@ with connection.cursor() as cursor:
 
 @retry((Exception), tries=25, delay=10, backoff=0)
 def get_data(kt, nm):
+    scrap_link = ''
     connection = pymysql.connect(**config_mysql)
     """
      var showTunggakanKanwil = function (v, n) {
@@ -1251,7 +1259,11 @@ def get_data(kt, nm):
     bs = BeautifulSoup(resp, 'html.parser')
     
     #print(bs)
-
+    
+    for a in bs.find_all("a", string=satker_nama_kantah_pendek):
+        scrap_link = a['href']
+        #print(f"LINK: {scrap_link}")
+    
     for script in bs.find_all('script'):
         script.extract()
 
@@ -1285,13 +1297,14 @@ def get_data(kt, nm):
 
     #print(df.columns.tolist())
 
-    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah, 'Jumlah Tunggakan']}")
-    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah, 'Nilai Tunggakan']}")
+    print(f"Jumlah Tunggakan: {df.loc[satker_nama_kantah_pendek, 'Jumlah Tunggakan']}")
+    print(f"Nilai Tunggakan: {df.loc[satker_nama_kantah_pendek, 'Nilai Tunggakan']}")
     print("-----------------------------")
     try:
         with connection.cursor() as cursor:
             # Create a new record
-            sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_bulanan` (kantah, jumlah_tunggakan, nilai_tunggakan, idx, bulan, tahun, created_at) VALUES ('{satker_nama_kantah}', '{str(df.loc[satker_nama_kantah, 'Jumlah Tunggakan'])}', '{str(df.loc[satker_nama_kantah, 'Nilai Tunggakan'])}', '{kt}', '{nm.split()[0]}', '{nm.split()[1]}', '{now}')"
+            sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_bulanan` (kantah, jumlah_tunggakan, nilai_tunggakan, idx, bulan, tahun, created_at) VALUES ('{satker_nama_kantah_pendek}', '{str(df.loc[satker_nama_kantah_pendek, 'Jumlah Tunggakan'])}', '{str(df.loc[satker_nama_kantah_pendek, 'Nilai Tunggakan'])}', '{kt}', '{nm.split()[0]}', '{nm.split()[1]}', '{now}')"
+            print(sql)
             cursor.execute(sql)
             # connection is not autocommit by default. So you must commit to save
             # your changes.
@@ -1308,10 +1321,10 @@ def get_data(kt, nm):
 
     connection.close()
     
-    return df
+    return scrap_link
 
 
-# In[ ]:
+# In[86]:
 
 
 #df = get_data('0', 'Desember 2021')
@@ -1331,21 +1344,27 @@ def get_data(kt, nm):
 '13', 'Desember 2022'
 '''
 
-df = get_data('0', 'Desember 2021')
-df = get_data('1', 'Januari 2022')
-df = get_data('2', 'Februari 2022')
-df = get_data('3', 'Maret 2022')
-df = get_data('4', 'April 2022')
-df = get_data('5', 'Mei 2022')
-df = get_data('6', 'Juni 2022')
-df = get_data('7', 'Juli 2022')
-df = get_data('8', 'Agustus 2022')
-df = get_data('9', 'September 2022')
-df = get_data('10', 'Oktober 2022')
-df = get_data('11', 'November 2022')
-df = get_data('12', 'Desember 2022')
+scrap_link = get_data('0', 'Desember 2021')
+
+
+print(scrap_link)
+
+scrap_link = get_data('1', 'Januari 2022')
+scrap_link = get_data('2', 'Februari 2022')
+scrap_link = get_data('3', 'Maret 2022')
+scrap_link = get_data('4', 'April 2022')
+scrap_link = get_data('5', 'Mei 2022')
+scrap_link = get_data('6', 'Juni 2022')
+scrap_link = get_data('7', 'Juli 2022')
+scrap_link = get_data('8', 'Agustus 2022')
+scrap_link = get_data('9', 'September 2022')
+scrap_link = get_data('10', 'Oktober 2022')
+scrap_link = get_data('11', 'November 2022')
+scrap_link = get_data('12', 'Desember 2022')
 
 #display(df)
+
+print(scrap_link)
 
 get_ipython().run_line_magic('time', '')
 
@@ -1358,11 +1377,11 @@ get_ipython().run_line_magic('time', '')
 
 # ## Detail Tunggakan
 
-# In[ ]:
+# In[87]:
 
 
 @retry((Exception), tries=1, delay=10, backoff=0)
-def get_data(page_num):
+def get_data(page_num, scrap_link):
     """
      var showTunggakanKanwil = function (v, n) {
         $.blockUI({ message: '<div style=\"padding:10px\"><b>Sedang proses... </b><p>harap tunggu</p></div>' });
@@ -1398,8 +1417,7 @@ def get_data(page_num):
     urllib.request.install_opener(opener)
 
     # The action/ target from the form
-    authentication_url = 'https://statistik.atrbpn.go.id/Keuangan/TunggakanTriwulanKantah?q=EAAAALtIvtOCqARoMgr7YA%2FvLzO7O42%2Bw8n9vZkMyUU3ifTPEhJqmRgDbsfOu2BSJEvuNGB15jHdtTE6O04Cqtgl631PB4MOukHqqkCw7ovgssajxFXKrn%2FpDvKA3XE0onzzSbq8v8ZaCZJQ8PKjos1zydo%3D'
-
+    authentication_url = f'https://statistik.atrbpn.go.id/{scrap_link}'
     # Input parameters we are going to send
     
     #print(f"{page_num}")
@@ -1471,14 +1489,16 @@ def get_data(page_num):
     return df
 
 
-# In[ ]:
+# In[89]:
 
 
 #df = get_data(0)
 #display(df)
+import json
 connection = pymysql.connect(**config_mysql)
 now = getCurrentDate(True)
 
+'''
 with connection.cursor() as cursor:
     # Create a new record
     sql = "TRUNCATE `tb_tunggakan_penerimaan_dimuka_detail_permohonan`"
@@ -1487,9 +1507,10 @@ with connection.cursor() as cursor:
     # your changes.
     print(cursor.rowcount, " current records.")
     connection.commit()
+'''
 
-for i in range(175):
-    df = get_data(i)
+for i in range(200):
+    df = get_data(i, scrap_link)
     #display(df)
     
     for index, row in df.iterrows():
@@ -1499,17 +1520,26 @@ for i in range(175):
             with connection.cursor() as cursor:
                 # Create a new record
                 
-                sql = f"SELECT * FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` WHERE nomor_305 = '{str(index)}' AND tanggal_305 = '{str(row['tanggal_305'])}' AND nomor_berkas = '{str(row['nomor_berkas'])}' ORDER BY id DESC"
-                cursor.execute(sql)
+                sql = f"""SELECT * FROM `tb_tunggakan_penerimaan_dimuka_detail_permohonan` 
+                        WHERE nomor_305 = '{str(index)}' AND 
+                        tanggal_305 = '{str(row['tanggal_305'])}' AND 
+                        nomor_berkas = '{str(row['nomor_berkas'])}' AND 
+                        nama_prosedur = '{str(row['nama_prosedur'])}' AND 
+                        kode_billing = '{str(row['kode_billing'])}' AND 
+                        ntpn = '{str(row['ntpn'])}'
+                        ORDER BY id DESC"""
                 
-                # print(cursor.fetchall())
+                cursor.execute(sql)
+                #print(cursor.rowcount)
+                #print(json.dumps(cursor.fetchall(), indent=2))
                 
                 if cursor.rowcount == 0:
                     sql = f"INSERT INTO `tb_tunggakan_penerimaan_dimuka_detail_permohonan` (nomor_305, tanggal_305, besarnya, nama_pemohon, nomor_berkas, nama_prosedur, kode_billing, ntpn, alas_hak, nomor_sk, nomor_hak, di_penyelesaian, tgl_selesai, nama_profile, created_at) VALUES ('{str(index)}', '{str(row['tanggal_305'])}', '{str(row['besarnya'])}', '{str(row['nama_pemohon'])}', '{str(row['nomor_berkas'])}', '{str(row['nama_prosedur'])}', '{str(row['kode_billing'])}', '{str(row['ntpn'])}', '{str(row['alas_hak'])}', '{str(row['nomor_sk'])}', '{str(row['nomor_hak'])}', '{str(row['di_penyelesaian'])}', '{str(row['tgl_selesai'])}', '{str(row['nama_profile'])}', '{now}')"
                     cursor.execute(sql)
-                    # connection is not autocommit by default. So you must commit to save
-                    # your changes.
-                    connection.commit()
+                
+                # connection is not autocommit by default. So you must commit to save
+                # your changes.
+                connection.commit()
             #with connection.cursor() as cursor:
                 # Read a single record
                 #sql = "SELECT * FROM `tb_daftar_tunggakan_berkas_pnbp` ORDER BY id DESC"
@@ -1520,7 +1550,7 @@ for i in range(175):
             #connection.close()
             pass
 
-    
+        
 connection.close()
 print('"Daftar Tunggakan Penerimaan Dimuka Detail Permohonan" done!')
 get_ipython().run_line_magic('time', '')
